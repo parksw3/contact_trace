@@ -141,20 +141,24 @@ On the other hand, when an epidemic is in a cycle, we get ???
 \swp{cite trapman somewhere}
 The intrinsic generation-interval distribution is often defined as the distribution of times at which secondary infections occur [CITE].
 This definition implicitly assumes that all infectious contacts made give rise to infection. 
-Given limited contact network, depletion of susceptibles occur locally and the same person can be contacted multiple times.
+Given limited contact network, a susceptible individual can be contacted multiple times and the depletion of susceptibles occur locally.
 Infectious contacts give rise to an infection only when the susceptible individual is contacted for the first time.
-Therefore, the intrinsic generation-interval distribution is the distribution of times at which infectious contacts are made.
+Therefore, the intrinsic generation-interval distribution is actually the distribution of times at which infectious contacts are made.
 
-The \emph{effective} generation-interval distribution -- the distribution of times at which secondary infections occur -- depends on the probability that a susceptible individual has not been contacted yet and the intrinsic generation-interval distribution.
-Given a constant per pair contact rate, $\beta(t)$, the effective generation-interval distribution is given by \swp{Need to double check this and/or make it more general.}
+The \emph{effective} generation-interval distribution -- the distribution of times at which secondary infections occur from a single primary infector -- depends on the probability that a susceptible individual has not been contacted yet and the intrinsic generation-interval distribution.
+Given a per pair contact rate $\beta(t)$ that does not vary across pairs for a single primary infector, the effective generation-interval distribution is given by \swp{Need to double check this and/or make it more general.}
 \begin{equation}
 \tsub{g}{eff}(\tau) \propto g(\tau) \exp\left(-\int_0^{\tau} \beta(t) dt\right).
 \end{equation}
 Typically, when homogeneous contact and constant contact rates are assumed,
-the per pair contact rate is sufficiently small ($\RR/N$ where $N$ is the population size) that the effect of local depletion of susceptibles is negligible.
+the per pair contact rate is sufficiently small ($\beta \approx \RR/N$ where $N$ is the population size) that the effect of multiple contacts is negligible.
 
-The difference between effective and intrinsic generation-interval distribution can be best demonstrated by using a tree network: a single infector connected to small number of susceptible individuals (Figure ???).
+The difference between effective and intrinsic generation-interval distribution can be best demonstrated by simulating stochastic infection processes on a tree network with artificially high $\RR$ (Figure ??? to be made).
+We observe that the distribution of generation times matches with the effective generation-interval distribution, whereas the distribution of contact times matches with the intrinsic generation-interval distribution.
+On the other hand, if a stochastic infection processes are simulated on a small homogeneous network (e.g., a household) with all else being equal, the distribution of generation times is even shorter than the effective generation intervals because a susceptible individual may be contacted by multiple infectors (and only the first contact gives rise to infection).
+Hence, we expect there to be varying degrees of local depletion of susceptibles in a heterogeneous contact structure and the accurate measurement of generation interval will be more difficult.
 
+\subsection{Spatial spread of an epidemic}
 
 
 
