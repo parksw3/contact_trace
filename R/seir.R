@@ -252,6 +252,8 @@ seir.local <- function(n,
     c_time <- latent + cumsum(time_between)
     
     v <- sample2(1:n, ncontact)
-    
-    c(c_time[which(!duplicated(v))])
+    list(
+    	conditional=c(head(c_time, -1)[which(!duplicated(v))]),
+    	intrinsic=head(c_time,-1)
+    )
 }
