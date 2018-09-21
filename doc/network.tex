@@ -53,7 +53,6 @@ Observed generation intervals in turn can be \emph{aggregated} across time, meas
 
 Early in the epidemic when depletion of susceptible is negligible, we expect the forward generation-interval distribution to be similar to the intrinsic generation-interval distribution.
 As epidemic progresses, an infector is less likely to infect individuals later in time due to decrease in susceptibles and the distribution of forward generation intervals will be shorter than the intrinsic distribution.
-\jd{See how this relates to where you talk about similar shortening below.}
 Conversely, when an epidemic is growing exponentially, as often occurs near the beginning of an outbreak, the number of newly infected individuals will be large relative to the number infected earlier on. 
 A susceptible individual is thus relatively more likely to be infected by a newly infected individual, and the distribution of backward generation intervals will be shorter than the intrinsic distribution.
 When epidemic is subsiding, most infections are caused by the remaining infectors, rather than new infectors, and the backward generation interval will be long.
@@ -63,7 +62,6 @@ In practice, generation intervals are measured by contact tracing throughout the
 \jd{I kind of feel like, if you go on forever, aggregated GIs approach intrinsic GIs. This obviously isn't true for a single epidemic (observed GIs are shorter overall). On the other hand, it obviously \emph{is} true if you add births and get to a stable equilibrium. So I guess the remaining question is, do we get convergence if we have stable cycles? What we think about this will affect how we write the rest of this P.} \swp{Going to leave this comment here so that we can come back later.}
 If observation goes on throughout the disease cycle, then (something about something).
 On the other hand, if calculations are being done based on early-outbreak data, the available censored data is best thought of as a weighted average of backward generation-interval distributions; like them, the observed censored intervals will be shorter than intrinsic distributions.
-\jd{See how this relates to where you talk about similar shortening above and below.}
 
 Aggregating generation intervals across heterogeneous environment also affects the observed generation intervals.
 Infection is more likely to spread quicker than on average among closely related inidividuals, and the local decrease in susceptibles result in shorter realized generation intervals.
@@ -76,30 +74,29 @@ We show that using the observed generation-interval distribution directly will a
 We provide a statistical framework of recovering the intrinsic generation-interval distribution from the observed generation-interval distribution.
 
 \swp{Going to rename the sections... but I think I like the current order...}
-\section{Measuring generation intervals - Theory}
+\section{Generation-interval distributions across time}
 
 We begin by introducing an analytical framework.
 Let $K_a(\tau)$ be an individual level kernel, i.e., the rate at which secondary infections are caused by an individual $a$ \citep{svensson2015influence}. \swp{Need to say something more about Sven; come back later}
-Then, the population-level kernel is given by integrating over individual variations:
+Then, the unconditional, population-level kernel is given by integrating over individual variations:
 \begin{equation}
 K(\tau) = \int K_a (\tau) dA.
 \end{equation}
+The basic reproductive number -- average number of secondary cases caused by an average primary case in a fully susceptible population -- is defined as: 
+\begin{equation}
+\RR_0 = \int K(t).
+\end{equation}
+Then, the intrinsic generation-interval is simply the population-level kernel normalized by the basic reproductive number:
+\begin{equation}
+g(\tau) = \frac{K(t)}{\RR_0}.
+\end{equation}
+Finally, the renewal equation model can be used to model incidence over time:
+\begin{equation}
+i(\tau) = S(\tau) \int K(s) i(\tau-s) ds = \RR S(\tau) \int g(s) i(\tau-s) ds
+\end{equation}
+where $i(\tau)$ is incidence at time $\tau$ and $S(\tau)$ is the proportion of the population susceptible.
 
-
-Following [CITE], let $K(t)$ be the infection kernel. 
-The reproduction number is defined as
-$$
-\RR = \int_0^\infty K(t).
-$$
-Then, the intrinsic generation-interval distributions is defined as
-$$
-g(t) = \frac{K(t)}{\RR}.
-$$
-Intrinsic generation-interval distribution can be considered as an intrinsic characteristic of a single average infector in a fully susceptible population.
-
-\swp{Insert renewal equation approach}
-
-\subsection{Right-censored interval}
+\subsection*{Right-censored interval}
 
 Assume that contact tracing is performed from the beginning of an epidemic to time $t$.
 The number of infection occuring at time $s$ caused by infectors who were themselves infected at time $s-\tau$ is given by
@@ -126,15 +123,17 @@ c_t(\tau) \propto g(\tau) \int_{0}^t i(s-\tau) S(s) ds.
 \end{equation}
 
 For a single epidemic, the observed mean generation interval through contact tracing will always be shorter than intrinsic mean generation interval (Figure~\ref{fig:censor}).
-\jd{See how this relates to where you talk about similar shortening above.}
 There are two reasons for this phenomenon.
-First, as contact tracing is performed up to time $t$, any infection events that occur after time $t$ are not observed.
-Any individuals that are infected before time $t$ can only complete infection events that are shorter than time $t$ and the distribution of all infection events that occur before time $t$ will be concentrated on shorter intervals.
-In particular, when an epidemic is growing exponentially ($i(t) \propto \exp(rt)$), the censored generation-interval distribution is equivalent to the inverse exponentially weighted intrisnc generation-interval distribution:
+First, any infection events that occur after the contact tracing period canonot be observed due to right censoring and the observed generation-interval will be shorter.
+In particular, when an epidemic is growing exponentially ($i(t) \propto \exp(rt)$), 
+the censored generation-interval distribution is equivalent to the inverse exponentially weighted intrisnc generation-interval distribution:
 \begin{equation}
-\tsub{c}{exp}(\tau) \propto g(\tau) \exp(-r\tau),
+\tsub{c}{exp}(\tau) \propto g(\tau) \exp(-r\tau).
 \end{equation}
-Second, number of susceptibles decrease over the course of an epidemic and any infector is less likely to infect susceptible individuals through long generation intervals than it would have in a fully susceptible population \citep{champredon2015intrinsic}.
+As backward generation-interval distributions are always shorter than the intrinsic generation-interval distribution during the exponential growth period, their weighted average (i.e., the censored intervals) will also be shorter.
+
+Second, number of susceptibles decrease over the course of an epidemic, forward generation-interval distribution at any given period is always shorter than the intrinsic distribution \citep{champredon2015intrinsic}.
+Asymptotically, we can ignore the effect of right-censoring, and the censored generation intervals can be thought of as a weighted average of the forward generation intervals.
 As a result, even if contact tracing is performed through an entire epidemic, mean generation interval will be underestimated.
 
 \begin{figure}
@@ -146,25 +145,29 @@ As a result, even if contact tracing is performed through an entire epidemic, me
 When an epidemic is in an equilibrium state (i.e., incidence $i(t)$ and the number of susceptibles $S(t)$ is constant over time), the observed generation-interval distribution is equivalent to the intrinsic generation-interval distribution.
 On the other hand, when an epidemic is in a cycle, we get ???  \swp{TODO: Continue this exciting research!}
 
-\subsection{Local depletion of susceptibles}
+\section{Generation-interval distributions across space}
 
-\swp{cite trapman somewhere}
-The intrinsic generation-interval distribution is often defined as the distribution of times at which secondary infections occur [CITE].
-This definition implicitly assumes that all infectious contacts made give rise to infection. 
-Given limited contact network, a susceptible individual can be contacted multiple times and the depletion of susceptibles occur locally.
-Infectious contacts give rise to an infection only when the susceptible individual is contacted for the first time.
-Therefore, the intrinsic generation-interval distribution is actually the distribution of times at which infectious contacts are made.
-
-The \emph{effective} generation-interval distribution -- the distribution of times at which secondary infections occur from a single primary infector -- depends on the probability that a susceptible individual has not been contacted yet and the intrinsic generation-interval distribution.
-Given a per pair contact rate $\beta(t)$ that does not vary across pairs for a single primary infector, the effective generation-interval distribution is given by \swp{Need to double check this and/or make it more general.}
+Given limited contact structure, a susceptible individual can be contacted multiple times;
+infectious contacts give rise to infection only when the susceptible individual is contacted for the first time.
+Then, the conditional kernel (conditional on the infection occuring) of an individual $a$ is given by
 \begin{equation}
-\tsub{g}{eff}(\tau) \propto g(\tau) \exp\left(-\int_0^{\tau} \beta(t) dt\right).
+\hat{k}_a(\tau) = k_a(\tau) \exp \left(- \delta_a \int_0^\tau k_a(s) ds\right),
 \end{equation}
-Typically, when homogeneous mixing is assumed,
-the per pair contact rate is sufficiently small ($\beta \approx \RR/N$ where $N$ is the population size) that the effect of multiple contacts is negligible.
+where $\delta_a$ is the dilution.
+The individual kernel, $k_a(s)$, measures the intrinsic infectiousness of an individual $a$,
+whereas $\delta_a k_a(s)$ measures the infectiousness of an individual $a$ for a particular susceptible individual.
+Then, the population-level conditional kernel is:
+\begin{equation}
+\hat{k}(\tau) = \int \hat{k}_a(\tau) dA,
+\end{equation}
+and the conditional generation-interval distribution, defined to be the distribution of times at which secondary infections occur from a single primary infector, is:
+\begin{equation}
+\hat{g}(\tau) = \frac{\hat{k}(\tau)}{\int \hat{k} \tau}.
+\end{equation}
+\swp{Need to say something about trapman!!!}
 
-The difference between effective and intrinsic generation-interval distribution can be best demonstrated by simulating stochastic infection processes on a tree network with artificially high $\RR$ (Figure ??? to be made).
-We observe that the distribution of generation times matches with the effective generation-interval distribution, whereas the distribution of contact times matches with the intrinsic generation-interval distribution.
+The difference between conditional and intrinsic generation-interval distribution can be best demonstrated by simulating stochastic infection processes on a small tree network, in which a single infected individual is connected to multiple susceptible individuals, with artificially high $\RR$ (Figure ??? to be made).
+We observe that the distribution of realized generation times matches with the conditional generation-interval distribution, whereas the distribution of contact times matches with the intrinsic generation-interval distribution.
 On the other hand, if a stochastic infection processes are simulated on a small homogeneous network (e.g., a household) with all else being equal, the distribution of generation times is even shorter than the effective generation intervals because a susceptible individual may be contacted by multiple infectors (and only the first contact gives rise to infection).
 \jd{Let's think about how to explain this. In particular, the first one is where we have our correction that works \ldots}.
 Hence, we expect there to be varying degrees of local depletion of susceptibles in a heterogeneous contact structure and the accurate measurement of generation interval will be more difficult.
