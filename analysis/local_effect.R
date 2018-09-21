@@ -1,31 +1,29 @@
 library(igraph)
-source("ebola_param_seminr.R")
-source("../R/seminr.R")
+source("ebola_param.R")
+source("../R/seir.R")
 source("../R/generation.R")
 
 beta <- 1
 
 N <- 5
 
-nsim <- 1000
+nsim <- 100
 
 set.seed(101)
 reslist_full <- vector('list', nsim)
 i <- 1
 while (i <= nsim) {
-	rr <- seminr.full(N, beta/(N-1), sigma, m.sigma, gamma, n.gamma, I0 = 1, imax=10,
+	rr <- seir.full(N, beta/(N-1), sigma, gamma, I0 = 1, imax=10,
 					  keep.intrinsic = TRUE)
 	reslist_full[[i]] <- rr
 	i <- i+1
 }
 
-g <- graph.tree(5, children=4)
-
 set.seed(101)
 reslist_local <- vector('list', nsim)
 i <- 1
 while (i <= nsim) {
-	rr <- seminr(g, beta/(N-1), sigma, m.sigma, gamma, n.gamma, initial_infected=1, imax=10,
+	rr <- seir.local(g, beta/(N-1), sigma, m.sigma, gamma, n.gamma, initial_infected=1, imax=10,
 				 keep.intrinsic = TRUE)
 	
 	if (nrow(rr$data) > 1) {

@@ -8,7 +8,7 @@ N <- 60000
 
 true.mean <- 1/sigma + 1/gamma
 
-nsamp <- 1e6
+nsamp <- 1e5
 
 lat <- rgamma(nsamp, m.sigma, sigma*m.sigma)
 inf <- rgamma(nsamp, n.gamma, gamma*n.gamma)

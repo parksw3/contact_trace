@@ -3,17 +3,16 @@ library(dplyr)
 library(ggplot2); theme_set(theme_bw())
 library(gridExtra)
 
-source("ebola_param_seminr.R")
+source("ebola_param.R")
 
 ## ode
 
 seir.ode <- function(t, y, parms) {
     with(as.list(c(y, parms)), {
         dS <- -beta/N*S*I
-        dE1 <- beta/N*S*I - m.sigma*sigma*E1
-        dE2 <- m.sigma*sigma*E1 - m.sigma*sigma*E2
-        dI <- m.sigma*sigma*E2 - gamma*I
-        list(c(dS, dE1, dE2, dI))
+        dE <- beta/N*S*I - sigma*E
+        dI <- sigma*E - gamma*I
+        list(c(dS, dE, dI))
     })
 }
 
@@ -21,10 +20,9 @@ seir.ode <- function(t, y, parms) {
 seirs.ode <- function(t, y, parms) {
 	with(as.list(c(y, parms)), {
 		dS <- gamma * I -beta/N*S*I
-		dE1 <- beta/N*S*I - m.sigma*sigma*E1
-		dE2 <- m.sigma*sigma*E1 - m.sigma*sigma*E2
-		dI <- m.sigma*sigma*E2 - gamma*I
-		list(c(dS, dE1, dE2, dI))
+		dE <- beta/N*S*I - sigma*E
+		dI <- sigma*E - gamma*I
+		list(c(dS, dE, dI))
 	})
 }
 
@@ -37,7 +35,7 @@ sumfun <- function(out,
 	
 	out$incidence <- incidence
 	
-	genden <- hist(gen, breaks=t, plot=FALSE)$density
+	genden <- intrinsic_fun(t)
 	
 	censor <- function(tau, tmax) {
 		m <- which(t==tmax)
@@ -68,8 +66,8 @@ sumfun <- function(out,
 	)
 }
 
-parms <- c(beta=beta, sigma=sigma, m.sigma=m.sigma, gamma=gamma, N=N)
-y <- c(S = N-10, E1=0, E2=0, I=10)
+parms <- c(beta=beta, sigma=sigma, gamma=gamma, N=N)
+y <- c(S = N-10, E=0, I=10)
 
 dt <- 0.1
 tmax <- 305
