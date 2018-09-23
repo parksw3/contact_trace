@@ -137,7 +137,7 @@ Asymptotically, we can ignore the effect of right-censoring, and the censored ge
 As a result, even if contact tracing is performed through an entire epidemic, mean generation interval will be underestimated.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{../analysis/temporal_effect.pdf}
+\includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
 \caption{Fill this out.}
 \label{fig:censor}
 \end{figure}
@@ -166,7 +166,7 @@ and the conditional generation-interval distribution, defined to be the distribu
 \begin{equation}
 \hat{g}(\tau) = \frac{\hat{k}(\tau)}{\int \hat{k} \tau}.
 \end{equation}
-\swp{Need to say something about trapman!!! Maybe say this is a generalization of Trapman's work...? Is that too much?}
+\swp{Need to say something about trapman. Maybe say this is a generalization of Trapman's work...? Is that too much? Do we need to give an example of what conditional kernels look like?}
 
 The difference between conditional and intrinsic generation-interval distribution can be best demonstrated by simulating stochastic infection processes on a small tree network -- a single infected individual is connected to multiple susceptible individuals but susceptibles are not connected with each other -- with artificially high $\RR$ (Figure~\ref{fig:local}).
 We observe that the distribution of realized generation times matches with the conditional generation-interval distribution, whereas the distribution of contact times matches with the intrinsic generation-interval distribution.
@@ -176,54 +176,74 @@ On the other hand, if a stochastic infection processes are simulated on a small 
 Hence, we expect there to be varying degrees of local depletion of susceptibles in a heterogeneous contact structure and the accurate measurement of generation interval will be more difficult.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{../analysis/local_effect.pdf}
+\includegraphics[width=\textwidth]{../fig/local_effect.pdf}
 \caption{Fill this out.}
 \label{fig:local}
 \end{figure}
 
-\section{Statistical approach to estimating generation-interval distribution}
+\section{Statistical approach to inferring generation-interval distribution}
 
-The observed generation-interval distribution is a weighted intrinsic generation-interval distribution (equation~\ref{eq:obsg}),
-Then, the intrinsic generation interval can be recovered by taking the inverse weights:
-\begin{equation}
-g(\tau) \propto g_t(\tau) \frac{1}{\int_{0}^t i(s-\tau) S(s) ds}
-\end{equation}
-However, this method requires a knowledge of susceptible dynamics and may not be feasible in practice.
+\swp{I kind of want to keep the derivations in the methods (which comes after the discussion) and keep the description of methods simple here so that we don't scare people with the derivations...?}
 
-During exponential growth period, we can write $i(\tau) \propto \exp(r t)$, where $r$ is the exponential growth rate.
-Assuming that $S(t) \approx 1$, the observed generation-interval distribution during growth period can be written as follows:
-\begin{equation}
-\tsub{g}{exp}(\tau) \propto g(\tau) \exp(-r\tau),
-\end{equation}
-Taking the inverse weight, we obtain the following expression for the intrinsic generation-interval distribution:
-\begin{equation}
-g(\tau) \propto \tsub{g}{exp}(\tau) \exp(r\tau)
-\end{equation}
-and the reproductive number:
-\begin{equation}
-\RR = \int_0^\infty \tsub{g}{exp}(\tau) \exp(r\tau) d\tau.
-\end{equation}
-Therefore, applying the Lotka-Euler equation using the observed generation interval via contact tracing results in underestimation of reproductive number:
-\begin{equation}
-\int_0^\infty \tsub{g}{exp}(\tau) \exp(r\tau) d\tau > \left(\int_0^\infty \tsub{g}{exp}(\tau) \exp(-r\tau) d\tau\right)^{-1}
-\end{equation}
-This method provides a non-parametric approach for inferring the intrinsic generation-interval distribution and the reproductive number from contact tracing data.
+It is clear that aggregating generation intervals through space and time yields a distribution that is different from the intrinsic distribution.
+When the epidemic is growing, the proportion of susceptible individuals remain approximately constant and the intrinsic (or conditional) generation-interval distributions can be inferred from the observed intervals.
+In this section, we investigate two statistical methods for recovering the intrinsic (or conditional) generation-interval distribution.
+Detailed derivations of the two methods can be found in section??.
 
-\swp{Need to rewrite this section. It's merely a place holder for now:}
-While the non-parametric method is simple, it does not use all available information from contact tracing data.
-In particular, it does not take into account who infected whom.
-Assuming a poisson process, we can obtain a likelihood for observing infections:
+\swp{maybe call it something else besides nonparametric method; it's still possible to make assumptions about the distribution and make inference}
+We refer to the first method as the nonparametric method as it does not rely on any assumptions about the generation-interval distributions.
+As the observed generation-interval distribution is a weighted distribution of the intrinsic distribution, the intrinsic distribution can be recovered by taking the inverse weight.
+Hence, the nonparametric method relies on the observed generation intervals and the exponential growth rate:
 \begin{equation}
-\RR^{n_e} \cdot \prod g(\tau_e) \cdot \exp \left(- \RR \int_0^{c - t_{\tiny\textrm{inf}}} g(s) ds \right)
+g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau).
 \end{equation}
-This method requires us to make an assumption about the generation-interval distributions... See example...
+
+
+While the non-parametric method is simple, it does not use all available information from contact tracing data: it does not take into account who infected whom.
+Assuming that infection occur as a poisson process in the beginning of an epidemic, we can obtain the following likelihood for the observed infection process:
+\begin{equation}
+\mathcal{L}(\RR, \theta) = \prod_{j=1}^N \left(\RR^{n_j} \exp \left(- \RR \int_0^{\tsub{t}{censor} - t_j} g(s;\theta) ds \right) \prod_{i=1}^{n_j} g(\tau_{i, j}; \theta) \right),
+\end{equation}
+where $N$ is the total number of infected individuals, $n_j$ is the number of individuals infected by $j$, $\tsub{t}{censor}$ is the time period which censoring was performed until, $t_j$ is the time at which infector $j$ was infected, $\tau_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is the (vector) parameter of the generation interval distribution $g$.
+A similar method was proposed by \cite{forsberg2008likelihood} but it relies on discretized incidence reports and does not make assumptions about the shape of the generation-interval distribution.
+
+\swp{I might say something about independence transmission events in the results -- see forsberg 2008...}
+
+First, we compared the four methods by simulating a stochastmic epidemic model homogeneous network with 100000 individuals using Ebola-like parameters for 15 weeks (Figure~?).
 
 
 
 
 \section{Methods}
 
+The first method is a non-parametric method.
+Recall that the observed generation-interval distribution is a weighted intrinsic generation-interval distribution (equation~\ref{eq:obsg}). 
+Then, the intrinsic generation-interval distribution can be obtained by taking the inverse weight:
+\begin{equation}
+g(\tau) \propto c_t(\tau) \frac{1}{\int_{0}^t i(s-\tau) S(s) ds}
+\end{equation}
+However, this method requires a knowledge of susceptible dynamics and may difficult to use in practice.
+Instead, during the exponential period, the generation-interval distribution is
+\begin{equation}
+g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau)
+\end{equation}
+and the reproductive number is
+\begin{equation}
+\RR = \int \tsub{c}{exp}(\tau) \exp(r\tau) d\tau.
+\end{equation}
+Note that applying the Lotka-Euler equation directly to the observed generation intervals will always underestimate the reproductive number:
+\begin{equation}
+\int_0^\infty \tsub{g}{exp}(\tau) \exp(r\tau) d\tau > \left(\int_0^\infty \tsub{g}{exp}(\tau). \exp(-r\tau) d\tau\right)^{-1}
+\end{equation}
 
+Finally, we obtain an estimator for mean generation interval and the reproductive number:
+\begin{equation}
+\begin{aligned}
+\hat{G} &= \frac{\sum_{i} \exp(r c_i) c_i}{\sum_{i} \exp(r c_i)},\\
+\hat{\RR} &= \sum_{i} \exp(r c_i),
+\end{aligned}
+\end{equation}
+where $r$ is the exponential growth rate and $c_i$ is an individual generation interval sample.
 
 \bibliography{network}
 \end{document}

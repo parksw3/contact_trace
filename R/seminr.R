@@ -24,6 +24,7 @@ seminr <- function(g,
                    initial_infected,
                    seed=NULL,
                    imax,
+				   tmax,
                    keep.intrinsic=FALSE){
     if(class(g) != "igraph"){
         stop("g must be an igraph object")
@@ -114,7 +115,7 @@ seminr <- function(g,
         queue_infector <- queue_infector[filter2]
         queue_t <- queue_t[filter2]
         
-        stop <- (c_infected == length(V) || all(done[queue_v]) || c_infected == imax)
+        stop <- (c_infected == length(V) || all(done[queue_v]) || c_infected == imax || t > tmax)
     }
     
     return(
@@ -141,6 +142,7 @@ seminr.full <- function(size,
                         I0,
                         seed = NULL,
                         imax,
+						tmax,
                         keep.intrinsic=FALSE){
     
     if (!is.null(seed)) set.seed(seed)
@@ -224,7 +226,7 @@ seminr.full <- function(size,
         queue_infector <- queue_infector[filter2]
         queue_t <- queue_t[filter2]
         
-        stop <- (c_infected == length(V) || all(done[queue_v]) || c_infected == imax)
+        stop <- (c_infected == length(V) || all(done[queue_v]) || c_infected == imax || t > tmax)
     }
     
     return(
