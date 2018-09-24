@@ -35,3 +35,49 @@ bootfun <- function(gen,
 	
 	est
 }
+
+minuslogl.full <- function(log.R, log.mean, log.shape, data, tmax) {
+	R <- exp(log.R)
+	mean <- exp(log.mean)
+	shape <- exp(log.shape)
+	scale <- mean/shape
+	
+	t_censor <- tmax-data$t_infected
+	
+	nll <- -(sum(
+		log.R +
+			dgamma(data$generation, shape=shape, scale=scale, log=TRUE),
+		na.rm=TRUE
+	) + sum(
+		-R * pgamma(t_censor, shape=shape, scale=scale),
+		na.rm=TRUE
+	))
+	
+	if (nll==0) return(Inf) else return(nll)
+}
+
+parametricfun <- function(R, mean, shape,
+						  data,
+						  tmax) {
+	m <- mle2(minuslogl.full, 
+		 start=list(log.R=log(R), log.mean=log(mean), log.shape=log(shape)),
+		 method="Nelder-Mead",
+		 optimizer="optim",
+		 data=list(data=data, tmax=tmax),
+		 control=list(maxit=10000)
+	)
+	
+	pp <- profile(m, 1:2)
+	
+	ci <- exp(confint(pp))
+	
+	est <- rbind(
+		exp(coef(m)[1:2]),
+		t(ci)
+	)
+	
+	rownames(est) <- c("estimate", "lwr", "upr")
+	
+	cbind(est[,2], est[,1])
+}
+
