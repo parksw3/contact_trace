@@ -198,7 +198,6 @@ Hence, the nonparametric method relies on the observed generation intervals and 
 g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau).
 \end{equation}
 
-
 While the non-parametric method is simple, it does not use all available information from contact tracing data: it does not take into account who infected whom.
 Assuming that infection occur as a poisson process in the beginning of an epidemic, we can obtain the following likelihood for the observed infection process:
 \begin{equation}
@@ -209,9 +208,15 @@ A similar method was proposed by \cite{forsberg2008likelihood} but it relies on 
 
 \swp{I might say something about independence transmission events in the results -- see forsberg 2008...}
 
-First, we compared the four methods by simulating a stochastmic epidemic model homogeneous network with 100000 individuals using Ebola-like parameters for 15 weeks (Figure~?).
+First, we compared how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (Figure~\ref{fig:example}).
+As expected, we find that using the observed generation-interval distributions always underestimates both the mean generation interval and the reproductive number;
+due to initial overestimation of the growth rate, 
 
-
+\begin{figure}
+\includegraphics[width=\textwidth]{../fig/example.pdf}
+\caption{Fill this out.}
+\label{fig:example}
+\end{figure}
 
 
 \section{Methods}
