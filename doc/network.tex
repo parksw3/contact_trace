@@ -209,12 +209,12 @@ A similar method was proposed by \cite{forsberg2008likelihood} but it relies on 
 \swp{I might say something about independence transmission events in the results if I decide to compare forsberg2008 as well -- see forsberg 2008...}
 \swp{I got stuck on forsberg 2008. I get weird estimates with wide confidence intervals but I feel like that's what their method is supposed to do (based on figure 3 in their paper). It doesn't use generation interval either so I think we can just ignore it?}
 
-We compare how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (Figure~\ref{fig:example}).
+First, we compare how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (Figure~\ref{fig:example}).
 During the initial exponential growth period (approximately between 9 and 20 weeks), both nonparametric and parametric methods yield similar estimates of mean generation interval and reproductive number.
 Howeve, we observe opposite trends after the growth period (approximately after 20 weeks).
 As the nonparametric method takes a weighted average of the observed distribution, increase in the observed mean generation interval leads to increase in the nonparametric estimates of both mean generation interval and reproductive number.
 On the other hand, as the parametric method assumes a Poisson process with constant proportion of susceptibles, decrease in the number of susceptible results in underestimation of both mean generation interval and reproductive number.
-we observe grdaual increase in the observed mean-generation interval as we aggregate more data, but the observed estimates always underestimate both mean generation interval and reproductive number, as predicted from the deterministic simulations.
+we observe grdaual increase in the observed mean-generation interval as we aggregate more data, but the observed estimates always underestimate both mean generation interval and reproductive number, as predicted from the deterministic simulation.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/example.pdf}
@@ -226,16 +226,22 @@ Then, we compare accuracy and reliability of the two methods during the initial 
 We find that the parametric method provides the most consistent (least variable) estimates.
 The nonparametric method overestimates reproductive number initially but this is likely driven by the initial overestimation of the growth rate (Figure~\ref{fig:example}).
 
+
 \swp{May need to explain what coverage is...}
-Surprisingly, both methods fail to reach nominal coverage.
-
-
+Surprisingly, both methods fail to attain nominal coverage;
+throughout the estimation period, both methods attain approximately 70\% coverage.
+Even though the gamma distribution looks indistinguishable from the shape of the intrinsic generation-interval distribution, making a wrong distributional assumption leads to underconfidence.
+To confirm that the undercoverage is caused by distribuional assumption, we simulated an epidemic using gamma kernel and found that using the true shape yields nominal coverage (see Appendix).
+These results are particularly alarming because shape of the generation-interval distribution have often been assumed in outbreak analyses and it is impossible to know the true shape of the distribution [CITE].
+\swp{Why does nonparametric method undercover?}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/compare_methods.pdf}
 \caption{Fill this out.}
 \label{fig:test}
 \end{figure}
+
+
 
 \section{Methods}
 
