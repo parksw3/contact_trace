@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\title{Inferring generation-interval distributions from contact tracing data}
+\title{Inferring generation-interval distributions from contact tracing data: \\ \emph{in prep, PRSB}}
 \author{Sang Woo Park, David Champredon and Jonathan Dushoff}
 
 \usepackage{graphics}
@@ -59,14 +59,14 @@ When epidemic is subsiding, most infections are caused by the remaining infector
 \swp{Where can I cite champredon? First sentence? Last sentence? Or don't cite DC because I already did in the previous paragraph?}
 
 In practice, generation intervals are measured by contact tracing throughout the course of an epidemic, usually aggregated to increase the amount of information available; we refer to these as \emph{censored} (or right-censored) intervals.
-\jd{I kind of feel like, if you go on forever, aggregated GIs approach intrinsic GIs. This obviously isn't true for a single epidemic (observed GIs are shorter overall). On the other hand, it obviously \emph{is} true if you add births and get to a stable equilibrium. So I guess the remaining question is, do we get convergence if we have stable cycles? What we think about this will affect how we write the rest of this P.} \swp{Going to leave this comment here so that we can come back later.}
-If observation goes on throughout the disease cycle, then (something about something).
-On the other hand, if calculations are being done based on early-outbreak data, the available censored data is best thought of as a weighted average of backward generation-interval distributions; like them, the observed censored intervals will be shorter than intrinsic distributions.
+When calculations are based on early-outbreak data, the available (censored) observations can be thought of as a weighted average of backward generation-interval distributions; like them, the observed censored intervals will be shorter than intrinsic distributions.
 
+\jd{Think about this P. It's really more about networks than about heterogeneity.}
 Aggregating generation intervals across heterogeneous environment also affects the observed generation intervals.
-Infection is more likely to spread quicker than on average among closely related individuals, and the local decrease in susceptibles result in shorter realized generation intervals. \jd{Not following, and not sure we want to go here for now.}
+In the presence of heterogeneity, susceptibility will be lower in the neighborhood of infected individuals, resulting in shorter realized generation intervals.
 \cite{trapman2016inferring} gave a similar argument to explain the difference in the the reproductive numbers between a homogeneously mixing population and a heterogeneously (network structured) mixing population.
 Their result can be interpreted as a consequence of changes in generation-interval distributions: shorter generation intervals lead to smaller reproductive number [CITE]. 
+\jd{JD needs to write clearly what he thinks about the Trapman insight. Trapman is an anagram for rampant.}
 
 \swp{Will rewrite this paragraph after writing the rest of it:}
 In this study, we explore the temporal and spatial variation in the observed generation-interval distributions obtained from contact tracing.
@@ -126,15 +126,16 @@ For a single epidemic, the observed mean generation interval through contact tra
 There are two reasons for this phenomenon.
 First, any infection events that occur after the contact tracing period canonot be observed due to right censoring and the observed generation-interval will be shorter.
 In particular, when an epidemic is growing exponentially ($i(t) \propto \exp(rt)$), 
-the censored generation-interval distribution is equivalent to the inverse exponentially weighted intrisnc generation-interval distribution:
+the censored generation-interval distribution is equivalent to the inverse exponentially weighted intrinsic generation-interval distribution:
 \begin{equation}
 \tsub{c}{exp}(\tau) \propto g(\tau) \exp(-r\tau).
 \end{equation}
 As backward generation-interval distributions are always shorter than the intrinsic generation-interval distribution during the exponential growth period, their weighted average (i.e., the censored intervals) will also be shorter.
 
-Second, number of susceptibles decrease over the course of an epidemic, forward generation-interval distribution at any given period is always shorter than the intrinsic distribution \citep{champredon2015intrinsic}.
+Second, since the number of susceptibles decreases over the course of an epidemic, the forward generation-interval distribution for a given epidemic period is always shorter than the intrinsic distribution \citep{champredon2015intrinsic}.
 Asymptotically, we can ignore the effect of right-censoring, and the censored generation intervals can be thought of as a weighted average of the forward generation intervals.
 As a result, even if contact tracing is performed through an entire epidemic, mean generation interval will be underestimated.
+\jd{Simplify main argument? Add caveat about times when susceptibles are increasing? Leave out and stay focused on outbreaks?}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
@@ -142,8 +143,7 @@ As a result, even if contact tracing is performed through an entire epidemic, me
 \label{fig:censor}
 \end{figure}
 
-When an epidemic is in an equilibrium state (i.e., incidence $i(t)$ and the number of susceptibles $S(t)$ is constant over time), the observed generation-interval distribution is equivalent to the intrinsic generation-interval distribution.
-On the other hand, when an epidemic is in a cycle, we get ???  \swp{TODO: Continue this exciting research!}
+When a disease is at (or near) endemic equilibrium, the number of susceptibles remains (approximately) constant over time, and the observed generation-interval distribution should be similar to the intrinsic generation-interval distribution.
 
 \section{Generation-interval distributions across space}
 
@@ -165,15 +165,17 @@ Then, the population-level conditional kernel is:
 and the conditional generation-interval distribution, defined to be the distribution of times at which secondary infections occur from a single primary infector, is:
 \begin{equation}
 \hat{g}(\tau) = \frac{\hat{k}(\tau)}{\int \hat{k} \tau}.
+\label{eq:conditional}
 \end{equation}
 \swp{Need to say something about trapman. Maybe say this is a generalization of Trapman's work...? Is that too much? Do we need to give an example of what conditional kernels look like?}
 
-The difference between conditional and intrinsic generation-interval distribution can be best demonstrated by simulating stochastic infection processes on a small tree network -- a single infected individual is connected to multiple susceptible individuals but susceptibles are not connected with each other -- with artificially high $\RR$ (Figure~\ref{fig:local}).
-We observe that the distribution of realized generation times matches with the conditional generation-interval distribution, whereas the distribution of contact times matches with the intrinsic generation-interval distribution.
-On the other hand, if a stochastic infection processes are simulated on a small homogeneous network with all else being equal, the distribution of generation times is even shorter than the effective generation intervals because a susceptible individual may be contacted by multiple infectors (and only the first contact gives rise to infection).
-\jd{Let's think about how to explain this. In particular, the first one is where we have our correction that works \ldots}.
-\swp{I think things are clearer when we introduce conditional kernel?}
-Hence, we expect there to be varying degrees of local depletion of susceptibles in a heterogeneous contact structure and the accurate measurement of generation interval will be more difficult.
+The difference between conditional and intrinsic generation-interval distribution can be demonstrated by simulating stochastic infection processes on a small tree network (i.e, a single infected individual is connected to multiple susceptible individuals who are not connected with each other) with artificially high $\RR$.
+Simulations confirm that in this case the distribution of contact times matches the intrinsic generation-interval distribution, while the distribution of generation times matches with the conditional generation-interval distribution (Figure~\ref{fig:local}) -- generation times are shorter on average because contacts with already-infected susceptibles do not lead to new infections.
+
+The conditional generation interval \eqref{conditional} only explains some of the reduction in generation times that occurs on most networks, however.
+Generation intervals are also shortened by indirect connections: if a susceptible individual is infected through another route while the focal individual is infected, this will shorten the generation interval \jd{This s.~is too repetitive.}
+Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
+In general, estimating the effects of most networks on observed generation intervals is expected to be a hard problem. 
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/local_effect.pdf}
@@ -184,6 +186,7 @@ Hence, we expect there to be varying degrees of local depletion of susceptibles 
 \section{Statistical approach to inferring generation-interval distribution}
 
 \swp{I kind of want to keep the derivations in the methods (which comes after the discussion) and keep the description of methods simple here so that we don't scare people with the derivations...?}
+\jd{Yes.}
 
 It is clear that aggregating generation intervals through space and time yields a distribution that is different from the intrinsic distribution.
 When the epidemic is growing, the proportion of susceptible individuals remain approximately constant and the intrinsic (or conditional) generation-interval distributions can be inferred from the observed intervals.
@@ -241,7 +244,9 @@ These results are particularly alarming because shape of the generation-interval
 \label{fig:test}
 \end{figure}
 
+\clearpage
 
+\section{Discussion}
 
 \section{Methods}
 
