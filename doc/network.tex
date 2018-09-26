@@ -206,11 +206,14 @@ Assuming that infection occur as a poisson process in the beginning of an epidem
 where $N$ is the total number of infected individuals, $n_j$ is the number of individuals infected by $j$, $\tsub{t}{censor}$ is the time period which censoring was performed until, $t_j$ is the time at which infector $j$ was infected, $\tau_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is the (vector) parameter of the generation interval distribution $g$.
 A similar method was proposed by \cite{forsberg2008likelihood} but it relies on discretized incidence reports and does not make assumptions about the shape of the generation-interval distribution.
 
-\swp{I might say something about independence transmission events in the results -- see forsberg 2008...}
+\swp{I might say something about independence transmission events in the results if I decide to compare forsberg2008 as well -- see forsberg 2008...}
 
-First, we compared how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (Figure~\ref{fig:example}).
-As expected, we find that using the observed generation-interval distributions always underestimates both the mean generation interval and the reproductive number;
-due to initial overestimation of the growth rate, 
+We compare how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (Figure~\ref{fig:example}).
+During the initial exponential growth period (approximately between 9 and 20 weeks), both nonparametric and parametric methods yield similar estimates of mean generation interval and reproductive number.
+Howeve, we observe opposite trends after the growth period (approximately after 20 weeks).
+As the nonparametric method takes a weighted average of the observed distribution, increase in the observed mean generation interval leads to increase in the nonparametric estimates of both mean generation interval and reproductive number.
+On the other hand, as the parametric method assumes a Poisson process with constant proportion of susceptibles, decrease in the number of susceptible results in underestimation of both mean generation interval and reproductive number.
+we observe grdaual increase in the observed mean-generation interval as we aggregate more data, but the observed estimates always underestimate both mean generation interval and reproductive number, as predicted from the deterministic simulations.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/example.pdf}
@@ -218,6 +221,19 @@ due to initial overestimation of the growth rate,
 \label{fig:example}
 \end{figure}
 
+Then, we compare accuracy and reliability of the two methods during the initial growth period using 100 stochastic simulations on a homogeneous network (Figure~\ref{fig:test}).
+We find that the parametric method provides the most consistent (least variable) estimates.
+The nonparametric method overestimates reproductive number initially but this is likely driven by the initial overestimation of the growth rate (Figure~\ref{fig:example}).
+
+\swp{May need to explain coverage...}
+Surprisingly, both methods fail to reach nominal coverage.
+
+
+\begin{figure}
+\includegraphics[width=\textwidth]{../fig/compare_methods.pdf}
+\caption{Fill this out.}
+\label{fig:test}
+\end{figure}
 
 \section{Methods}
 
