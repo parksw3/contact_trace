@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 \title{Inferring generation-interval distributions from contact tracing data}
 \author{Sang Woo Park, David Champredon and Jonathan Dushoff}
 
@@ -64,7 +64,7 @@ If observation goes on throughout the disease cycle, then (something about somet
 On the other hand, if calculations are being done based on early-outbreak data, the available censored data is best thought of as a weighted average of backward generation-interval distributions; like them, the observed censored intervals will be shorter than intrinsic distributions.
 
 Aggregating generation intervals across heterogeneous environment also affects the observed generation intervals.
-Infection is more likely to spread quicker than on average among closely related inidividuals, and the local decrease in susceptibles result in shorter realized generation intervals.
+Infection is more likely to spread quicker than on average among closely related individuals, and the local decrease in susceptibles result in shorter realized generation intervals. \jd{Not following, and not sure we want to go here for now.}
 \cite{trapman2016inferring} gave a similar argument to explain the difference in the the reproductive numbers between a homogeneously mixing population and a heterogeneously (network structured) mixing population.
 Their result can be interpreted as a consequence of changes in generation-interval distributions: shorter generation intervals lead to smaller reproductive number [CITE]. 
 
@@ -96,7 +96,7 @@ i(\tau) = S(\tau) \int K(s) i(\tau-s) ds = \RR S(\tau) \int g(s) i(\tau-s) ds
 \end{equation}
 where $i(\tau)$ is incidence at time $\tau$ and $S(\tau)$ is the proportion of the population susceptible.
 
-\subsection*{Right-censored interval}
+\subsection*{Right-censored intervals}
 
 Assume that contact tracing is performed from the beginning of an epidemic to time $t$.
 The number of infection occuring at time $s$ caused by infectors who were themselves infected at time $s-\tau$ is given by
