@@ -82,7 +82,7 @@ y <- c(S=0.05, E=0.0001, I=0.0001, R=1-0.05-0.0001-0.0001) * 5e7
 dt <- 1
 dt2 <- 0.2
 tmax <- 43 * 365
-tmax2 <- 4 * 365
+tmax2 <- 12 * 365
 t <- seq(0, tmax, dt)
 t2 <- seq(0, tmax2, dt2)
 out1 <- as.data.frame(rk(y, t, measles.ode, parms))
@@ -94,7 +94,7 @@ out2$incidence <- with(as.list(parms), {
 	b0 * (1 + b1 * cos(2 * pi * t2/period)) * out2$S * out2$I/N
 })
 
-gensum <- sumfun(out2, tmax2, t2, parms, tauby=10)
+gensum <- sumfun(out2, tmax2, t2, parms, tauby=100)
 
 g1 <- ggplot(out2, aes(time, S)) +
 	geom_line(lwd=1) +
@@ -140,7 +140,6 @@ g3 <- ggplot(gensum, aes(t, mean)) +
 		strip.background = element_blank(),
 		panel.spacing = unit(0, "cm")
 	)
-	
 
 gg_temporal <- arrangeGrob(g1, g2, g3, nrow=3)
 

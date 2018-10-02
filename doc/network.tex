@@ -5,6 +5,14 @@
 \usepackage{graphics}
 \usepackage{adjustbox}
 
+\newcommand{\eref}[1]{(\ref{eq:#1})}
+\newcommand{\fref}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\Fref}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\sref}[1]{Sec.~\ref{#1}}
+\newcommand{\frange}[2]{Fig.~\ref{fig:#1}--\ref{fig:#2}}
+\newcommand{\tref}[1]{Table~\ref{tab:#1}}
+\newcommand{\tlab}[1]{\label{tab:#1}}
+
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -62,10 +70,13 @@ In practice, generation intervals are measured by contact tracing throughout the
 When calculations are based on early-outbreak data, the available (censored) observations can be thought of as a weighted average of backward generation-interval distributions; like them, the observed censored intervals will be shorter than intrinsic distributions.
 
 \jd{Think about this P. It's really more about networks than about heterogeneity.}
-Aggregating generation intervals across heterogeneous environment also affects the observed generation intervals.
-In the presence of heterogeneity, susceptibility will be lower in the neighborhood of infected individuals, resulting in shorter realized generation intervals.
-\cite{trapman2016inferring} gave a similar argument to explain the difference in the the reproductive numbers between a homogeneously mixing population and a heterogeneously (network structured) mixing population.
-Their result can be interpreted as a consequence of changes in generation-interval distributions: shorter generation intervals lead to smaller reproductive number [CITE]. 
+\swp{How about this?}
+Observed generation intervals also vary across space.
+On a network-structured population, repeated contacts mask long generation intervals and susceptibility will decrease quicker in a closely connected neighborhood of infected individuals.
+Therefore, realized generation intervals will be shorter and sampling generation intervals over a heterogeneous environment can misrepresent the intrinsic generation-interval distribution.
+\cite{trapman2016inferring} derived relationships between the growth rate, $r$, and the reproductive number, $\RR$, on various network structures and showed that $\RR$ will always be greater in a homogeneous network given a fixed $r$ value;
+as generation-interval distributions define relationship between $r$ and $\RR$, 
+difference between the intrinsic and realized generation intervals can be used to explain the results obtained by \cite{trapman2016inferring}.
 \jd{JD needs to write clearly what he thinks about the Trapman insight. Trapman is an anagram for rampant.}
 
 \swp{Will rewrite this paragraph after writing the rest of it:}
@@ -90,11 +101,15 @@ Then, the intrinsic generation-interval is simply the population-level kernel no
 \begin{equation}
 g(\tau) = \frac{K(t)}{\RR_0}.
 \end{equation}
-Finally, the renewal equation model can be used to model incidence over time:
+Then, the renewal equation model can be used to model incidence over time:
 \begin{equation}
-i(\tau) = S(\tau) \int K(s) i(\tau-s) ds = \RR S(\tau) \int g(s) i(\tau-s) ds
+i(\tau) = S(\tau) \int K(s) i(\tau-s) ds = \RR \int g(s) i(\tau-s) ds
 \end{equation}
 where $i(\tau)$ is incidence at time $\tau$ and $S(\tau)$ is the proportion of the population susceptible.
+Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we obtain the Euler-Lotka equation [CITE]:
+\begin{equation}
+\frac{1}{\RR} = \int g(\tau) \exp(-r \tau) d\tau.
+\end{equation}
 
 \subsection*{Right-censored intervals}
 
@@ -124,18 +139,17 @@ c_t(\tau) \propto g(\tau) \int_{0}^t i(s-\tau) S(s) ds.
 
 For a single epidemic, the observed mean generation interval through contact tracing will always be shorter than intrinsic mean generation interval (Figure~\ref{fig:censor}).
 There are two reasons for this phenomenon.
-First, any infection events that occur after the contact tracing period canonot be observed due to right censoring and the observed generation-interval will be shorter.
+First, any infection events that occur after the contact tracing period canonot be observed due to right censoring and short generation intervals are more likely to be observed.
 In particular, when an epidemic is growing exponentially ($i(t) \propto \exp(rt)$), 
 the censored generation-interval distribution is equivalent to the inverse exponentially weighted intrinsic generation-interval distribution:
 \begin{equation}
 \tsub{c}{exp}(\tau) \propto g(\tau) \exp(-r\tau).
 \end{equation}
-As backward generation-interval distributions are always shorter than the intrinsic generation-interval distribution during the exponential growth period, their weighted average (i.e., the censored intervals) will also be shorter.
-
-Second, since the number of susceptibles decreases over the course of an epidemic, the forward generation-interval distribution for a given epidemic period is always shorter than the intrinsic distribution \citep{champredon2015intrinsic}.
-Asymptotically, we can ignore the effect of right-censoring, and the censored generation intervals can be thought of as a weighted average of the forward generation intervals.
+% As backward generation-interval distributions are always shorter than the intrinsic generation-interval distribution during the exponential growth period, their weighted average (i.e., the censored intervals) will also be shorter.
+Second, decreasing number of susceptibles over the course of an epidemic make long infections less likely to occur, and the realized intervals will always be shorter \citep{champredon2015intrinsic}.
 As a result, even if contact tracing is performed through an entire epidemic, mean generation interval will be underestimated.
 \jd{Simplify main argument? Add caveat about times when susceptibles are increasing? Leave out and stay focused on outbreaks?}
+\swp{Simplified. Let's focus on outbreaks for now.}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
@@ -184,9 +198,6 @@ In general, estimating the effects of most networks on observed generation inter
 \end{figure}
 
 \section{Statistical approach to inferring generation-interval distribution}
-
-\swp{I kind of want to keep the derivations in the methods (which comes after the discussion) and keep the description of methods simple here so that we don't scare people with the derivations...?}
-\jd{Yes.}
 
 It is clear that aggregating generation intervals through space and time yields a distribution that is different from the intrinsic distribution.
 When the epidemic is growing, the proportion of susceptible individuals remain approximately constant and the intrinsic (or conditional) generation-interval distributions can be inferred from the observed intervals.
