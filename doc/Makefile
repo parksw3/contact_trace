@@ -6,11 +6,9 @@ current: target
 
 ##################################################################
 
-## Defs
+## uplink-style makestuff
 
-# stuff
-
-Sources += Makefile .ignore 
+Sources += Makefile .ignore
 Ignore += .gitignore
 
 msrepo = https://github.com/dushoff
@@ -20,18 +18,16 @@ makestuff:
 
 -include $(ms)/os.mk
 
-
-# -include $(ms)/perl.def
-
 Ignore += $(ms)
-## Sources += $(ms)
 Makefile: $(ms) $(ms)/Makefile
 
-$(ms)/%.mk: $(ms)/Makefile ;
-$(ms)/Makefile:
-	git submodule update -i
-
 ######################################################################
+
+## Notes
+
+Sources += notes.md
+
+## Manuscript
 
 Sources += network.tex
 network.pdf: network.tex
