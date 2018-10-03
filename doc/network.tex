@@ -69,15 +69,13 @@ When epidemic is subsiding, most infections are caused by the remaining infector
 In practice, generation intervals are measured by contact tracing throughout the course of an epidemic, usually aggregated to increase the amount of information available; we refer to these as \emph{censored} (or right-censored) intervals.
 When calculations are based on early-outbreak data, the available (censored) observations can be thought of as a weighted average of backward generation-interval distributions; like them, the observed censored intervals will be shorter than intrinsic distributions.
 
-\jd{Think about this P. It's really more about networks than about heterogeneity.}
-\swp{How about this?}
 Observed generation intervals also vary across space.
-On a network-structured population, repeated contacts mask long generation intervals and susceptibility will decrease quicker in a closely connected neighborhood of infected individuals.
-Therefore, realized generation intervals will be shorter and sampling generation intervals over a heterogeneous environment can misrepresent the intrinsic generation-interval distribution.
-\cite{trapman2016inferring} derived relationships between the growth rate, $r$, and the reproductive number, $\RR$, on various network structures and showed that $\RR$ will always be greater in a homogeneous network given a fixed $r$ value;
-as generation-interval distributions define relationship between $r$ and $\RR$, 
-difference between the intrinsic and realized generation intervals can be used to explain the results obtained by \cite{trapman2016inferring}.
-\jd{JD needs to write clearly what he thinks about the Trapman insight. Trapman is an anagram for rampant.}
+In a structured population (that is, any population that does not mix homogeneously), susceptibility will tend to decrease more quickly in  the neighborhood of infected individuals than in the general population. 
+This means that contacts made late in infection are more likely to be ``masked'' due to contacts already being infected.
+Therefore, realized generation intervals will be shorter and observed generation intervals may underestimate the intrinsic generation-interval distribution even when population-level susceptibility is very high.
+
+This perspective allows us to reinterpret the finding of \cite{trapman2016inferring} that, given an intrinsic generation interval and an observed growth rate $r$, the reproductive number $\RR$ on various network structures is always smaller on a network than would be predicted from homogeneous mixing.
+\jd{Maybe moving on a good direction, but needs more work. The problem is that we need to talk clearly about the spatial correction without misleading people about the temporal correction.}
 
 \swp{Will rewrite this paragraph after writing the rest of it:}
 In this study, we explore the temporal and spatial variation in the observed generation-interval distributions obtained from contact tracing.
@@ -113,6 +111,7 @@ Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we 
 
 \subsection*{Right-censored intervals}
 
+\jd{Have to set this up to make sure we're not sounding too mathy.}
 Assume that contact tracing is performed from the beginning of an epidemic to time $t$.
 The number of infection occuring at time $s$ caused by infectors who were themselves infected at time $s-\tau$ is given by
 \begin{equation}
@@ -146,10 +145,8 @@ the censored generation-interval distribution is equivalent to the inverse expon
 \tsub{c}{exp}(\tau) \propto g(\tau) \exp(-r\tau).
 \end{equation}
 % As backward generation-interval distributions are always shorter than the intrinsic generation-interval distribution during the exponential growth period, their weighted average (i.e., the censored intervals) will also be shorter.
-Second, decreasing number of susceptibles over the course of an epidemic make long infections less likely to occur, and the realized intervals will always be shorter \citep{champredon2015intrinsic}.
+Second, decreasing number of susceptibles over the course of an epidemic makes long infections less likely to occur, and the realized intervals will always be shorter \citep{champredon2015intrinsic}.
 As a result, even if contact tracing is performed through an entire epidemic, mean generation interval will be underestimated.
-\jd{Simplify main argument? Add caveat about times when susceptibles are increasing? Leave out and stay focused on outbreaks?}
-\swp{Simplified. Let's focus on outbreaks for now.}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
