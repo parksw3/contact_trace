@@ -90,11 +90,13 @@ outdata <- bind_rows(out1, out3, .id="type") %>%
 		type=factor(type, label=c("epidemic", "equilibrium"))
 	)
 
-g1 <- ggplot(outdata, aes(t, incidence)) +
+## We probably don't need to show the endemic case.. seems trivial...
+
+g1 <- ggplot(outdata %>% filter(type=="epidemic"), aes(t, incidence)) +
     geom_line(lwd=1.2) +
     scale_x_continuous(expand=c(0,0), limits=c(0, 300), breaks=seq(0, 250, by=50)) +
-    scale_y_continuous("daily incidence", expand=c(0,0), limits=c(-5, 2000)) +
-	facet_wrap(~type) +
+    scale_y_continuous("daily incidence", expand=c(0,0), limits=c(-5, 700)) +
+	# facet_wrap(~type) +
     theme(
         panel.grid=element_blank(),
         axis.title.x=element_blank(),
@@ -106,21 +108,21 @@ g1 <- ggplot(outdata, aes(t, incidence)) +
 gendata <- gensum %>%
 	bind_rows(.id="type")
 
-g2 <- ggplot(gendata, aes(t, mean)) +
+g2 <- ggplot(gendata %>% filter(type==1), aes(t, mean)) +
     geom_line(lwd=1.2) +
     geom_hline(yintercept = 1/sigma + 1/gamma, lty=2) +
     scale_x_continuous("time (days)", expand=c(0,0), limits=c(0, 300), breaks=seq(0, 250, by=50)) +
     scale_y_continuous("mean observed GI", expand=c(0,0), limits=c(0, 1/sigma+1/gamma+4)) +
-	facet_wrap(~type) +
+	# facet_wrap(~type) +
 	theme(
         panel.grid=element_blank(),
-        axis.title.y = element_text(margin = margin(t = 0, r = 13.2, b = 0, l = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, r = 8.1, b = 0, l = 0)),
         plot.margin=unit(c(5.5, 10, 5.5, 5.5), "points"),
         strip.background = element_blank(),
         strip.text = element_blank(),
         panel.spacing = unit(0, "cm")
     )
 
-gg_temporal <- arrangeGrob(g1, g2)
+gg_temporal <- arrangeGrob(g1, g2, nrow=2)
 
 ggsave("temporal_effect.pdf", gg_temporal, width=6, height=4)

@@ -144,6 +144,7 @@ In particular, when an epidemic is growing exponentially ($i(t) \propto \exp(rt)
 the censored generation-interval distribution is equivalent to the inverse exponentially weighted intrinsic generation-interval distribution:
 \begin{equation}
 \tsub{c}{exp}(\tau) \propto g(\tau) \exp(-r\tau).
+\label{eq:exp}
 \end{equation}
 % As backward generation-interval distributions are always shorter than the intrinsic generation-interval distribution during the exponential growth period, their weighted average (i.e., the censored intervals) will also be shorter.
 Second, decreasing number of susceptibles over the course of an epidemic make long infections less likely to occur, and the realized intervals will always be shorter \citep{champredon2015intrinsic}.
@@ -153,11 +154,14 @@ As a result, even if contact tracing is performed through an entire epidemic, me
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
-\caption{Fill this out.}
+\caption{\textbf{Temporal varitaion in the mean observed generation interval.}
+A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model was simulated using Ebola-like parameters and the observed mean generation interval was calculated the course of an epidemic (see methods).
+}
 \label{fig:censor}
 \end{figure}
 
 When a disease is at (or near) endemic equilibrium, the number of susceptibles remains (approximately) constant over time, and the observed generation-interval distribution should be similar to the intrinsic generation-interval distribution.
+\swp{Probably don't need a figure for this}
 
 \section{Generation-interval distributions across space}
 
@@ -202,12 +206,12 @@ In general, estimating the effects of most networks on observed generation inter
 It is clear that aggregating generation intervals through space and time yields a distribution that is different from the intrinsic distribution.
 When the epidemic is growing, the proportion of susceptible individuals remain approximately constant and the intrinsic (or conditional) generation-interval distributions can be inferred from the observed intervals.
 In this section, we investigate two statistical methods for recovering the intrinsic (or conditional) generation-interval distribution.
-Detailed derivations of the two methods can be found in section??.
+Detailed derivations of the two methods can be found in section.
 
 \swp{maybe call it something else besides nonparametric method; it's still possible to make assumptions about the distribution and make inference}
-We refer to the first method as the nonparametric method as it does not rely on any assumptions about the generation-interval distributions.
-As the observed generation-interval distribution is a weighted distribution of the intrinsic distribution, the intrinsic distribution can be recovered by taking the inverse weight.
-Hence, the nonparametric method relies on the observed generation intervals and the exponential growth rate:
+We refer to the first method as the population-level method as it relies on the observed distribution without taking into account who infected whom.
+As the observed generation-interval distribution is a weighted distribution of the intrinsic distribution, the intrinsic distribution can be recovered by taking the inverse of the weights, given by \eref{exp}.
+Hence, the population-level method relies on the observed generation intervals and the exponential growth rate:
 \begin{equation}
 g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau).
 \end{equation}
