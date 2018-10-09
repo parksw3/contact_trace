@@ -85,9 +85,12 @@ We provide a statistical framework of recovering the intrinsic generation-interv
 \swp{Going to rename the sections... but I think I like the current order...}
 \section{Generation-interval distributions across time}
 
+\subsection{Intrinsic kernel}
+
 We begin by introducing an analytical framework.
-Let $K_a(\tau)$ be an individual level kernel, i.e., the rate at which secondary infections are caused by an individual $a$ \citep{svensson2015influence}. \swp{Need to say something more about Sven; come back later}
-Then, the unconditional, population-level kernel is given by integrating over individual variations:
+Let $K_a(\tau)$ be an individual-level intrinsic kernel, i.e., the rate at which secondary infections are expected to be caused by an individual $a$ \citep{svensson2015influence}; \swp{Need to say something more about Sven; come back later}
+an individual-level intrinsic kernel describes an intrinsic infectiousness of an infected individual.
+The population-level intrinsic kernel is given by integrating over individual variations:
 \begin{equation}
 K(\tau) = \int K_a (\tau) dA.
 \end{equation}
@@ -95,7 +98,7 @@ The basic reproductive number -- average number of secondary cases caused by an 
 \begin{equation}
 \RR_0 = \int K(t).
 \end{equation}
-Then, the intrinsic generation-interval is simply the population-level kernel normalized by the basic reproductive number:
+The intrinsic generation-interval is simply the population-level kernel normalized by the basic reproductive number:
 \begin{equation}
 g(\tau) = \frac{K(t)}{\RR_0}.
 \end{equation}
@@ -109,7 +112,7 @@ Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we 
 \frac{1}{\RR} = \int g(\tau) \exp(-r \tau) d\tau.
 \end{equation}
 
-\subsection*{Right-censored intervals}
+\subsection{Right-censored intervals}
 
 \jd{Have to set this up to make sure we're not sounding too mathy.}
 Assume that contact tracing is performed from the beginning of an epidemic to time $t$.
@@ -162,41 +165,61 @@ When a disease is at (or near) endemic equilibrium, the number of susceptibles r
 
 \section{Generation-interval distributions across space}
 
-\subsection*{Conditional kernel}
+\subsection{Egocentric kernel}
 
-Given limited contact structure, a susceptible individual can be contacted multiple times;
+Within a limited contact structure, a susceptible individual can be contacted multiple times;
 infectious contacts give rise to infection only when the susceptible individual is contacted for the first time.
-Then, the conditional kernel (conditional on the infection occuring) of an individual $a$ is given by
+In particular, we can look at it from an egocentric point of view -- i.e., from a perspective of a single infector.
+Then, we can define the egocentric kernel, i.e., the rate at which secondary infections are realized by a single primary case $a$:
 \begin{equation}
-\hat{k}_a(\tau) = k_a(\tau) \exp \left(- \delta_a \int_0^\tau k_a(s) ds\right),
+\hat{K}_a(\tau) = K_a(\tau) \exp \left(- \delta_a \int_0^\tau K_a(s) ds\right),
 \end{equation}
-where $\delta_a$ is the dilution.
-The individual kernel, $k_a(s)$, measures the intrinsic infectiousness of an individual $a$,
-whereas $\delta_a k_a(s)$ measures the infectiousness of an individual $a$ for a particular susceptible individual.
-Then, the population-level conditional kernel is:
+where $K_a(\tau)$ is the individual-level intrinsic kernel and $e^{- \delta_a \int_0^\tau K_a(s) ds}$ is the probability that a susceptible acquaintance has not yet been contacted by individual $a$.
+The dilution term, $\delta_a$, models how contacts are distributed among susceptible acquaintances.
+For example, when infectious contacts are distributed equally in a homogeneous population, we have $\delta_a = 1/(N-1)$, where $N$ is the population size.
+
+The population-level egocentric kernel is given by integrating over individual variations:
 \begin{equation}
-\hat{k}(\tau) = \int \hat{k}_a(\tau) dA,
+\hat{K}(\tau) = \int \hat{K}_a(\tau) dA,
 \end{equation}
-and the conditional generation-interval distribution, defined to be the distribution of times at which secondary infections occur from a single primary infector, is:
+and the population-level egocentric generation-interval distribution is:
 \begin{equation}
-\hat{g}(\tau) = \frac{\hat{k}(\tau)}{\int \hat{k} \tau}.
+\hat{g}(\tau) = \frac{\hat{K}(\tau)}{\int \hat{K} \tau}.
 \label{eq:conditional}
 \end{equation}
-\swp{Need to say something about trapman. Maybe say this is a generalization of Trapman's work...? Is that too much? Do we need to give an example of what conditional kernels look like?}
+The population-level egocentric generation-interval distribution describes the distribution of times at which secondary infections are realized by an average primary case.
+For convenience, egocentric distribution refers to the population-level distribution, unless noted otherwise.
 
-The difference between conditional and intrinsic generation-interval distribution can be demonstrated by simulating stochastic infection processes on a small tree network (i.e, a single infected individual is connected to multiple susceptible individuals who are not connected with each other) with artificially high $\RR$.
-Simulations confirm that in this case the distribution of contact times matches the intrinsic generation-interval distribution, while the distribution of generation times matches with the conditional generation-interval distribution (Figure~\ref{fig:local}) -- generation times are shorter on average because contacts with already-infected susceptibles do not lead to new infections.
+For example, consider a susceptible-exposed-infected-recovered (SEIR) model.
+This model assumes that latent and infectious periods are exponentially distributed and can describe wide range of diseases.
+It has been shown that the intrinsic generation-interval distribution that corresponds to this model is given by [CITE]:
+\begin{equation}
+g(\tau) = \frac{\sigma \gamma}{\sigma - \gamma} \left(e^{-\gamma t} - e^{-\sigma t}\right),
+\end{equation}
+where $1/\sigma$ and $1/\gamma$ are mean latent and infectious periods, respectively.
+Assuming that per-pair contact rate is $\lambda$ for any pair, we obtain the following egocentric generation-interval distribution is given by:
+\begin{equation}
+\hat{g}(\tau) = \frac{\sigma (\gamma + \lambda)}{\sigma - (\gamma + \lambda)} \left(e^{-(\gamma + \lambda)t} - e^{-\sigma t}\right)
+\end{equation}
+In this scenario, per-pair contact rate is effectively decreasing mean infectious period: an infected individual is can no longer infect anyone (hence no longer infectious) when all its susceptible acquaintances have ben infected.
 
-The conditional generation interval \eqref{conditional} only explains some of the reduction in generation times that occurs on most networks, however.
-Generation intervals are also shortened by indirect connections: if a susceptible individual is infected through another route while the focal individual is infected, this will shorten the generation interval \jd{This s.~is too repetitive.}
-Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
-In general, estimating the effects of most networks on observed generation intervals is expected to be a hard problem. 
+The difference between egocentric and intrinsic generation-interval distribution can be demonstrated by simulating stochastic infection processes on a small tree network (i.e, a single infected individual is connected to multiple susceptible individuals who are not connected with each other) with artificially high per-pair contact rate.
+Simulations confirm that in this case the distribution of contact times matches the intrinsic generation-interval distribution, while the distribution of realized generation times matches with the egocentric generation-interval distribution (\fref{fig:local}) -- generation times are shorter on average because contacts with already-infected susceptibles do not lead to new infections.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/local_effect.pdf}
 \caption{Fill this out.}
 \label{fig:local}
 \end{figure}
+
+The egocentric generation interval \eqref{conditional} only explains some of the reduction in generation times that occurs on most networks, however.
+Generation intervals are also shortened by indirect connections: a susceptible individual can be infected through another route before the focal individual makes infectious contacts.
+Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
+In general, estimating the effects of most networks on observed generation intervals is expected to be a hard problem. 
+
+\subsection{Linking growth rate and reproductive number}
+
+
 
 \section{Statistical approach to inferring generation-interval distribution}
 
