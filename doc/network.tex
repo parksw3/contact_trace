@@ -76,8 +76,9 @@ Therefore, realized generation intervals will be shorter and observed generation
 
 This perspective allows us to reinterpret the finding of \cite{trapman2016inferring} that, given an intrinsic generation interval and an observed growth rate $r$, the reproductive number $\RR$ on various network structures is always smaller on a network than would be predicted from homogeneous mixing.
 \jd{Maybe moving on a good direction, but needs more work. The problem is that we need to talk clearly about the spatial correction without misleading people about the temporal correction.}
+\swp{Should we just talk about this in the paper rather than in intro? It feels like we're going into detail too much}
 
-\swp{Will rewrite this paragraph after writing the rest of it:}
+\swp{Will rewrite this paragraph after writing rest of the paper:}
 In this study, we explore the temporal and spatial variation in the observed generation-interval distributions obtained from contact tracing.
 We show that using the observed generation-interval distribution directly will always underestimate the reproductive number \swp{need to confirm this statement when we're done with the ms}. 
 We provide a statistical framework of recovering the intrinsic generation-interval distribution from the observed generation-interval distribution.
@@ -228,7 +229,13 @@ Instead, we can derive a relationship between $r$ and $\RR$ that accounts for th
 This is equivalent to the relationship between $r$ and $\RR$ that \cite{trapman2016inferring} derived under a network structure. \swp{Need to confirm; Maybe prove it in appendix or something...how?}
 As the egocentric distribution always has a shorter mean than the intrinsic distribution, $\hat{\RR}$ will always be smaller than $\RR$.
 
-\section{Statistical approach to inferring generation-interval distribution}
+\section{Inferring generation-interval distributions from contact tracing data}
+
+When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric effect, (3) local spatial effect and (4) global spatial effect.
+Right-censoring effect and egocentric effect are well-understood and can be corrected for.
+While local and global spatial effects are difficult to estimate, we can make qualitative predictions about their effects on the realized generation intervals and reproductive number. 
+Both local and global effects reduce number of infections that occur and shorten generation intervals but the time scale on which they matter differ:
+local spatial effect will be important early in an epidemic whereas the global effect will be small until after the exponential growth period has ended.
 
 
 
