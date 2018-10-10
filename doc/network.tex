@@ -215,13 +215,22 @@ Simulations confirm that in this case the distribution of contact times matches 
 The egocentric generation interval \eqref{conditional} only explains some of the reduction in generation times that occurs on most networks, however.
 Generation intervals are also shortened by indirect connections: a susceptible individual can be infected through another route before the focal individual makes infectious contacts.
 Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
+The indirect spatial effect can occur locally (e.g., in a household) or globally (e.g., in a well-mixed population); global spatial effect provides an equivalent explanation for the underestimation of the mean generation interval, sampled across an entire epidemic (\fref{censor}). 
 In general, estimating the effects of most networks on observed generation intervals is expected to be a hard problem. 
 
 \subsection{Linking growth rate and reproductive number}
 
-
+The intrinsic generation-interval distribution provides a link between the speed (exponential growth rate, $r$) and the strength (reproductive number, $\RR$) of an epidemic via Euler-Lotka equation [CITE] but assumes a homogeneously mixing population.
+Instead, we can derive a relationship between $r$ and $\RR$ that accounts for the egocentric effect using the egocentric generation-interval distribution:
+\begin{equation}
+\frac{1}{\hat{\RR}} = \int \hat{g}(\tau) \exp(-r \tau) d\tau.
+\end{equation}
+This is equivalent to the relationship between $r$ and $\RR$ that \cite{trapman2016inferring} derived under a network structure. \swp{Need to confirm; Maybe prove it in appendix or something...how?}
+As the egocentric distribution always has a shorter mean than the intrinsic distribution, $\hat{\RR}$ will always be smaller than $\RR$.
 
 \section{Statistical approach to inferring generation-interval distribution}
+
+
 
 It is clear that aggregating generation intervals through space and time yields a distribution that is different from the intrinsic distribution.
 When the epidemic is growing, the proportion of susceptible individuals remain approximately constant and the intrinsic (or conditional) generation-interval distributions can be inferred from the observed intervals.
