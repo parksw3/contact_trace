@@ -30,8 +30,6 @@ R0fun.network <- function(r) {
 	kappa * lambda/(lambda + gamma)
 }
 
-
-
 censor.gi <- lapply(
 	reslist
 	, network.generation
@@ -105,12 +103,22 @@ intrinsic.est <- lapply(growth$value, function(x) 1/mean(exp(-x*gen)))
 
 network.est <- lapply(growth$value, R0fun.network)
 
+trapman.est <- lapply(reslist, trapman.R0)
 
-#plot(density(unlist(intrinsic.est)), ylim=c(0, 0.8))
-#lines(density(unlist(network.est)), col=4)
-#lines(density(sapply(individual.est, function(x) x[2,1])), col=2)
-#lines(density((observed.est %>% filter(type=="RR"))$estimate), col=3)
+empirical.est <- lapply(reslist, empirical.R0)
 
+RRdata <- data.frame(
+	observed=observed.est$estimate[observed.est$type=="RR"],
+	individual=individual.est$estimate[individual.est$type=="RR"],
+	intrinsic=unlist(intrinsic.est),
+	network=unlist(network.est),
+	trapman=unlist(trapman.est),
+	empirical=unlist(empirical.est)
+)
 
+gendata <- data.frame(
+	observed=observed.est$estimate[observed.est$type=="mean"],
+	individual=individual.est$estimate[individual.est$type=="mean"]
+)
 
-
+save("RRdata", "gendata", file="cmp_compare.rda")
