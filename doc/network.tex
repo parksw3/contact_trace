@@ -153,7 +153,8 @@ As a result, even if contact tracing is performed through an entire epidemic, me
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
 \caption{\textbf{Temporal variation in the mean observed generation interval.}
-A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model was simulated using Ebola-like parameters and the observed mean generation interval was calculated the course of an epidemic (see methods).
+A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model was simulated using Ebola-like parameters and the observed mean generation interval was calculated over the course of an epidemic (see methods).
+\jd{Meaning, left-censored?}
 }
 \label{fig:censor}
 \end{figure}
@@ -233,6 +234,7 @@ As the egocentric distribution always has a shorter mean than the intrinsic dist
 When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric effect, (3) local spatial effect and (4) global spatial effect.
 Right-censoring effect and egocentric effect are well-understood.
 While local and global spatial effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and reproductive number. 
+\jd{Any objection to conceptualizing global as mean susceptible depletion? Then it's easy to measure. It's the non-egocentric non-global that's the problem.}
 Both local and global effects reduce number of infections that occur and shorten generation intervals but the time scale on which they matter differs:
 local spatial effect will be important early in an epidemic whereas the global effect will be small until sufficient amount of susceptible individuals become infected.
 As a result, both local and egocentric effects affect the initial spread of a disease and therefore the realized reproductive number.
@@ -250,9 +252,9 @@ Hence, the population-level method relies on the observed generation intervals a
 \begin{equation}
 g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau).
 \end{equation}
-
 While the population-level method is simple and intuitive, it does not use all available information from contact tracing data as it does not take into account who infected whom.
-Instead, we can model the initial spread of an epidemic using a poisson process on an individual-level and obtain the following likelihod::
+
+The individual-level method uses the poisson process to estimate a likelihood for the observations from each individual:
 \begin{equation}
 \mathcal{L}(\RR, \theta) = \prod_{j=1}^N \left(\RR^{n_j} \exp \left(- \RR \int_0^{\tsub{t}{censor} - t_j} g(s;\theta) ds \right) \prod_{i=1}^{n_j} g(\tau_{i, j}; \theta) \right),
 \end{equation}
@@ -261,6 +263,7 @@ A similar method was proposed by \cite{forsberg2008likelihood} but it relies on 
 
 \swp{I might say something about independence transmission events in the results if I decide to compare forsberg2008 as well -- see forsberg 2008...}
 \swp{I got stuck on forsberg 2008. I get weird estimates with wide confidence intervals but I feel like that's what their method is supposed to do (based on figure 3 in their paper). It doesn't use generation interval either so I think we can just ignore it?}
+\jd{If it really is similar in some important way just stick with what you've already said. Otherwise, ignore it.}
 
 First, we compare how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (Figure~\ref{fig:example}).
 During the initial exponential growth period (approximately between 9 and 20 weeks), both population-level and individual-level methods yield similar estimates of mean generation interval and reproductive number.
