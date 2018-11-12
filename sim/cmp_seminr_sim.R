@@ -9,7 +9,7 @@ cmpGraph <- delete_vertex_attr(cmpGraph, "name")
 
 nsim <- 50
 
-beta <- gamma/7
+beta <- 0.4/5
 
 set.seed(101)
 reslist <- vector('list', nsim)

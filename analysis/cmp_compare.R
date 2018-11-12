@@ -18,7 +18,7 @@ d <- degree(cmpGraph)
 
 kappa <- var(d)/mean(d) + mean(d) -1
 
-beta <- gamma/7
+beta <- 0.4/5
 
 ## This is SEIR
 ## R0fun.network <- function(r) (gamma+r)/(gamma*sigma/(sigma+r)+r/kappa)
@@ -48,10 +48,9 @@ growth <- lapply(reslist, function(x){
 	
 	fitdata <- fitdata[cumsum(fitdata$cases) <= 1000,]
 	
-	ee <- epigrowthfit(fitdata$day, fitdata$cases,
-				 model="logistic")
+	ee <- MASS::glm.nb(cases~day, data=fitdata)
 	
-	dd <- as.data.frame(t(ee@growthRate))
+	dd <- data.frame(r=coef(ee)[2])
 	
 	dd
 }) %>%
@@ -61,7 +60,7 @@ individual.est <- lapply(reslist, function(x){
 	tmax <- x$data[1000-9,1]
 	gendata <- generation.data(x, tmax=tmax)
 	
-	est <- as.data.frame(t(parametricfun(true.R, true.mean, true.shape, gendata, tmax)))
+	est <- as.data.frame(t(parametricfun(5, true.mean, true.shape, gendata, tmax)))
 	
 	est$type <- c("mean", "RR")
 	
@@ -99,9 +98,9 @@ observed.est <- lapply(1:50, function(x){
 }) %>%
 	bind_rows(.id="sim")
 
-intrinsic.est <- lapply(growth$value, function(x) 1/mean(exp(-x*gen)))
+intrinsic.est <- lapply(growth$r, function(x) 1/mean(exp(-x*gen)))
 
-network.est <- lapply(growth$value, R0fun.network)
+network.est <- lapply(growth$r, R0fun.network)
 
 trapman.est <- lapply(reslist, trapman.R0)
 
@@ -110,6 +109,7 @@ empirical.est <- lapply(reslist, empirical.R0)
 RRdata <- data.frame(
 	observed=observed.est$estimate[observed.est$type=="RR"],
 	individual=individual.est$estimate[individual.est$type=="RR"],
+	population=population.est$estimate[population.est$type=="RR"],
 	intrinsic=unlist(intrinsic.est),
 	network=unlist(network.est),
 	trapman=unlist(trapman.est),
@@ -118,7 +118,8 @@ RRdata <- data.frame(
 
 gendata <- data.frame(
 	observed=observed.est$estimate[observed.est$type=="mean"],
-	individual=individual.est$estimate[individual.est$type=="mean"]
+	individual=individual.est$estimate[individual.est$type=="mean"],
+	population=population.est$estimate[population.est$type=="mean"]
 )
 
 save("RRdata", "gendata", file="cmp_compare.rda")

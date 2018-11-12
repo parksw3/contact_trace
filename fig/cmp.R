@@ -11,23 +11,24 @@ scale_colour_discrete <- function(...,palette="Dark2") scale_colour_brewer(...,p
 scale_fill_discrete <- function(...,palette="Dark2") scale_fill_brewer(...,palette=palette)
 
 RRgroup <- data.frame(
-	key=c("contact\ntracing", "individual\ncorrection", "tree\nbased", "empirical", "local\ncorrection", "intrinsic"),
-	group=factor(c("tracing based", "tracing based", "empirical", "empirical", "individual based", "individual based"),
+	key=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", "tree\nbased", "empirical", "local\ncorrection", "intrinsic"),
+	group=factor(c("tracing based", "tracing based", "tracing based", "empirical", "empirical", "individual based", "individual based"),
 				 levels=c("tracing based", "empirical", "individual based"))
 )
 
 RRdata2 <- RRdata %>%
 	gather(key, value) %>%
 	mutate(key=factor(key, 
-					  levels=c("observed", "individual", "trapman", "empirical", "network", "intrinsic"),
-					  labels=c("contact\ntracing", "individual\ncorrection", 
+					  levels=c("observed", "population", "individual", "trapman", "empirical", "network", "intrinsic"),
+					  labels=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", 
 					  		 "tree\nbased", "empirical", "local\ncorrection", "intrinsic"))) %>%
-	merge(RRgroup)
+	merge(RRgroup) %>%
+	filter(key != "tree\nbased")
 
 ggR <- ggplot(RRdata2) +
 	geom_boxplot(aes(key, value, fill=key), alpha=0.7) +
 	ylab("Reproductive number") +
-	facet_wrap(~group, scale="free_x") +
+	facet_grid(~group, scale="free", space="free_x") +
 	theme(
 		panel.spacing = unit(0, "lines"),
 		strip.background = element_blank(),
@@ -36,4 +37,3 @@ ggR <- ggplot(RRdata2) +
 	)
 
 ggsave("cmp_reproductive.pdf", ggR, width=6, height=4)
-
