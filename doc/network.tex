@@ -335,5 +335,29 @@ Finally, we obtain an estimator for mean generation interval and the reproductiv
 \end{equation}
 where $r$ is the exponential growth rate and $c_i$ is an individual generation interval sample.
 
+\section{Appendix}
+
+These are notes for now ... Need to move them elsewhere and change notation... but this is part of our figure for empirical network ...
+
+$$
+1 = \kappa \phi_L(\alpha) \frac{\lambda^{(net)}}{\alpha + \lambda^{(net)}} (1 - \phi_I(\alpha+\lambda^{(net)}))
+$$
+where in our specific example,
+$$
+\phi_L(\alpha) = \frac{4 \delta^2}{(2 \delta + \alpha)^2}
+$$
+and so we have
+$$
+1 = \frac{4 \delta^2}{(2 \delta + \alpha)^2} \frac{\kappa \lambda^{(net)}}{\lambda^{(net)} + \alpha + \gamma},
+$$
+which suggests that
+$$
+\lambda^{(net)} = \frac{(2\delta + \alpha)^2 (\alpha + \gamma)}{(\kappa - 1) 4 \delta^2 - 4 \delta \alpha - \alpha^2}
+$$
+We can substitute into the following equation to obtain the $r$ and $\RR$ relationship:
+$$
+\RR = \kappa \frac{\lambda^{(net)}}{\lambda^{(net)} + \gamma}
+$$
+
 \bibliography{network}
 \end{document}

@@ -36,6 +36,37 @@ bootfun <- function(gen,
 	est
 }
 
+minuslogl.gamma <- function(log.mean, log.shape, gen) {
+	mean <- exp(log.mean)
+	shape <- exp(log.shape)
+	rate <- shape/mean
+	
+	-sum(dgamma(gen, shape=shape, rate=rate, log=TRUE))
+}
+
+populationfun <- function(mean, shape, gen, r) {
+	m <- mle2(minuslogl.gamma, 
+			  start=list(log.mean=log(mean), log.shape=log(shape)),
+			  method="Nelder-Mead",
+			  optimizer="optim",
+			  data=list(gen=gen),
+			  control=list(maxit=10000)
+	)
+	
+	cc <- exp(coef(m))
+	
+	mean <- cc[1]
+	shape <- cc[2]
+	rate <- shape/mean
+	adj.rate <- rate - r
+	adj.mean <- shape/adj.rate
+	
+	data.frame(
+		estimate=unname(c((1+r*adj.mean/shape)^(shape), adj.mean, shape)),
+		type=c("RR", "mean", "shape")
+	) 
+}
+
 minuslogl.full <- function(log.R, log.mean, log.shape, data, tmax) {
 	R <- exp(log.R)
 	mean <- exp(log.mean)
@@ -56,24 +87,6 @@ minuslogl.full <- function(log.R, log.mean, log.shape, data, tmax) {
 	if (nll==0) return(Inf) else return(nll)
 }
 
-minuslogl.white <- function(log.R, log.mean, log.shape, data, k=50) {
-	R <- exp(log.R)
-	mean <- exp(log.mean)
-	shape <- exp(log.shape)
-	scale <- mean/shape
-	
-	t <- nrow(data)
-	
-	p_j <- diff(pgamma(0:k, shape=shape, scale=scale))
-	p_j <- p_j/sum(p_j)
-	
-	mu_t <- sapply(2:t, function(x) {
-		R * sum(data$cases[(x-1):max(x-k, 1)] * p_j[1:min(x-1, k)])
-	})
-	
-	-sum(dpois(tail(data$cases, -1), mu_t, log=TRUE))
-}
-
 parametricfun <- function(R, mean, shape,
 						  data,
 						  tmax) {
@@ -83,31 +96,6 @@ parametricfun <- function(R, mean, shape,
 		 optimizer="optim",
 		 data=list(data=data, tmax=tmax),
 		 control=list(maxit=10000)
-	)
-	
-	pp <- profile(m, 1:2)
-	
-	ci <- exp(confint(pp))
-	
-	est <- rbind(
-		exp(coef(m)[1:2]),
-		t(ci)
-	)
-	
-	rownames(est) <- c("estimate", "lwr", "upr")
-	
-	cbind(est[,2], est[,1])
-}
-
-whitefun <- function(R, mean, shape,
-					 data,
-					 k=50) {
-	m <- mle2(minuslogl.white, 
-			  start=list(log.R=log(R), log.mean=log(mean), log.shape=log(shape)),
-			  method="Nelder-Mead",
-			  optimizer="optim",
-			  data=list(data=data, k=k),
-			  control=list(maxit=10000)
 	)
 	
 	pp <- profile(m, 1:2)
