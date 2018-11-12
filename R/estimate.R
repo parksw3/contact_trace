@@ -98,16 +98,18 @@ parametricfun <- function(R, mean, shape,
 		 control=list(maxit=10000)
 	)
 	
-	pp <- profile(m, 1:2)
+	pp <- profile(m)
 	
 	ci <- exp(confint(pp))
 	
 	est <- rbind(
-		exp(coef(m)[1:2]),
+		exp(coef(m)),
 		t(ci)
 	)
 	
 	rownames(est) <- c("estimate", "lwr", "upr")
 	
-	cbind(est[,2], est[,1])
+	colnames(est) <- NULL
+	
+	est
 }

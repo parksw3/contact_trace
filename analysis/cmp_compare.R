@@ -62,11 +62,20 @@ individual.est <- lapply(reslist, function(x){
 	
 	est <- as.data.frame(t(parametricfun(5, true.mean, true.shape, gendata, tmax)))
 	
-	est$type <- c("mean", "RR")
+	est$type <- c("RR", "mean", "shape")
 	
 	est
 }) %>%
 	bind_rows(.id="sim")
+
+individual.RR <- lapply(1:50, function(x){
+	gg <- growth[x,2]
+	
+	mean <- filter(individual.est, type=="mean")[x,2]
+	shape <- filter(individual.est, type=="shape")[x,2]
+	
+	(1 + gg * 1/shape * mean)^(shape)
+})
 
 population.est <- lapply(1:50, function(x){
 	cg <- censor.gi[[x]]
@@ -108,7 +117,7 @@ empirical.est <- lapply(reslist, empirical.R0)
 
 RRdata <- data.frame(
 	observed=observed.est$estimate[observed.est$type=="RR"],
-	individual=individual.est$estimate[individual.est$type=="RR"],
+	individual=unlist(individual.RR),
 	population=population.est$estimate[population.est$type=="RR"],
 	intrinsic=unlist(intrinsic.est),
 	network=unlist(network.est),
