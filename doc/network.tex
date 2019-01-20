@@ -121,9 +121,8 @@ Since the intrinsic generation-interval distribution describes time distribution
 i(\tau) = S(\tau) \int K(s) i(\tau-s) ds = \RR \int g(s) i(\tau-s) ds
 \end{equation}
 where $i(\tau)$ is incidence at time $\tau$ and $S(\tau)$ is the proportion of the population susceptible.
-This model, also referred to as the renewal equation, represents wide range of epidemic models.
-Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we obtain the Euler-Lotka equation, which provides a direct link between speed and strength of an epidemic.
- \citep{lotka1907relation}:
+This model, also referred to as the renewal equation, represents wide range of epidemic models \citep{heesterbeek1996concept, diekmann2000mathematical, roberts2004modelling, aldis2005integral, wallinga2007generation, roberts2007model}.
+Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we obtain the Euler-Lotka equation \citep{lotka1907relation}, which provides a direct link between speed and strength of an epidemic:
 \begin{equation}
 \frac{1}{\RR} = \int g(\tau) \exp(-r \tau) d\tau.
 \end{equation}
