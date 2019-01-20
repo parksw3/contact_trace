@@ -84,7 +84,7 @@ We discuss statistical approaches to estimating the effective generation-interva
 
 \subsection{Intrinsic generation-interval distribution}
 
-\begin{figure}
+\begin{figure}[t]
 \includegraphics[width=\textwidth]{../fig/individual_and_population.pdf}
 \caption{\textbf{Comparison of individual- and population-level kernels.}
 (Left) an individual-level kernel of an infected individual with latent period of 11.4 days followed by infectious period of 5 days. 
@@ -95,17 +95,18 @@ Shaded areas under the curves are equal to individual- and population-level repr
 
 \end{figure}
 
-Generation-interval distributions are often viewed from a population-level pespective, as a distribution describing \emph{expected} infection times of \emph{an average} infected individuals, but we can distinguish population-level distributions from individual-level distributions (\fref{indpop}); 
+Generation-interval distributions are often viewed from a population-level pespective but we can distinguish population-level distributions from individual-level distributions (\fref{indpop}); 
 making this distinction clear will be particularly useful when we discuss spatial components.
 An individual-level intrinsic kernel $K_a(\tau)$ describes the rate at which secondary infections are expected to be caused by an infected individual $a$ \citep{svensson2007note, svensson2015influence}.
-On the other hand, the population-level kernel is given by integrating over individual variations (e.g., variation in latent and infectious periods):
+The population-level kernel is given by integrating over individual variations (e.g., variation in latent and infectious periods):
 \begin{equation}
 K(\tau) = \int K_a (\tau) dA.
 \end{equation}
-This distribution describes the rate at which secondary infections are expected to be caused by an \emph{average} infected individual.
+The population-level kernel describes the rate at which secondary infections are expected to be caused by an \emph{average} infected individual.
 \jd{Do we need to worry about assumptions for the rest of this \P? Once we have an aspect space we need to assume that individual properties are independent of risk of infection. Also, since that's wrong on our networks, do we have to figure out why we're approximately saved? I guess because of scaling?}
 \swp{What do you mean by individual properties?}
 
+There are two components to infection kernels: intrinsic infectiousness of an infected individual (the basic reproductive number) and time distribution of new infections (generation-interval distribution).
 The basic reproductive number -- average number of secondary cases caused by an \emph{average} primary case in a fully susceptible population -- is defined as: 
 \begin{equation}
 \RR_0 = \int K(t).
@@ -115,17 +116,19 @@ The intrinsic generation-interval distribution is simply the population-level ke
 g(\tau) = \frac{K(t)}{\RR_0}.
 \end{equation}
 
-Then, the renewal equation model can be used to model incidence over time:
+Since the intrinsic generation-interval distribution describes time distribution of new infections, it can be used to model incidence over time:
 \begin{equation}
 i(\tau) = S(\tau) \int K(s) i(\tau-s) ds = \RR \int g(s) i(\tau-s) ds
 \end{equation}
 where $i(\tau)$ is incidence at time $\tau$ and $S(\tau)$ is the proportion of the population susceptible.
-Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we obtain the Euler-Lotka equation \citep{lotka1907relation}:
+This model, also referred to as the renewal equation, represents wide range of epidemic models.
+Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we obtain the Euler-Lotka equation, which provides a direct link between speed and strength of an epidemic.
+ \citep{lotka1907relation}:
 \begin{equation}
 \frac{1}{\RR} = \int g(\tau) \exp(-r \tau) d\tau.
 \end{equation}
 
-\subsection{Right-censored intervals}
+\subsection{Right-censored generation-interval distribution}
 
 \jd{Make sure we're not sounding too mathy.}
 % For an emerging epidemic, it is reasonable to assume that contact tracing is performed from the beginning of an epidemic.
