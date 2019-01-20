@@ -16,13 +16,13 @@ reslist <- vector('list', nsim)
 i <- 1
 while (i <= nsim) {
 	print(i)
-	rr <- seminr(cmpGraph, beta, sigma, m.sigma, gamma, n.gamma, I0 = 10, tmax=2000)
+	rr <- seminr(cmpGraph, beta, sigma, 1, gamma, 1, I0 = 10, tmax=2000)
 	if(nrow(rr$data) > 1000) {
 		reslist[[i]] <- rr
 		i <- i+1
 	}
 	
-	save("reslist", file="cmp_seminr_sim.rda")
+	save("reslist", file="cmp_seir_sim.rda")
 }
 
-save("reslist", file="cmp_seminr_sim.rda")
+save("reslist", file="cmp_seir_sim.rda")
