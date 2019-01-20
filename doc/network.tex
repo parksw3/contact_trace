@@ -84,22 +84,29 @@ We discuss statistical approaches to estimating the effective generation-interva
 
 \subsection{Intrinsic generation-interval distribution}
 
-Generation-interval distributions are often viewed from a population-level pespective, as a distribution describing \emph{expected} infection times of \emph{an average} infected individuals, but we can distinguish population-level distributions from individual-level distributions; 
+\begin{figure}
+\includegraphics[width=\textwidth]{../fig/individual_and_population.pdf}
+\caption{\textbf{Comparison of individual- and population-level kernels.}
+(Left) an individual-level kernel of an infected individual with latent period of 11.4 days followed by infectious period of 5 days. 
+(Right) a population-level kernal of infected individuals with exponentially distributed latent and infectious period of 11.4 and 5 days, respectively. 
+Shaded areas under the curves are equal to individual- and population-level reproductive numbers, both of which are set to 2 in this example.
+}
+\label{fig:indpop}
+
+\end{figure}
+
+Generation-interval distributions are often viewed from a population-level pespective, as a distribution describing \emph{expected} infection times of \emph{an average} infected individuals, but we can distinguish population-level distributions from individual-level distributions (\fref{indpop}); 
 making this distinction clear will be particularly useful when we discuss spatial components.
 An individual-level intrinsic kernel $K_a(\tau)$ describes the rate at which secondary infections are expected to be caused by an infected individual $a$ \citep{svensson2007note, svensson2015influence}.
-
-We begin by introducing an analytical framework.
-Let $K_a(\tau)$ be an individual-level intrinsic kernel, i.e., the rate at which secondary infections are expected to be caused by an infected individual $a$ \citep{svensson2007note, svensson2015influence}; 
-an individual-level intrinsic kernel describes an intrinsic infectiousness of an infected individual.
-The population-level intrinsic kernel is given by integrating over individual variations:
+On the other hand, the population-level kernel is given by integrating over individual variations (e.g., variation in latent and infectious periods):
 \begin{equation}
 K(\tau) = \int K_a (\tau) dA.
 \end{equation}
+This distribution describes the rate at which secondary infections are expected to be caused by an \emph{average} infected individual.
 \jd{Do we need to worry about assumptions for the rest of this \P? Once we have an aspect space we need to assume that individual properties are independent of risk of infection. Also, since that's wrong on our networks, do we have to figure out why we're approximately saved? I guess because of scaling?}
 \swp{What do you mean by individual properties?}
-Similar to the inidividual-level kernel, the population-level kernel describes the rate at which secondary infections are expected to be caused by an \emph{average} individual.
 
-The basic reproductive number -- average number of secondary cases caused by an average primary case in a fully susceptible population -- is defined as: 
+The basic reproductive number -- average number of secondary cases caused by an \emph{average} primary case in a fully susceptible population -- is defined as: 
 \begin{equation}
 \RR_0 = \int K(t).
 \end{equation}
@@ -107,6 +114,7 @@ The intrinsic generation-interval distribution is simply the population-level ke
 \begin{equation}
 g(\tau) = \frac{K(t)}{\RR_0}.
 \end{equation}
+
 Then, the renewal equation model can be used to model incidence over time:
 \begin{equation}
 i(\tau) = S(\tau) \int K(s) i(\tau-s) ds = \RR \int g(s) i(\tau-s) ds

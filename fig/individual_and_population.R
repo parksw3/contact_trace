@@ -25,7 +25,7 @@ dd_population_poly <- data.frame(
 )
 
 g1 <- ggplot(dd_individual) +
-	geom_line(aes(time, density), lwd=1.2) +
+	geom_line(aes(time, density), lwd=1.1) +
 	scale_x_continuous("Time (days)", expand=c(0, 0)) +
 	scale_y_continuous(expression(K[a](tau)), expand=c(0,0), limit=c(0, 0.45)) +
 	facet_wrap(~type) +
@@ -36,11 +36,14 @@ g1 <- ggplot(dd_individual) +
 
 g2 <- g1 %+% dd_population
 
-grid.arrange(
+gtot <- arrangeGrob(
 	g1 + geom_polygon(aes(time, density), alpha=0.3),
-	g2 + geom_polygon(data=dd_population_poly, aes(time, density), alpha=0.3),
+	g2 + 
+		geom_polygon(data=dd_population_poly, aes(time, density), alpha=0.3) +
+		scale_y_continuous(expression(K(tau)), expand=c(0,0), limit=c(0, 0.45)),
 	nrow=1
 )
 
+ggsave("individual_and_population.pdf", gtot, width=6, height=3)
 
 
