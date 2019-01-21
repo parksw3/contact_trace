@@ -130,6 +130,13 @@ Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we 
 \subsection{Right-censored generation-interval distribution}
 
 \jd{Make sure we're not sounding too mathy.}
+Generation intervals can be sampled during an outbreak by tracing infected individuals backward.
+As a result of backward sampling, it is impossible to sample from infections that occur beyond the sampling time and the generation-interval samples suffer from right censoring.
+In this section, we discuss the effect of right-censoring on the observed generation-interval distribution.
+
+Several studies have associated the backward generation-interval distribution with the observed generation-interval distribution, but the backward generation-interval distribution only consider infections that are single generation apart from a focal time point.
+Instead, contact tracing can be performed over multiple generations, all the way back to the primary case.
+
 % For an emerging epidemic, it is reasonable to assume that contact tracing is performed from the beginning of an epidemic.
 Assume that contact tracing is performed from the beginning of an epidemic to time $t$.
 The number of infection occuring at time $s$ caused by infectors who were themselves infected at time $s-\tau$ is given by
