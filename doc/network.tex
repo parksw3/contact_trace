@@ -130,29 +130,33 @@ Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we 
 \subsection{Right-censored generation-interval distribution}
 
 \jd{Make sure we're not sounding too mathy.}
+\swp{I tried.}
 Generation intervals can be sampled during an outbreak by tracing infected individuals backward.
 As a result of backward sampling, it is impossible to sample from infections that occur beyond the sampling time and the generation-interval samples suffer from right censoring.
 In this section, we discuss the effect of right-censoring on the observed generation-interval distribution.
 
-Several studies have associated the backward generation-interval distribution with the observed generation-interval distribution, but the backward generation-interval distribution only consider infections that are single generation apart from a focal time point.
-Instead, contact tracing can be performed over multiple generations, all the way back to the primary case.
+Several studies have associated the backward generation-interval distribution with the observed generation-interval distribution \citep{tomba2010some, nishiura2010time, champredon2015intrinsic}, but the backward generation-interval distribution takes into account infections that are only a single generation apart from the focal time period.
+Instead, contact tracing can be performed over multiple generations, tracing all the way back to the primary case.
+Hence, to obtain a theoretical sampling distribution for the right-censored generation intervals, we want to consider all infections that occur from the beginning of an epidemic to a time period when contact tracing was performed.
 
-% For an emerging epidemic, it is reasonable to assume that contact tracing is performed from the beginning of an epidemic.
-Assume that contact tracing is performed from the beginning of an epidemic to time $t$.
-The number of infection occuring at time $s$ caused by infectors who were themselves infected at time $s-\tau$ is given by
+\begin{figure}[t]
+\includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
+\caption{\textbf{Temporal variation in the mean observed generation interval.}
+A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model was simulated using Ebola-like parameters and the observed (right-censored) mean generation interval was calculated over the course of an epidemic (see methods).
+}
+\label{fig:censor}
+\end{figure}
+
+The number of infection occuring at time $s$ caused by infectors who were infected at time $s-\tau$ time ago is given by
 \begin{equation}
 i_{s-\tau}(s) = \RR i(s-\tau) g(\tau) S(s)
 \end{equation}
-Then, total number of secondary infections that are $\tau$ time steps apart and occur before time $t$:
-\begin{equation}
+Then, total number of secondary infections that are $\tau$ time steps apart and occur before time $t$ can be obtained by integrating the above expression:
+\begin{equation} 
 \RR \int_\tau^t i(s-\tau) g(\tau) S(s) ds.
 \end{equation}
-Then, the censored generation-interval at time $t$ is given by
-\begin{equation}
-c_t(\tau)= \frac{\RR \int_\tau^t i(s-\tau) g(\tau) S(s) ds}{\RR \int_0^t \int_x^t i(s-x) g(x) S(s) ds dx}.
-\end{equation}
-The expression in the denominator is equivalent to cumulative incidence at time $t$; the intuition here is that we are normalizing acrosss all incidence before time $t$.
-Then, we have
+The distribution of the secondary infections essentially represent the realized generation-interval distribution.
+Normalizing by the total number of cases before time $t$, we obtain a theoretical sampling distribution for the right-censored (censored at time $t$) generation intervals:
 \begin{equation}
 c_t(\tau) = \frac{\RR \int_\tau^t i(s-\tau) g(\tau) S(s) ds}{\int_0^t i(s) ds}.
 \end{equation}
@@ -174,25 +178,15 @@ the censored generation-interval distribution is equivalent to the inverse expon
 Second, decreasing number of susceptibles over the course of an epidemic makes long infections less likely to occur, and the realized intervals will always be shorter \citep{champredon2015intrinsic}.
 As a result, even if contact tracing is performed through an entire epidemic, mean generation interval will be underestimated.
 
-\begin{figure}
-\includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
-\caption{\textbf{Temporal variation in the mean observed generation interval.}
-A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model was simulated using Ebola-like parameters and the observed mean generation interval was calculated over the course of an epidemic (see methods).
-\jd{Meaning, left-censored?}
-}
-\label{fig:censor}
-\end{figure}
-
-When a disease is at (or near) endemic equilibrium, the number of susceptibles remains (approximately) constant over time, and the observed generation-interval distribution should be similar to the intrinsic generation-interval distribution.
-\swp{Probably don't need a figure for this}
+When a disease is at (or near) endemic equilibrium, the number of susceptibles remains (approximately) constant over time, and we expect the observed generation-interval distribution to be similar to the intrinsic generation-interval distribution.
 
 \section{Generation-interval distributions across space}
 
 \subsection{Egocentric kernel}
 
-Within a limited contact structure, a susceptible individual can be contacted multiple times;
-infectious contacts give rise to infection only when the susceptible individual is contacted for the first time.
-In particular, we can look at it from an egocentric point of view -- i.e., from a perspective of a single infector.
+An infected individual may contact the same susceptible individual multiple times but  infectious contacts give rise to infection only when the susceptible individual is contacted for the first time.
+Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average, in a limited network.
+To understand the effect of multiple contacts on realized generation intervals, we have to consider the infection process from an egocentric point of view, only taking into account infectious contacts made by a single infector.
 We define the egocentric kernel, i.e., the rate at which secondary infections are realized by a single primary case $a$ in the absence of other infectors:
 \begin{equation}
 \hat{K}_a(\tau) = K_a(\tau) \exp \left(- \delta_a \int_0^\tau K_a(s) ds\right),
@@ -210,12 +204,12 @@ and the population-level egocentric generation-interval distribution is:
 \hat{g}(\tau) = \frac{\hat{K}(\tau)}{\int \hat{K} \tau}.
 \label{eq:conditional}
 \end{equation}
-The population-level egocentric generation-interval distribution describes the distribution of times at which secondary infections are realized by an average primary case.
+The population-level egocentric generation-interval distribution describes the distribution of times at which secondary infections are realized by an \emph{average} primary case.
 For convenience, egocentric distribution refers to the population-level distribution, unless noted otherwise.
 
 For example, consider a susceptible-exposed-infected-recovered (SEIR) model.
 This model assumes that latent and infectious periods are exponentially distributed and can describe wide range of diseases.
-It has been shown that the intrinsic generation-interval distribution that corresponds to this model is given by [CITE]:
+The intrinsic generation-interval distribution that corresponds to this model can be written has [CITE]:
 \begin{equation}
 g(\tau) = \frac{\sigma \gamma}{\sigma - \gamma} \left(e^{-\gamma t} - e^{-\sigma t}\right),
 \end{equation}
@@ -226,7 +220,7 @@ Assuming that per-pair contact rate is $\lambda$ for any pair, we obtain the fol
 \end{equation}
 In this scenario, per-pair contact rate effectively decreases mean infectious period: an infected individual can no longer infect anyone (hence no longer infectious) when all its susceptible acquaintances have ben infected.
 
-The difference between egocentric and intrinsic generation-interval distribution can be demonstrated by simulating stochastic infection processes on a small tree network (i.e, a single infected individual is connected to multiple susceptible individuals who are not connected with each other) with artificially high per-pair contact rate.
+The difference between egocentric and intrinsic generation-interval distribution can be demonstrated by simulating stochastic infection processes on a small tree network (i.e, a single infected individual is connected to multiple susceptible individuals who are not connected with each other) with high per-pair contact rate.
 Simulations confirm that in this case the distribution of contact times matches the intrinsic generation-interval distribution, while the distribution of realized generation times matches with the egocentric generation-interval distribution (\fref{local}) -- generation times are shorter on average because contacts with already-infected susceptibles do not lead to new infections.
 
 \begin{figure}
@@ -242,6 +236,7 @@ Simulations on a small homogeneous network confirm this additional effect (\fref
 In general, there are two factors that cause further reduction in the mean generation interval: (1) the local spatial effect (e.g., in a household) and (2) the overall depletion of susceptible individuals in the population;
 the latter effect provides an equivalent explanation for the underestimation of the mean generation interval, sampled across an entire epidemic (\fref{censor}). 
 Although the effect of the overall depletion of susceptible individuals is relatively well-understood \citep{champredon2015intrinsic}, estimating the effects of most networks on observed generation intervals is expected to be a hard problem. 
+\cite{tomba2010some} showed that an analytical expression for the mean generation interval, which takes into account the local spatial effect, can be derived for a household with one primary case and two susceptible individuals, but solving for higher order structures seems both infeasible and impractical.
 \jd{The global spatial effect is sort of the non-spatial effect: the overall response to decreasing susceptibles, like in Champredon.}
 \swp{Tried to fix this}
 
@@ -254,11 +249,11 @@ Instead, we can derive a relationship between $r$ and $\RR$ that accounts for th
 \end{equation}
 This is equivalent to the relationship between $r$ and $\RR$ that \cite{trapman2016inferring} derived under a network structure. \swp{Need to confirm; Maybe prove it in appendix or something...how?}
 As the egocentric distribution always has a shorter mean than the intrinsic distribution, \Rhat\ will always be smaller than $\RR$ estimated from the intrinsic distribution.
-Similarly, \Rhat\ will always be greater than the \emph{true} reproductive number \RR\ as it does not account for other spatial effects that can decrease the mean generation interval.
+Similarly, \Rhat\ will always be greater than the \emph{true} reproductive number \RR\ as it does not account for other effects (e.g., local spatial effects and mean susceptible-depletion effects) that can decrease the mean generation interval.
 
 \section{Inferring generation-interval distributions from a contact tracing data}
 
-When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric effect, (3) local spatial effect and (4) mean susceptible depletion effect.
+When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric effect, (3) local spatial effect and (4) mean susceptible-depletion effect.
 Right-censoring effect and egocentric effect are well-understood.
 While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and reproductive number. 
 Both local spatial and susceptible depletion effects reduce number of infections that occur and shorten generation intervals but the time scale on which they matter differs:
@@ -266,7 +261,7 @@ local spatial effect will be important early in an epidemic whereas the suscepti
 As a result, we expect the initial spread of a disease and the realized reproductive number to be heavily dependent on local spatial and egocentric effects.
 
 Since the right-censoring effect is a sampling artifact, it must be corrected for.
-On the other hand, local and egocentric effects will be embedded within realized generation intervals and do not need to be corrected for as they reflect the unobserved characteristic of a realized epidemic.
+Local and egocentric effects are expected to be embedded within realized generation intervals and do not need to be corrected for as they reflect the unobserved characteristic of a realized epidemic.
 We claim that accounting for the right-censoring effect is sufficient and any necessary spatial component will be accounted for implicitly.
 Hereafter, we will refer to temporally corrected distribution as the effective generation-interval distribution to contrast from the intrinsic generation-interval distribution; only in a large homogeneously mixing population, the corrected generation-interval distribution will be equivalent to the intrinsic generation-interval distribution.
 In this section, we investigate two statistical methods for correcting for temporal bias in a contact tracing data.
@@ -274,10 +269,11 @@ Detailed derivations of the two methods can be found in section ???.
 
 We refer to the first method as the population-level method as it relies on the observed distribution aggregated across population.
 As the observed generation-interval distribution is a weighted distribution of the effective distribution, the effective distribution can be recovered by taking the inverse of the weights, given by \eref{exp}.
-Hence, the population-level method relies on the observed generation intervals and the exponential growth rate \citep{tomba2010some}:
+Hence, the population-level method relies on the observed generation intervals and the exponential growth rate \citep{tomba2010some, nishiura2010time}:
 \begin{equation}
 g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau).
 \end{equation}
+When the susceptible dynamics is known, this equation can be generalized by using \eref{obsg}.
 While the population-level method is simple and intuitive, it does not use all available information from contact tracing data as it does not take into account who infected whom.
 
 The individual-level method assumes that the initial exponential growth phase of an epidemic can be approximated by a Poisson process to derive a likelihood for the observations from each individual:
@@ -285,13 +281,9 @@ The individual-level method assumes that the initial exponential growth phase of
 \mathcal{L}(\RR, \theta) = \prod_{j=1}^N \left(\RR^{n_j} \exp \left(- \RR \int_0^{\tsub{t}{censor} - t_j} g(s;\theta) ds \right) \prod_{i=1}^{n_j} g(\tau_{i, j}; \theta) \right),
 \end{equation}
 where $N$ is the total number of infected individuals, $n_j$ is the number of individuals infected by $j$, $\tsub{t}{censor}$ is the time period which censoring was performed until, $t_j$ is the time at which infector $j$ was infected, $\tau_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is the (vector) parameter of the generation-interval distribution $g$.
-A similar method has beem proposed by \cite{forsberg2008likelihood} but it relies on discretized incidence reports rather than the observed generation intervals.
+A similar method has beem proposed by \cite{forsberg2008likelihood} but thier method uses on discretized incidence reports rather than the observed generation intervals.
 
-\swp{I might say something about independence transmission events in the results if I decide to compare forsberg2008 as well -- see forsberg 2008...}
-\swp{I got stuck on forsberg 2008. I get weird estimates with wide confidence intervals but I feel like that's what their method is supposed to do (based on figure 3 in their paper). It doesn't use generation interval either so I think we can just ignore it?}
-\jd{If it really is similar in some important way just stick with what you've already said. Otherwise, ignore it.}
-
-First, we compare how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (Figure~\ref{fig:example}).
+First, we compare how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (\fref{example}).
 During the initial exponential growth period (approximately between 9 and 20 weeks), both population-level and individual-level methods yield similar estimates of mean generation interval and reproductive number.
 However, we observe opposite trends after the growth period (approximately after 20 weeks).
 As the population-level method takes a weighted average of the observed distribution, increase in the observed mean generation interval leads to increase in the nonparametric estimates of both mean generation interval and reproductive number.
