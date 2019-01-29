@@ -63,17 +63,18 @@ Due to individual variation in infection time, the observed generation-interval 
 There are important distinctions to be made when estimating generation intervals: \emph{intrinsic} generation intervals are measured by evaluating the infectiousness of infected people,
 %% without regard to actual infection events,
 while \emph{observed} generation intervals refer to the time between actual infection events.
-Observed generation intervals in turn can be \emph{aggregated} across time, measured \emph{forward} in time by looking at a cohort of individuals infected at the same time and asking when they infected others, or measured \emph{backward in time} by look at a cohort and asking when their infectors were infected \citep{champredon2015intrinsic}.
+Observed generation intervals in turn can be \emph{aggregated} across time, measured \emph{forward} in time by looking at a cohort of individuals infected at the same time and asking when they infected others, or measured \emph{backward in time} by looking at a cohort and asking when their infectors were infected \citep{champredon2015intrinsic}.
 % When aggregated generation intervals are observed until a given time in an ongoing epidemic (often via contact tracing), we refer to these as \emph{censored} (or right-censored) intervals.
 
-Early in the epidemic when depletion of susceptibles is negligible, we expect the forward generation-interval distribution to be similar to the intrinsic generation-interval distribution.
+\jd{Consider rewriting to use early-late as the first-level structure. Early is the part that people focus on most. We could even throw in censorship.}
+Early in an epidemic, when depletion of susceptibles is negligible, we expect the forward generation-interval distribution to be similar to the intrinsic generation-interval distribution.
 As epidemic progresses, an infector is less likely to infect individuals later in time due to decrease in susceptibles and the distribution of forward generation intervals will be shorter than the intrinsic distribution.
 Conversely, when an epidemic is growing exponentially, as often occurs near the beginning of an outbreak, the number of newly infected individuals will be large relative to the number infected earlier on. 
 A susceptible individual is thus relatively more likely to be infected by a newly infected individual, and the distribution of backward generation intervals will be shorter than the intrinsic distribution.
 When epidemic is subsiding, most infections are caused by the remaining infectors, rather than new infectors, and the backward generation interval will be long \citep{champredon2015intrinsic}.
 
-In practice, generation intervals are measured by contact tracing throughout the course of an epidemic, usually aggregated to increase the amount of information available; we refer to these as \emph{censored} (or right-censored) intervals.
-When calculations are based on early-outbreak data, the available (censored) observations can be thought of as a weighted average of backward generation-interval distributions; like them, the observed censored intervals will be shorter than intrinsic distributions.
+In practice, generation intervals are often measured by aggregating available information from contact tracing; while an epidemic is ongoing, these measurements are \emph{censored} (or right-censored) at the observation time.
+These censored observations can be thought of as a weighted average of backward generation-interval distributions; like them, they observed censored intervals will be shorter than intrinsic distributions early in the epidemic.
 
 Observed generation intervals also vary across space.
 In a structured population (that is, any population that does not mix homogeneously), susceptibility will tend to decrease more quickly in the neighborhood of infected individuals than in the general population. 
@@ -94,7 +95,7 @@ We discuss statistical approaches to estimating the effective generation-interva
 \includegraphics[width=\textwidth]{../fig/individual_and_population.pdf}
 \caption{\textbf{Comparison of individual- and population-level kernels.}
 (Left) an individual-level kernel of an infected individual with latent period of 11.4 days followed by infectious period of 5 days. 
-(Right) a population-level kernal of infected individuals with exponentially distributed latent and infectious period of 11.4 and 5 days, respectively. 
+(Right) a population-level kernel of infected individuals with latent and infectious periods exponentially distributed with means of 11.4 and 5 days, respectively. 
 Shaded areas under the curves are equal to individual- and population-level reproductive numbers, both of which are set to 2 in this example.
 }
 \label{fig:indpop}
@@ -122,13 +123,12 @@ The intrinsic generation-interval distribution is simply the population-level ke
 g(\tau) = \frac{K(t)}{\RR_0}.
 \end{equation}
 
-Since the intrinsic generation-interval distribution describes time distribution of new infections, it can be used to model incidence over time:
+We assume that the disease incidence $i(\tau)$ is the product of the current infectiousness of previously infected individuals and $S(\tau)$, the proportion of the population susceptible.
 \begin{equation}
-i(\tau) = S(\tau) \int K(s) i(\tau-s) ds = \RR \int g(s) i(\tau-s) ds
+i(\tau) = S(\tau) \int K(s) i(\tau-s) ds = \RR \int g(s) i(\tau-s) ds.
 \end{equation}
-where $i(\tau)$ is incidence at time $\tau$ and $S(\tau)$ is the proportion of the population susceptible.
-This model, also referred to as the renewal equation, represents wide range of epidemic models \citep{heesterbeek1996concept, diekmann2000mathematical, roberts2004modelling, aldis2005integral, wallinga2007generation, roberts2007model}.
-Finally, assuming exponentially growing incidence ($i(t) = i(0) \exp(r t)$), we obtain the Euler-Lotka equation \citep{lotka1907relation}, which provides a direct link between speed and strength of an epidemic:
+This model, also referred to as the renewal equation, can represent a wide range of epidemic models \citep{heesterbeek1996concept, diekmann2000mathematical, roberts2004modelling, aldis2005integral, wallinga2007generation, roberts2007model}.
+Over a period of time where $S$ remains roughly constant, we would expect approximately exponential growth in $i$; assuming $i(t) = i(0) \exp(r t)$ yields the Euler-Lotka equation \citep{lotka1907relation}, which provides a direct link between speed and strength of an epidemic:
 \begin{equation}
 \frac{1}{\RR} = \int g(\tau) \exp(-r \tau) d\tau.
 \end{equation}
