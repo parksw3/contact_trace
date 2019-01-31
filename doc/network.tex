@@ -262,12 +262,12 @@ Instead, we can derive a relationship between $r$ and $\RR$ that accounts for th
 \end{equation}
 This is equivalent to the relationship between $r$ and $\RR$ that \cite{trapman2016inferring} derived under a network structure. \swp{Need to confirm; Maybe prove it in appendix or something...how?}
 As the egocentric distribution always has a shorter mean than the intrinsic distribution, \Rhat\ will always be smaller than $\RR$ estimated from the intrinsic distribution.
-Similarly, \Rhat\ will always be greater than the \emph{true} reproductive number \RR\ as it does not account for other effects (e.g., local spatial effects and mean susceptible-depletion effects) that can decrease the mean generation interval.
+Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\, since it does not account for depletion of susceptibles by other routes.
 
 \section{Inferring generation-interval distributions from a contact tracing data}
 
 When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric effect, (3) local spatial effect and (4) mean susceptible-depletion effect.
-Right-censoring effect and egocentric effect are well-understood.
+We can correct explicitly for the egocentric effect and, in the case of exponential growth, the right-censoring effect.
 While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and reproductive number. 
 Both local spatial and susceptible depletion effects reduce number of infections that occur and shorten generation intervals but the time scale on which they matter differs:
 local spatial effect will be important early in an epidemic whereas the susceptible depletion will be small until sufficient amount of susceptible individuals become infected.
