@@ -135,15 +135,16 @@ Over a period of time where $S$ remains roughly constant, we would expect approx
 
 \subsection{Right-censored generation-interval distribution}
 
-\jd{Make sure we're not sounding too mathy.}
-\swp{I tried.}
-Generation intervals can be sampled during an outbreak by tracing infected individuals backward.
-As a result of backward sampling, it is impossible to sample from infections that occur beyond the sampling time and the generation-interval samples suffer from right censoring.
-In this section, we discuss the effect of right-censoring on the observed generation-interval distribution.
+\jd{Mathematically, early censored and early backward intervals are the same, but conceptually they're just different. In particular, censoring occurs even with forward tracing.}
+\jd{During exponential growth, the theoretical distributions are the same; maybe we should do a tiny bit of that math here so that we can talk more clearly about it.}
+\jd{We need to think about exposition. Maybe simple formulae for all of our interval types, both in general and under the assumption of exponential growth.}
+\jd{We should be saying that backward $\to$ censored in the limit at the same time we talk about the association below.}
 
+Generation intervals estimated during an outbreak are ``right-censored'', because intervals that end after the observation time are not observed. 
 Several studies have associated the backward generation-interval distribution with the observed generation-interval distribution \citep{tomba2010some, nishiura2010time, champredon2015intrinsic}, but the backward generation-interval distribution takes into account infections that are only a single generation apart from the focal time period.
 Instead, contact tracing can be performed over multiple generations, tracing all the way back to the primary case.
 Hence, to obtain a theoretical sampling distribution for the right-censored generation intervals, we want to consider all infections that occur from the beginning of an epidemic to a time period when contact tracing was performed.
+\jd{I hope that none of these papers actually make the mistake that you imply, it's all about the limit.}
 
 \begin{figure}[t]
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
@@ -190,10 +191,10 @@ When a disease is at (or near) endemic equilibrium, the number of susceptibles r
 
 \subsection{Egocentric kernel}
 
-An infected individual may contact the same susceptible individual multiple times but  infectious contacts give rise to infection only when the susceptible individual is contacted for the first time.
+An infected individual may contact the same susceptible individual multiple times, but only the first effective contact gives rise to infection in a given individual (after this, they are no longer susceptible).
 Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average, in a limited network.
-To understand the effect of multiple contacts on realized generation intervals, we have to consider the infection process from an egocentric point of view, only taking into account infectious contacts made by a single infector.
-We define the egocentric kernel, i.e., the rate at which secondary infections are realized by a single primary case $a$ in the absence of other infectors:
+To explore the effect of multiple contacts on realized generation intervals, we first consider the infection process from an ``egocentric'' point of view, taking into account infectious contacts made by a single infector.
+We define the egocentric kernel as the rate at which secondary infections are realized by a single primary case $a$ in the absence of other infectors:
 \begin{equation}
 \hat{K}_a(\tau) = K_a(\tau) \exp \left(- \delta_a \int_0^\tau K_a(s) ds\right),
 \end{equation}
@@ -210,11 +211,10 @@ and the population-level egocentric generation-interval distribution is:
 \hat{g}(\tau) = \frac{\hat{K}(\tau)}{\int \hat{K} \tau}.
 \label{eq:conditional}
 \end{equation}
-The population-level egocentric generation-interval distribution describes the distribution of times at which secondary infections are realized by an \emph{average} primary case.
-For convenience, egocentric distribution refers to the population-level distribution, unless noted otherwise.
+The population-level egocentric generation-interval distribution describes the distribution of times at which secondary infections are realized by an \emph{average} primary case; for brevity we will often omit ``population-level''.
 
 For example, consider a susceptible-exposed-infected-recovered (SEIR) model.
-This model assumes that latent and infectious periods are exponentially distributed and can describe wide range of diseases.
+This widely used model assumes that latent and infectious periods are exponentially distributed.
 The intrinsic generation-interval distribution that corresponds to this model can be written has [CITE]:
 \begin{equation}
 g(\tau) = \frac{\sigma \gamma}{\sigma - \gamma} \left(e^{-\gamma t} - e^{-\sigma t}\right),
@@ -226,17 +226,18 @@ Assuming that per-pair contact rate is $\lambda$ for any pair, we obtain the fol
 \end{equation}
 In this scenario, per-pair contact rate effectively decreases mean infectious period: an infected individual can no longer infect anyone (hence no longer infectious) when all its susceptible acquaintances have ben infected.
 
-The difference between egocentric and intrinsic generation-interval distribution can be demonstrated by simulating stochastic infection processes on a small tree network (i.e, a single infected individual is connected to multiple susceptible individuals who are not connected with each other) with high per-pair contact rate.
-Simulations confirm that in this case the distribution of contact times matches the intrinsic generation-interval distribution, while the distribution of realized generation times matches with the egocentric generation-interval distribution (\fref{local}) -- generation times are shorter on average because contacts with already-infected susceptibles do not lead to new infections.
+This calculation can be validated by simulating stochastic infection processes on a ``star'' network (i.e, a single infected individual at the center connected to multiple susceptible individuals who are not connected with each other).
+Simulations confirm that in this case the distribution of contact times matches the intrinsic generation-interval distribution, while the distribution of realized generation times matches the egocentric generation-interval distribution (\fref{local}) -- generation times are shorter on average because contacts with already-infected susceptibles do not lead to new infections.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/local_effect.pdf}
 \caption{
-\textbf{Comparison of spatial effects on the realized generation intervals.}
-(Left) The intrinsic generation-interval distribution corresponds to the distribution of all infectious contacts that were made, regardless of the outcome (i.e., whether it resulted in infection or not); 5000 stochastic simulations were performed on a tree network with 5 nodes (1 infector and 4 susceptibles).
-(Middle) The egocentric generation-interval distribution corresponds to the distribution of all infectious contacts made by a single primary infector that gave rise to infection; 5000 stochastic simulations were performed on a tree network with 5 nodes (1 infector and 4 susceptibles).
-(Right) The realized generation-interval distribution corresponds to the distribution of all infection times throughout an epidemic; 5000 stochastic simulations were performed on a homogeneous network with 5 nodes (1 infector and 4 susceptibles).
-\swp{Parameters? High per-pair contact? Need to describe and make the figure prettier}
+\textbf{Spatial effects on realized generation intervals.}
+Theoretical distributions and means are shown in color (and are the same in each panel, for reference). Simulated distributions and means are shown in black.
+(Left) The intrinsic generation-interval distribution corresponds to all contacts by a focal individual, regardless of whether the individual contacted is susceptible.
+(Middle) The egocentric generation-interval distribution corresponds to the distribution of all infectious contacts by the focal individual with susceptible individuals, in the case where the focal individual is the only possible infector (simulated on a star network).
+(Right) General spatial distributions are shorter than egocentric distributions, because contacts can be wasted when susceptibles become infected through other routesor (simulated on a homogeneous network).
+All graphs were generated using 5000 stochastic simulations were on a network with 5 nodes (1 infector and 4 susceptibles).
 }
 \label{fig:local}
 \end{figure}
@@ -245,9 +246,9 @@ The egocentric generation interval \eref{conditional} only explains some of the 
 Generation intervals are also shortened by indirect connections: a susceptible individual can be infected through another route before the focal individual makes infectious contacts.
 Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
 
-In general, there are two factors that cause further reduction in the mean generation interval: (1) the local spatial effect (e.g., in a household) and (2) the overall depletion of susceptible individuals in the population;
-the latter effect provides an equivalent explanation for the underestimation of the mean generation interval, sampled across an entire epidemic (\fref{censor}). 
-Although the effect of the overall depletion of susceptible individuals is relatively well-understood \citep{champredon2015intrinsic}, estimating the effects of most networks on observed generation intervals is expected to be a hard problem. 
+In general, there are two factors that cause spatial reduction in the mean generation interval: local spatial effects (e.g., in a household or neighborhood) and (2) population-level effects; 
+the latter effect provides an equivalent explanation for the underestimation of the mean generation interval, sampled across an entire epidemic (\fref{censor}). \jd{I'll have to think about this, or you'll have to explain.}
+Although the effect of the overall depletion of susceptible individuals is relatively well-understood \citep{champredon2015intrinsic}, estimating the local effects on observed generation intervals is expected to be a hard problem on realistic networks. 
 \cite{tomba2010some} showed that an analytical expression for the mean generation interval, which takes into account the local spatial effect, can be derived for a household with one primary case and two susceptible individuals, but solving for higher order structures seems both infeasible and impractical.
 \jd{The global spatial effect is sort of the non-spatial effect: the overall response to decreasing susceptibles, like in Champredon.}
 \swp{Tried to fix this}
