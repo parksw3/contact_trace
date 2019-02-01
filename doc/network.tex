@@ -287,21 +287,21 @@ Hence, the population-level method relies on the observed generation intervals a
 g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau).
 \end{equation}
 When the susceptible dynamics is known, this equation can be generalized by using \eref{obsg}.
-While the population-level method is simple and intuitive, it does not use all available information from contact tracing data as it does not take into account who infected whom.
+The population-level method is simple and intuitive, but does not take into account who infected whom; we might therefore expect the individual-level method to be more powerful.
 
-The individual-level method assumes that the initial exponential growth phase of an epidemic can be approximated by a Poisson process to derive a likelihood for the observations from each individual:
+The individual-level method \jd{I don't see how we're assuming this:} assumes that the initial exponential growth phase of an epidemic can be approximated by a Poisson process to derive a likelihood for the observations from each individual:
 \begin{equation}
 \mathcal{L}(\RR, \theta) = \prod_{j=1}^N \left(\RR^{n_j} \exp \left(- \RR \int_0^{\tsub{t}{censor} - t_j} g(s;\theta) ds \right) \prod_{i=1}^{n_j} g(\tau_{i, j}; \theta) \right),
 \end{equation}
 where $N$ is the total number of infected individuals, $n_j$ is the number of individuals infected by $j$, $\tsub{t}{censor}$ is the time period which censoring was performed until, $t_j$ is the time at which infector $j$ was infected, $\tau_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is the (vector) parameter of the generation-interval distribution $g$.
-A similar method has beem proposed by \cite{forsberg2008likelihood} but thier method uses on discretized incidence reports rather than the observed generation intervals.
+\cite{forsberg2008likelihood} proposed a related approach based on discretized incidence reports.
 
 First, we compare how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (\fref{example}).
 During the initial exponential growth period (approximately between 9 and 20 weeks), both population-level and individual-level methods yield similar estimates of mean generation interval and reproductive number.
-However, we observe opposite trends after the growth period (approximately after 20 weeks).
+However, we observe opposite trends after the growth period (approximately after 20 weeks). \jd{I kind of feel we're gettting off track here. The main focus should be on early fits, and we should be describing how cool \fref{cmp} is before we wander off into these woods.}
 As the population-level method takes a weighted average of the observed distribution, increase in the observed mean generation interval leads to increase in the nonparametric estimates of both mean generation interval and reproductive number.
 On the other hand, as the individual-level method assumes a Poisson process with constant proportion of susceptibles, decrease in the number of susceptible is translated to underestimation of both mean generation interval and reproductive number.
-we observe grdaual increase in the observed mean-generation interval as we aggregate more data, but using the raw observed generation interval distributions always underestimate both mean generation interval and reproductive number, as predicted from the deterministic simulation (Figure~\ref{fig:censor}).
+we observe gradual increase in the observed mean-generation interval as we aggregate more data, but using the raw observed generation interval distributions always underestimate both mean generation interval and reproductive number, as predicted from the deterministic simulation (Figure~\ref{fig:censor}).
 Around the 14th week, reproductive number estimate based on the observed generation interval approximately matches the true reproductive number; this is due to initial overestimation of the initial growth rate and we generally expect reproductive to be underestimated. \swp{Maybe another figure in the supp}
 
 \begin{figure}
