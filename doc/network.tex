@@ -246,12 +246,12 @@ The egocentric generation interval \eref{conditional} only explains some of the 
 Generation intervals are also shortened by indirect connections: a susceptible individual can be infected through another route before the focal individual makes infectious contacts.
 Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
 
-In general, there are two factors that cause spatial reduction in the mean generation interval: local spatial effects (e.g., in a household or neighborhood) and (2) population-level effects; 
+\jd{I think there's room to be clearer here. All three depletion effects are similar. Should we call them all depletion?: egocentric, local, global?} In general, there are two factors that cause spatial reduction in the mean generation interval: local spatial effects (e.g., in a household or neighborhood) and (2) population-level effects; 
 the latter effect provides an equivalent explanation for the underestimation of the mean generation interval, sampled across an entire epidemic (\fref{censor}). \jd{I'll have to think about this, or you'll have to explain.}
-Although the effect of the overall depletion of susceptible individuals is relatively well-understood \citep{champredon2015intrinsic}, estimating the local effects on observed generation intervals is expected to be a hard problem on realistic networks. 
-\cite{tomba2010some} showed that an analytical expression for the mean generation interval, which takes into account the local spatial effect, can be derived for a household with one primary case and two susceptible individuals, but solving for higher order structures seems both infeasible and impractical.
+Although the effect of the overall depletion of susceptible individuals is relatively well-understood \citep{champredon2015intrinsic}, estimating the local effects on observed generation intervals is expected to be a hard problem on realistic networks, although there has been interesting work on spatial cases, particularly on hierarchical networks of households nested within communities (e.g.,  \cite{tomba2010some}). \jd{Don't think we need more than that about Tomba; I wonder if any of Frank Ball's household work could be relevant.}
 \jd{The global spatial effect is sort of the non-spatial effect: the overall response to decreasing susceptibles, like in Champredon.}
 \swp{Tried to fix this}
+\jd{K. I've added at least one new comment in this direction Feb 05 (Tue).}
 
 \subsection{Linking growth rate and reproductive number}
 
@@ -269,6 +269,7 @@ Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\,
 When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric effect, (3) local spatial effect and (4) mean susceptible-depletion effect.
 We can correct explicitly for the egocentric effect and, in the case of exponential growth, the right-censoring effect.
 While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and reproductive number. 
+\jd{How about: Both local and global depletion\ldots?}
 Both local spatial and susceptible depletion effects reduce number of infections that occur and shorten generation intervals but the time scale on which they matter differs:
 local spatial effect will be important early in an epidemic whereas the susceptible depletion will be small until sufficient amount of susceptible individuals become infected.
 As a result, we expect the initial spread of a disease and the realized reproductive number to be heavily dependent on local spatial and egocentric effects.
