@@ -1,15 +1,21 @@
 
-Change pipeline to .Rout style. 
+Earlier computation notes
 
-Figure out why I can't make the poster, and then make and study the poster
+contact_trace
+* run simulations in sim directory
+* rdas are names after R scripts
+* open files in analysis directory
 
-Paper
------
+analysis/cmp_compare.rda          
+analysis/seminr_growth.rda       
+analysis/seminr_nonparametric.rda
+analysis/seminr_observed.rda    
+analysis/seminr_parametric.rda 
 
-First stake out concepts: temporal effect, spatial effect, where intrinsic measures, tracing measures and rR-linking
+generation.data describes generation intervals
+network.generation is a different thing
 
-Stats (Daniel first). Focus on pop-level (old); ind-level (full likelihood). Mention conditionl likelihood briefly?
+seminr_parametric.R is where CIs are calculated for individual-based methods
 
-We were talking about names for the spatial effects: maybe full and egocentric?
+networkSEIR
 
-We have agreed to not push .gitignore for our shared projects!
