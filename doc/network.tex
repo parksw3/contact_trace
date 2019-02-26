@@ -67,6 +67,7 @@ Observed generation intervals in turn can be \emph{aggregated} across time, meas
 % When aggregated generation intervals are observed until a given time in an ongoing epidemic (often via contact tracing), we refer to these as \emph{censored} (or right-censored) intervals.
 
 \jd{Consider rewriting to use early-late as the first-level structure. Early is the part that people focus on most. We could even throw in censorship.}
+\swp{Not sure what you mean... I tried to focus on early-late throughout the manuscript}
 Early in an epidemic, when depletion of susceptibles is negligible, we expect the forward generation-interval distribution to be similar to the intrinsic generation-interval distribution.
 As epidemic progresses, an infector is less likely to infect individuals later in time due to decrease in susceptibles and the distribution of forward generation intervals will be shorter than the intrinsic distribution.
 Conversely, when an epidemic is growing exponentially, as often occurs near the beginning of an outbreak, the number of newly infected individuals will be large relative to the number infected earlier on. 
@@ -197,7 +198,7 @@ When a disease is at (or near) endemic equilibrium, the number of susceptibles r
 \subsection{Egocentric kernel}
 
 An infected individual may contact the same susceptible individual multiple times, but only the first effective contact gives rise to infection in a given individual (after this, they are no longer susceptible).
-Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average, in a limited network.
+Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average, in a limited contact network.
 To explore the effect of multiple contacts on realized generation intervals, we first consider the infection process from an ``egocentric'' point of view, taking into account infectious contacts made by a single infector.
 We define the egocentric kernel as the rate at which secondary infections are realized by a single primary case $a$ in the absence of other infectors:
 \begin{equation}
@@ -220,7 +221,7 @@ The population-level egocentric generation-interval distribution describes the d
 
 For example, consider a susceptible-exposed-infected-recovered (SEIR) model.
 This widely used model assumes that latent and infectious periods are exponentially distributed.
-The intrinsic generation-interval distribution that corresponds to this model can be written has [CITE]:
+The intrinsic generation-interval distribution that corresponds to this model can be written has \citep{svensson2015influence}:
 \begin{equation}
 g(\tau) = \frac{\sigma \gamma}{\sigma - \gamma} \left(e^{-\gamma t} - e^{-\sigma t}\right),
 \end{equation}
@@ -251,21 +252,29 @@ The egocentric generation interval \eref{conditional} only explains some of the 
 Generation intervals are also shortened by indirect connections: a susceptible individual can be infected through another route before the focal individual makes infectious contacts.
 Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
 
-\jd{I think there's room to be clearer here. All three depletion effects are similar. Should we call them all depletion?: egocentric, local, global?} In general, there are two factors that cause spatial reduction in the mean generation interval: local spatial effects (e.g., in a household or neighborhood) and (2) population-level effects; 
-the latter effect provides an equivalent explanation for the underestimation of the mean generation interval, sampled across an entire epidemic (\fref{censor}). \jd{I'll have to think about this, or you'll have to explain.}
+\jd{I think there's room to be clearer here. All three depletion effects are similar. Should we call them all depletion?: egocentric, local, global?} 
+\swp{I like it}
+In general, spatial reduction in the mean generation interval can be viewed as an effect of susceptible depletion and can be further classified into three levels: egocentric, local, and global.
+Egocentric depletion, as discussed previously, is caused by an infected individual making multiple contacts to the same individual.
+Local depletion refers to a depletion of susceptible individuals in a household or neighborhood;
+this effect can be observed early in an epidemic, especially in a highly structured population, even if most of the population remains susceptible.
+Finally, global depletion refers to overall depeletion of susceptibility as a population-level and explains the underestimation of the mean generation interval, sampled across an entire epidemic (\fref{censor}). 
+\jd{I'll have to think about this, or you'll have to explain.} \swp{we changed our local and global explanations so this should be consistent what we said above.}
 Although the effect of the overall depletion of susceptible individuals is relatively well-understood \citep{champredon2015intrinsic}, estimating the local effects on observed generation intervals is expected to be a hard problem on realistic networks, although there has been interesting work on spatial cases, particularly on hierarchical networks of households nested within communities (e.g.,  \cite{tomba2010some}). \jd{Don't think we need more than that about Tomba; I wonder if any of Frank Ball's household work could be relevant.}
 \jd{The global spatial effect is sort of the non-spatial effect: the overall response to decreasing susceptibles, like in Champredon.}
 \swp{Tried to fix this}
 \jd{K. I've added at least one new comment in this direction Feb 05 (Tue).}
+\swp{Tried to fix this}
 
 \subsection{Linking growth rate and reproductive number}
 
+\swp{I might want to move this paragraph to after equation 13. It doesn't feel like it fits here.}
 The intrinsic generation-interval distribution provides a link between the speed (exponential growth rate, $r$) and the strength (reproductive number, $\RR$) of an epidemic via Euler-Lotka equation \citep{lotka1907relation} but assumes a homogeneously mixing population.
 Instead, we can derive a relationship between $r$ and $\RR$ that accounts for the egocentric effect using the egocentric generation-interval distribution:
 \begin{equation}
 \frac{1}{\hat{\RR}} = \int \hat{g}(\tau) \exp(-r \tau) d\tau.
 \end{equation}
-This is equivalent to the relationship between $r$ and $\RR$ that \cite{trapman2016inferring} derived under a network structure. \swp{Need to confirm; Maybe prove it in appendix or something...how?}
+This is equivalent to the relationship between $r$ and $\RR$ that \cite{trapman2016inferring} derived under a network structure. \swp{Need to confirm; Maybe prove it in appendix or something... will get back to this later}
 As the egocentric distribution always has a shorter mean than the intrinsic distribution, \Rhat\ will always be smaller than $\RR$ estimated from the intrinsic distribution.
 Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\, since it does not account for depletion of susceptibles by other routes.
 
