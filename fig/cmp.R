@@ -36,4 +36,4 @@ ggR <- ggplot(RRdata2) +
 		axis.title.x=element_blank()
 	)
 
-ggsave("cmp_reproductive.pdf", ggR, width=6, height=4)
+ggsave("cmp_reproductive.pdf", ggR, width=6, height=3)

@@ -73,3 +73,8 @@ plot(dd_serial$time, dd_serial$mean, type="l",
 title("Symptomatic cases")
 abline(h=17.7, lty=2)
 dev.off()
+
+
+## ppl who got smallpox are going to be examined more carefully
+## read Wallinga
+## 

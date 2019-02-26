@@ -1,4 +1,6 @@
 \documentclass[12pt]{article}
+\usepackage[top=1in,left=1in, right = 1in, footskip=1in]{geometry}
+
 \title{Inferring generation-interval distributions from contact tracing data: \\ \emph{in prep, PRSB}}
 \author{Sang Woo Park, David Champredon and Jonathan Dushoff}
 
@@ -161,7 +163,7 @@ b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-x) g(x) d\tau}
 \end{equation}
 On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections that are $\tau$ time units apart from any reference time $s$ before $t$ and is proportional to $\int_0^t i_{s-\tau}(s) ds$.
 Then, the censored generation-interval distribution is given by
-\begin{equation}
+\begin{equation}\label{eq:obsg}
 c_t(\tau) = \frac{g(\tau) \int_0^t i(s-\tau) S(s) ds}{\int_0^t g(\tau) \int_0^t i(s-\tau) S(s) ds d\tau}
 \end{equation}
 Alternatively, the censored generatio-interval distribution can be interpreted as a weighted distribution of the backward generation intervals:
@@ -240,9 +242,9 @@ Simulations confirm that in this case the distribution of contact times matches 
 \caption{
 \textbf{Spatial effects on realized generation intervals.}
 Theoretical distributions and means are shown in color (and are the same in each panel, for reference). Simulated distributions and means are shown in black.
-(Left) The intrinsic generation-interval distribution corresponds to all contacts by a focal individual, regardless of whether the individual contacted is susceptible.
-(Middle) The egocentric generation-interval distribution corresponds to the distribution of all infectious contacts by the focal individual with susceptible individuals, in the case where the focal individual is the only possible infector (simulated on a star network).
-(Right) General spatial distributions are shorter than egocentric distributions, because contacts can be wasted when susceptibles become infected through other routesor (simulated on a homogeneous network).
+(Left) the intrinsic generation-interval distribution corresponds to all contacts by a focal individual, regardless of whether the individual contacted is susceptible (simulated on a star network).
+(Middle) the egocentric generation-interval distribution corresponds to the distribution of all infectious contacts by the focal individual with susceptible individuals, in the case where the focal individual is the only possible infector (simulated on a star network).
+(Right) realized generation-interval distributions are shorter than egocentric distributions in general, because contacts can be wasted when susceptibles become infected through other routes (simulated on a homogeneous network).
 All graphs were generated using 5000 stochastic simulations were on a network with 5 nodes (1 infector and 4 susceptibles).
 }
 \label{fig:local}
@@ -280,36 +282,76 @@ Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\,
 
 \section{Inferring generation-interval distributions from a contact tracing data}
 
-When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric effect, (3) local spatial effect and (4) mean susceptible-depletion effect.
+When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric depletion effect, (3) local depletion effect and (4) global depletion effect.
 We can correct explicitly for the egocentric effect and, in the case of exponential growth, the right-censoring effect.
 While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and reproductive number. 
-\jd{How about: Both local and global depletion\ldots?}
-Both local spatial and susceptible depletion effects reduce number of infections that occur and shorten generation intervals but the time scale on which they matter differs:
-local spatial effect will be important early in an epidemic whereas the susceptible depletion will be small until sufficient amount of susceptible individuals become infected.
-As a result, we expect the initial spread of a disease and the realized reproductive number to be heavily dependent on local spatial and egocentric effects.
+\jd{How about: Both local and global depletion\ldots?} \swp{Done.}
+Both local and global depletion effects reduce number of infections that occur and shorten generation intervals but the time scale on which they matter differs:
+local depletion will be important early in an epidemic whereas global depletion will be small until sufficient amount of susceptible individuals become infected.
+As a result, we expect the initial spread of a disease and the realized reproductive number to be heavily dependent on local structure of the contact network near the source of an outbreak.
 
-Since the right-censoring effect is a sampling artifact, it must be corrected for.
-Local and egocentric effects are expected to be embedded within realized generation intervals and do not need to be corrected for as they reflect the unobserved characteristic of a realized epidemic.
+Since the right-censoring effect is a sampling bias, it must be corrected for.
+Any spatial effects are expected to be embedded within realized generation intervals and do not need to be corrected for as they reflect the unobserved characteristic of a realized epidemic.
 We claim that accounting for the right-censoring effect is sufficient and any necessary spatial component will be accounted for implicitly.
 Hereafter, we will refer to temporally corrected distribution as the effective generation-interval distribution to contrast from the intrinsic generation-interval distribution; only in a large homogeneously mixing population, the corrected generation-interval distribution will be equivalent to the intrinsic generation-interval distribution.
 In this section, we investigate two statistical methods for correcting for temporal bias in a contact tracing data.
-Detailed derivations of the two methods can be found in section ???.
+Detailed derivations of the two methods can be found in Methods.
+\swp{TODO: Write methods}
 
-We refer to the first method as the population-level method as it relies on the observed distribution aggregated across population.
+
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{../fig/cmp_reproductive.pdf}
+\caption{\textbf{Comparison of estimates of reproductive number based on various methods}
+Using the observed generation-interval distributions without correcting for right-censoring severely underestimates the reproductive number.
+Similarly, using intrinsic and egocentric generation-interval distributions without accounting for local spatial effects overestimates the reproductive number.
+Both population-level and individual-level methods provide estimates of reproductive number that are consistent with the empirical estimates, which we define as the average number of secondary cases generated by the first 100 infected individuals.
+Boxplots are generated using 100 stochastic simulations of the SEIR model on an empirical network using Ebola-like parameters (see Methods).
+}
+\label{fig:cmp}
+\end{figure}
+
+We refer to the first method as the population-level method as it relies on the observed distribution aggregated across the entire population.
 As the observed generation-interval distribution is a weighted distribution of the effective distribution, the effective distribution can be recovered by taking the inverse of the weights, given by \eref{exp}.
 Hence, the population-level method relies on the observed generation intervals and the exponential growth rate \citep{tomba2010some, nishiura2010time}:
 \begin{equation}
 g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau).
 \end{equation}
-When the susceptible dynamics is known, this equation can be generalized by using \eref{obsg}.
-The population-level method is simple and intuitive, but does not take into account who infected whom; we might therefore expect the individual-level method to be more powerful.
+When the susceptible dynamics is known, this equation can be generalized by using \eref{obsg}; we do not pursue this direction in this study.
+The population-level method is simple and intuitive, but does not take into account who infected whom.
+%% we might therefore expect the individual-level method to be more powerful.
+%% SWP: We haven't introduced the individual-level method yet...
 
-The individual-level method \jd{I don't see how we're assuming this:} assumes that the initial exponential growth phase of an epidemic can be approximated by a Poisson process to derive a likelihood for the observations from each individual:
+The individual-level method assumes that the initial exponential growth phase of an epidemic can be approximated by a Poisson process to derive a likelihood for the observations from each individual:
 \begin{equation}
-\mathcal{L}(\RR, \theta) = \prod_{j=1}^N \left(\RR^{n_j} \exp \left(- \RR \int_0^{\tsub{t}{censor} - t_j} g(s;\theta) ds \right) \prod_{i=1}^{n_j} g(\tau_{i, j}; \theta) \right),
+\begin{aligned}
+&\mathcal{L}(\RR, \theta\,|\, \mathbf{s}, \mathbf{t}, \mathbf{n}, \tsub{t}{censor})\\
+&\quad=\prod_{j=1}^N \left(\RR^{n_j} \exp \big(- \RR G(\tsub{t}{censor} - t_j ;\theta) \big) \prod_{i=1}^{n_j} g(s_{i, j}; \theta) \right),
+\end{aligned}
 \end{equation}
-where $N$ is the total number of infected individuals, $n_j$ is the number of individuals infected by $j$, $\tsub{t}{censor}$ is the time period which censoring was performed until, $t_j$ is the time at which infector $j$ was infected, $\tau_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is the (vector) parameter of the generation-interval distribution $g$.
+where $N$ is the total number of infected individuals, $n_j$ is the number of individuals infected by infector $j$, $\tsub{t}{censor}$ is the time period which censoring was performed until, $t_j$ is the time at which infector $j$ was infected, $s_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is a (vector) parameter of the generation-interval distribution $g$ (and the corresponding cumulative distribution function $G$).
 \cite{forsberg2008likelihood} proposed a related approach based on discretized incidence reports.
+
+To test these methods, we simulate 100 epidemics with Ebola-liked parameters on an empirical network and compare the estimates of reproductive number with empirical reproductive numbers, which we define as the average number of secondary cases generated by the first 100 infected individuals (\fref{cmp}).
+\cite{trapman2016inferring} estimated the true reproductive number by dividing the total number of infected individuals in generations $2$ to $k+1$ by the total number of infected individuals in generations $1$ to $k$, where the reference generation $k$ is defined to be the first generation that contains at least 75 infected individuals;
+however, individuals in later generations are potentially subject to stronger local depletion and even global depletion effects.
+Therefore, we expect our empirical estimate to better reflect the infection process during the exponential growth phase.
+\swp{TODO: Compare Trapman vs our estimate of empirical R0 in Appendix; Trapman estimate is much lower.}
+
+As we predicted earlier, calculating reproductive number based on the intrinsic generation-interval distribution overestimates the empirical reproductive number;
+estimates based on the egocentric generation-interval distribution (\eref{conditional}) are closer to empirical reproductive numbers but still suffer from overestimation as they do not account for indirect spatial effects.
+Direct estimates based on contact tracing data severely underestimates the empirical estimates.
+While both population- and individual-level corrections provide similar estimates to the empirical reproductive number,
+population-level estimates are more variable as they are more sensitive to outliers in generation intervals and our estimate of the growth rate.
+For smaller values of \RR, we expect the differences to become smaller. 
+\swp{TODO: In Appendix, we present the same figure using gamma-distributed latent periods, which better corresponds to Ebola. Overall, our qualitative conclusions do not change.}
+
+\section{Discussion}
+
+
+
+\pagebreak
+
+\section{Junk}
 
 First, we compare how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (\fref{example}).
 During the initial exponential growth period (approximately between 9 and 20 weeks), both population-level and individual-level methods yield similar estimates of mean generation interval and reproductive number.
@@ -342,24 +384,6 @@ Even though the gamma distribution looks indistinguishable from the shape of the
 To confirm that the undercoverage is caused by distribuional assumption, we simulated an epidemic using gamma intrinsic generation-interval and found that fitting the true shape yields nominal coverage (see Appendix).
 These results are particularly alarming because shape of the generation-interval distribution have often been assumed in outbreak analyses and it is impossible to know the true shape of the distribution [CITE].
 
-\begin{figure}
-\includegraphics[width=\textwidth]{../fig/cmp_reproductive.pdf}
-\caption{\textbf{Comparison of estimates of reproductive number based on various methods}
-Using the observed generation-interval distributions without correcting for right-censoring severely underestimates the reproductive number.
-Similarly, using intrinsic and egocentric generation-interval distributions without accounting for local spatial effects overestimates the reproductive number.
-Both population-level and individual-level methods provide estimates of reproductive number that are consistent with the empirical estimates, which we define as the average number of secondary cases generated by the first 100 infected individuals.
-100 stochastic simulations were performed on an empirical network [CITE] using Ebola-like parameters (latent period = 11.4 days and infectious period = 5 days).
-}
-\label{fig:cmp}
-\end{figure}
-
-%% TODO: put SEIR in main text and show SE2IR in appendix for consistency
-Finally, we simulate 100 epidemics with Ebola-liked parameters on an empirical network [CITE] and compare the estimates of reproductive number based on different methods with empirical reproductive numbers, which we define as the average number of secondary cases generated by the first 100 infected individuals (\fref{cmp}).
-As we predicted earlier, calculating reproductive number based on the intrinsic generation-interval distribution overestimates the empirical reproductive number;
-estimates based on the egocentric generation-interval distribution (\eref{conditional}) are closer to empirical reproductive numbers but still suffer from overestimation as they do not account for indirect spatial effects.
-Direct estimates based on contact tracing data severely underestimates the empirical estimates.
-Both population and individual corrections provide similar estimates to empirical reproductive numbers.
-For smaller values of \RR, we expect the differences to become smaller. 
 
 \clearpage
 

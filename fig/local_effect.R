@@ -5,6 +5,9 @@ source("../sim/ebola_param.R")
 source("../R/seir.R")
 source("../R/generation.R")
 
+scale_colour_discrete <- function(...,palette="Dark2") scale_colour_brewer(...,palette=palette)
+scale_fill_discrete <- function(...,palette="Dark2") scale_fill_brewer(...,palette=palette)
+
 beta <- 1
 N <- 5
 lambda <- beta/(N-1)
@@ -43,12 +46,12 @@ gendata_int <- reslist_local %>%
 	unlist
 	
 gendata_mean <- data.frame(
-	type=c("intrinsic", "conditional", "homogeneous"),
+	type=c("Intrinsic", "Egocentric", "Homogeneous"),
 	value=c(mean(gendata_int), mean(gendata_cond), mean(gendata_full))
 )
 
 true_mean <- data.frame(
-	key=c("intrinsic", "conditional"),
+	key=c("Intrinsic", "Egocentric"),
 	value=c(1/sigma+1/gamma, 1/sigma + 1/(gamma+lambda))
 )
 	
@@ -64,18 +67,20 @@ gendata_total <- list(
 	) 
 ) %>%
 	bind_rows(.id="type") %>%
-	mutate(type=factor(type, levels=c("intrinsic", "conditional", "homogeneous")))
+	mutate(type=factor(type, 
+					   levels=c("intrinsic", "conditional", "homogeneous"),
+					   labels=c("Intrinsic", "Egocentric", "Homogeneous") ))
 
 tvec <- seq(0, 80, by=0.1)
 
 dendata <- list(
 	data.frame(
-		key="intrinsic",
+		key="Intrinsic",
 		x=tvec,
 		density=intrinsic_fun(tvec)
 	),
 	data.frame(
-		key="conditional",
+		key="Egocentric",
 		x=tvec,
 		density=conditional_fun(tvec)
 	) 
@@ -84,11 +89,11 @@ dendata <- list(
 
 gglocal <- ggplot(gendata_total) +
 	geom_histogram(aes(value, y=..density..), bins=30, col="black", fill=NA) +
-	geom_line(data=dendata, aes(x, density, col=key), lwd=1.2) +
-	geom_vline(data=true_mean, aes(xintercept=value, col=key), lwd=1.2) +
-	geom_vline(data=gendata_mean, aes(xintercept=value), lty=2, lwd=1.2) +
-	geom_text(data=gendata_mean, aes(55, 0.075, label=paste0("observed mean: ", round(value, 1)))) +
-	scale_x_continuous("generation interval (days)",limits=c(0, 80)) +
+	geom_line(data=dendata, aes(x, density, col=key), lwd=1.5) +
+	geom_vline(data=true_mean, aes(xintercept=value, col=key), lwd=1.5) +
+	geom_vline(data=gendata_mean, aes(xintercept=value), lty=2, lwd=1) +
+	geom_text(data=gendata_mean, aes(51, 0.075, label=paste0("observed mean: ", round(value, 1), " days"))) +
+	scale_x_continuous("Generation interval (days)",limits=c(0, 80)) +
 	scale_y_continuous(expand=c(0, 0), limits=c(0, 0.08)) +
 	facet_wrap(~type) +
 	theme(
@@ -104,4 +109,3 @@ gglocal <- ggplot(gendata_total) +
 	)
 
 ggsave("local_effect.pdf", gglocal, width=8, height=3.5)
-
