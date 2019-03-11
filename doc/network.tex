@@ -56,7 +56,7 @@
 
 An epidemic can be characterized by its speed (exponential growth rate, $r$) and its strength (reproductive number, \RR).
 Reproductive number, defined as the average number of secondary cases arising from a primary case, is of particular interest as it provides information about the final size of an epidemic \citep{anderson1991infectious, diekmann1990definition}.
-However, directly measuring the reproductive number often requires detailed knowledge of disease natural history and may not be feasible early in an epidemic \swp{Can't figure out what I should cite here; maybe nothing}.
+However, directly measuring the reproductive number often requires detailed knowledge of the natural history of a disease and may not be feasible early in an epidemic \swp{Can't figure out what I should cite here; maybe nothing}.
 Instead, the reproductive number can be \emph{indirectly} estimated from the exponential growth rate, which can often be estimated from incidence data \citep{mills2004transmissibility, nishiura2009transmission, ma2014estimating}.
 These two quantities are linked by generation-interval distributions \citep{wallinga2007generation, park2019practical}.
 
@@ -343,11 +343,22 @@ Direct estimates based on contact tracing data severely underestimates the empir
 While both population- and individual-level corrections provide similar estimates to the empirical reproductive number,
 population-level estimates are more variable as they are more sensitive to outliers in generation intervals and our estimate of the growth rate.
 For smaller values of \RR, we expect the differences to become smaller. 
-\swp{TODO: In Appendix, we present the same figure using gamma-distributed latent periods, which better corresponds to Ebola. Overall, our qualitative conclusions do not change.}
+\swp{TODO: In Appendix, we present the same figure using Erlang-distributed latent periods, which better corresponds to Ebola. Overall, our qualitative conclusions do not change.}
 
 \section{Discussion}
 
-Estimating reproductive number based on generation-interval distributions 
+The intrinsic generation-interval distribution provides a direct link between speed (exponential growth rate, $r$) and strength (reproductive number, $\mathcal R$) of an epidemic \citep{wallinga2007generation, park2019practical}.
+This link has been widely adopted in outbreak analyses as it allows us to conveniently estimate the reproductive number from quantities that are easier to measure.
+However, estimating the \emph{correct} generation-interval distribution is challenging: the observed generation-interval distribution varies depending on how and when it is measured \citep{nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation}.
+Here, we decompose variation in the observed generation intervals into spatial and temporal components under a realistic setting where contact tracing data are aggregated over time.
+We use simple models to distinguish among different sources of variations in the observed generation intervals.
+We provide two methods for correcting temporal bias and test their accuracy under a realistic setting using simulated epidemics.
+
+Generation intervals can be measured either forward, by tracing infectees, or backward, by tracing infectors.
+
+
+
+\section{Methods}
 
 \pagebreak
 

@@ -30,7 +30,7 @@ d <- degree(cmpGraph)
 
 kappa <- var(d)/mean(d) + mean(d) -1
 
-beta <- 0.4/5
+beta <- 0.13/5
 
 ## This is SEIR
 R0fun.network <- function(r) (gamma+r)/(gamma*sigma/(sigma+r)+r/kappa)
@@ -125,9 +125,9 @@ intrinsic.est <- lapply(growth$r, function(x) 1/mean(exp(-x*gen)))
 
 network.est <- lapply(growth$r, R0fun.network)
 
-trapman.est <- lapply(reslist, trapman.R0)
+trapman.est <- lapply(reslist, trapman.R0, 100)
 
-empirical.est <- lapply(reslist, empirical.R0)
+empirical.est <- lapply(reslist, empirical.R0, 100)
 
 RRdata <- data.frame(
 	observed=observed.est$estimate[observed.est$type=="RR"],
