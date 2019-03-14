@@ -347,18 +347,35 @@ For smaller values of \RR, we expect the differences to become smaller.
 
 \section{Discussion}
 
-The intrinsic generation-interval distribution provides a direct link between speed (exponential growth rate, $r$) and strength (reproductive number, $\mathcal R$) of an epidemic \citep{wallinga2007generation, park2019practical}.
-This link has been widely adopted in outbreak analyses as it allows us to conveniently estimate the reproductive number from quantities that are easier to measure.
-However, estimating the \emph{correct} generation-interval distribution is challenging: the observed generation-interval distribution varies depending on how and when it is measured \citep{nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation}.
+The intrinsic generation-interval distribution, which describes the expected time distribution of secondary cases, provides a direct link between speed (exponential growth rate, $r$) and strength (reproductive number, $\mathcal R$) of an epidemic \citep{wallinga2007generation, park2019practical}.
+This link has been widely adopted in outbreak analyses as it allows us to conveniently estimate the reproductive number from measurable quantities.
+However, determining the \emph{correct} generation-interval distribution is challenging: observed generation-interval distributions can vary depending on how and when it is measured \citep{nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation}.
 Here, we decompose variation in the observed generation intervals into spatial and temporal components under a realistic setting where contact tracing data are aggregated over time.
 We use simple models to distinguish among different sources of variations in the observed generation intervals.
-We provide two methods for correcting temporal bias and test their accuracy under a realistic setting using simulated epidemics.
+We provide two methods for correcting temporal bias and test their accuracy using simulations.
 
-Generation intervals can be measured either forward, by tracing infectees, or backward, by tracing infectors.
+Generation intervals can be measured either forward (by tracing the infectees of an infected individual) or backward (by tracing the infector of an infected individual).
+Previous studies have characterized changes in these distributions over time by looking at infections that are one generation apart.
+Instead, we consider a slightly different scenario in which generation intervals are measured over multiple generations.
+This assumption better reflects real intervention strategies because contact tracing is often performed throughout an ongoing epidemic to prevent further infections. 
+In this case, the observed generation intervals are derived all infections that occured before the last date on which contact tracing was performed and are subject to right-censoring -- it is not possible to trace infections that did not happen yet.
+
+When the epidemic is growing exponentially, the observed generation-interval distribution will always have a shorter mean than the intrinsic-interval distribution. 
+
 
 
 
 \section{Methods}
+
+\subsection{Deterministic SEIR model}
+
+The Susceptible-Exposed-Infected-Recovered (SEIR) 
+
+\subsection{Stochastic SEIR model on a network}
+
+
+\subsection{Derivation of the individual-based method}
+
 
 \pagebreak
 
