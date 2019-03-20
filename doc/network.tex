@@ -85,7 +85,7 @@ This perspective allows us to reinterpret the finding of \cite{trapman2016inferr
 
 In this study, we explore spatiotemporal variation in observed generation-interval distributions.
 We show that directly using the \emph{observed} generation-interval distributions will generally underestimate the reproductive number \RR, while directly using \emph{intrinsic} generation-interval distributions (i.e., estimated from infectiousness profiles) will tend to overestimate \RR.
-We discuss statistical approaches to estimating the effective generation-interval distributions and reproductive number of an outbreak from observed generation-interval distributions.
+We discuss statistical approaches to estimating effective generation-interval distributions and reproductive number of an outbreak from observed generation-interval distributions.
 \swp{Come back and fix this}
 
 \swp{I might rename the sections later but I think I like the current order.}
@@ -232,6 +232,7 @@ In this case, with fixed infectiousness during the infection period, the effect 
 This calculation can be validated by simulating stochastic infection processes on a ``star'' network (i.e, a single infected individual at the center connected to multiple susceptible individuals who are not connected with each other).
 Simulations confirm that in this case the distribution of \emph{contact} times matches the intrinsic generation-interval distribution, while the distribution of realized generation times (i.e., \emph{infection} times) matches the egocentric generation-interval distribution (\fref{local}).
 
+\jd{This is confusing to me. Wouldn't the natural next step be a random network? Homogeneous won't always be shorter than egocentric, I guess. Or are you simulating for a long time? Would it be better to simulate for a shorter time, and add another layer? I was thinking homogeneous $\to$ random $\to$ structured? Doing homogeneous during the exponential period should give us the same as egocentric, right? Maybe we need two figures? Or maybe we don't need a star network at all: first panel of current figure can be done on any network, and second panel can be done on a homogeneous network with a shortish time window?} 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/local_effect.pdf}
 \caption{
@@ -249,19 +250,13 @@ The egocentric generation interval \eref{conditional} only explains some of the 
 Generation intervals are also shortened by indirect connections: a susceptible individual can be infected through another route before the focal individual makes infectious contacts.
 Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
 
-\jd{I think there's room to be clearer here. All three depletion effects are similar. Should we call them all depletion?: egocentric, local, global?} 
-\swp{I like it}
 In general, spatial reduction in the mean generation interval can be viewed as an effect of susceptible depletion and can be further classified into three levels: egocentric, local, and global.
 Egocentric depletion, as discussed previously, is caused by an infected individual making multiple contacts to the same individual.
 Local depletion refers to a depletion of susceptible individuals in a household or neighborhood;
 this effect can be observed early in an epidemic, especially in a highly structured population, even if most of the population remains susceptible.
-Finally, global depletion refers to overall depeletion of susceptibility as a population-level and explains the underestimation of the mean generation interval, sampled across an entire epidemic (\fref{censor}). 
-\jd{I'll have to think about this, or you'll have to explain.} \swp{we changed our local and global explanations so this should be consistent what we said above.}
-Although the effect of the overall depletion of susceptible individuals is relatively well-understood \citep{champredon2015intrinsic}, estimating the local effects on observed generation intervals is expected to be a hard problem on realistic networks, although there has been interesting work on spatial cases, particularly on hierarchical networks of households nested within communities (e.g.,  \cite{tomba2010some}). \jd{Don't think we need more than that about Tomba; I wonder if any of Frank Ball's household work could be relevant.}
-\jd{The global spatial effect is sort of the non-spatial effect: the overall response to decreasing susceptibles, like in Champredon.}
-\swp{Tried to fix this}
-\jd{K. I've added at least one new comment in this direction Feb 05 (Tue).}
-\swp{Tried to fix this}
+Finally, global depletion refers to overall depeletion of susceptibility as a population-level and explains the reduction in realized compared to intrinsic generation intervals that occurs even in a well-mixed population (\fref{censor}). 
+
+Although the effect of the overall depletion of susceptible individuals is relatively well-understood \citep{champredon2015intrinsic}, estimating the local effects on observed generation intervals is expected to be a hard problem on realistic networks -- although there has been interesting work on spatial cases, particularly on hierarchical networks of households nested within communities (e.g.,  \cite{tomba2010some}). \jd{I wonder if any of Frank Ball's household work could be relevant.}
 
 \subsection{Linking growth rate and reproductive number}
 
@@ -275,20 +270,23 @@ This is equivalent to the relationship between $r$ and $\RR$ that \cite{trapman2
 As the egocentric distribution always has a shorter mean than the intrinsic distribution, \Rhat\ will always be smaller than $\RR$ estimated from the intrinsic distribution.
 Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\, since it does not account for depletion of susceptibles by other routes.
 
-\section{Inferring generation-interval distributions from a contact tracing data}
+\section{Effective distributions}
 
 When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric depletion effect, (3) local depletion effect and (4) global depletion effect.
 We can correct explicitly for the egocentric effect and, in the case of exponential growth, the right-censoring effect.
-While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and reproductive number. 
-\jd{How about: Both local and global depletion\ldots?} \swp{Done.}
+While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and estimated reproductive numbers. 
 Both local and global depletion effects reduce number of infections that occur and shorten generation intervals but the time scale on which they matter differs:
 local depletion will be important early in an epidemic whereas global depletion will be small until sufficient amount of susceptible individuals become infected.
 As a result, we expect the initial spread of a disease and the realized reproductive number to be heavily dependent on local structure of the contact network near the source of an outbreak.
 
 Since the right-censoring effect is a sampling bias, it must be corrected for.
-Any spatial effects are expected to be embedded within realized generation intervals and do not need to be corrected for as they reflect the unobserved characteristic of a realized epidemic.
-We claim that accounting for the right-censoring effect is sufficient and any necessary spatial component will be accounted for implicitly.
-Hereafter, we will refer to temporally corrected distribution as the effective generation-interval distribution to contrast from the intrinsic generation-interval distribution; only in a large homogeneously mixing population, the corrected generation-interval distribution will be equivalent to the intrinsic generation-interval distribution.
+In contrast, spatial effects have the same effect on how the epidemic spreads as they do on observed generation intervals. 
+We therefore expect that if we correct observed generation intervals for the right-censoring effect, spatial components will be accounted for implicitly, and we can use these temporally corrected intervals to correctly link $r$ and $\RR$. and we can obtain principled esi.
+Hereafter, we will refer to the temporally corrected distribution as the ``effective'' generation-interval distribution. The effective distribution incorporates spatial effects. In a large homogeneously mixing population, and during the early phase an an epidemic, the effective distribution will be equivalent to the intrinsic distribution.
+\jd{In a network with limited degree, they differ due to egocentric effects; in a non-random network they differ due to local effects; beyond the early period, they differ due to global effects.}
+
+\section{Inferring generation-interval distributions from a contact tracing data}
+
 In this section, we investigate two statistical methods for correcting for temporal bias in a contact tracing data.
 Detailed derivations of the two methods can be found in Methods.
 \swp{TODO: Write methods}
@@ -297,7 +295,7 @@ Detailed derivations of the two methods can be found in Methods.
 \begin{figure}[ht]
 \includegraphics[width=\textwidth]{../fig/cmp_reproductive.pdf}
 \caption{\textbf{Comparison of estimates of reproductive number based on various methods}
-Using the observed generation-interval distributions without correcting for right-censoring severely underestimates the reproductive number.
+Using the observed generation-interval distributions without correcting for right-censoring severely \jd{Use a log scale on the y axis to make this clearer} underestimates the reproductive number.
 Similarly, using intrinsic and egocentric generation-interval distributions without accounting for local spatial effects overestimates the reproductive number.
 Both population-level and individual-level methods provide estimates of reproductive number that are consistent with the empirical estimates, which we define as the average number of secondary cases generated by the first 100 infected individuals.
 Boxplots are generated using 100 stochastic simulations of the SEIR model on an empirical network using Ebola-like parameters (see Methods).
@@ -326,7 +324,7 @@ The individual-level method assumes that the initial exponential growth phase of
 where $N$ is the total number of infected individuals, $n_j$ is the number of individuals infected by infector $j$, $\tsub{t}{censor}$ is the time period which censoring was performed until, $t_j$ is the time at which infector $j$ was infected, $s_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is a (vector) parameter of the generation-interval distribution $g$ (and the corresponding cumulative distribution function $G$).
 \cite{forsberg2008likelihood} proposed a related approach based on discretized incidence reports.
 
-To test these methods, we simulate 100 epidemics with Ebola-liked parameters on an empirical network and compare the estimates of reproductive number with empirical reproductive numbers, which we define as the average number of secondary cases generated by the first 100 infected individuals (\fref{cmp}).
+To test these methods, we simulate 100 epidemics with Ebola-like parameters on an empirical network and compare the estimates of reproductive number with empirical reproductive numbers, which we define as the average number of secondary cases generated by the first 100 infected individuals (\fref{cmp}).
 \cite{trapman2016inferring} estimated the true reproductive number by dividing the total number of infected individuals in generations $2$ to $k+1$ by the total number of infected individuals in generations $1$ to $k$, where the reference generation $k$ is defined to be the first generation that contains at least 75 infected individuals;
 however, individuals in later generations are potentially subject to stronger local depletion and even global depletion effects.
 Therefore, we expect our empirical estimate to better reflect the infection process during the exponential growth phase.
@@ -342,7 +340,7 @@ For smaller values of \RR, we expect the differences to become smaller.
 
 \section{Discussion}
 
-The intrinsic generation-interval distribution, which describes the expected time distribution of secondary cases, provides a direct link between speed (exponential growth rate, $r$) and strength (reproductive number, $\mathcal R$) of an epidemic \citep{wallinga2007generation, park2019practical}.
+The intrinsic generation-interval distribution, which describes the expected time distribution of secondary cases, provides a direct link between speed (exponential growth rate, $r$) and strength (reproductive number, $\RR$) of an epidemic \citep{wallinga2007generation, park2019practical}.
 This link has been widely adopted in outbreak analyses as it allows us to conveniently estimate the reproductive number from measurable quantities.
 However, determining the \emph{correct} generation-interval distribution is challenging: observed generation-interval distributions can vary depending on how and when it is measured \citep{nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation}.
 Here, we decompose variation in the observed generation intervals into spatial and temporal components under a realistic setting where contact tracing data are aggregated over time.
