@@ -197,6 +197,7 @@ An infected individual may contact the same susceptible individual multiple time
 Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average, in a limited contact network.
 To explore the effect of multiple contacts on realized generation intervals, we first consider the infection process from an ``egocentric'' point of view, taking into account infectious contacts made by a single infector.
 We define the egocentric kernel as the rate at which secondary infections are realized by a single primary case $a$ in the absence of other infectors:
+\jd{We can't use dilution directly in the hazard term: it needs to be multiplied by something like big R. I would put $R\delta$ there. The extreme dilution examples would be mean degree (if highly connected people infect that much more) or individual degree (if they don't infect more at all.)}
 \begin{equation}
 \hat{K}_a(\tau) = K_a(\tau) \exp \left(- \delta_a \int_0^\tau K_a(s) ds\right),
 \end{equation}
@@ -226,10 +227,10 @@ Assuming that per-pair contact rate is $\lambda$ for any pair, we obtain the fol
 \begin{equation}
 \hat{g}(\tau) = \frac{\sigma (\gamma + \lambda)}{\sigma - (\gamma + \lambda)} \left(e^{-(\gamma + \lambda)t} - e^{-\sigma t}\right)
 \end{equation}
-In this scenario, per-pair contact rate effectively decreases mean infectious period: an infected individual can no longer infect anyone (hence no longer infectious) when all its susceptible acquaintances have ben infected.
+In this case, with fixed infectiousness during the infection period, the effect of accounting for pairwise contacts is the same as an increase in the recovery rate: infecting a susceptible contact is analogous to no longer being infectious (since the contact cannot be infected again). 
 
 This calculation can be validated by simulating stochastic infection processes on a ``star'' network (i.e, a single infected individual at the center connected to multiple susceptible individuals who are not connected with each other).
-Simulations confirm that in this case the distribution of contact times matches the intrinsic generation-interval distribution, while the distribution of realized generation times matches the egocentric generation-interval distribution (\fref{local}) -- generation times are shorter on average because contacts with already-infected susceptibles do not lead to new infections.
+Simulations confirm that in this case the distribution of \emph{contact} times matches the intrinsic generation-interval distribution, while the distribution of realized generation times (i.e., \emph{infection} times) matches the egocentric generation-interval distribution (\fref{local}).
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fig/local_effect.pdf}
