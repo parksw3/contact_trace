@@ -358,9 +358,30 @@ Generation intervals can be measured either forward (by tracing the infectees of
 Previous studies have characterized changes in these distributions over time by looking at infections that are one generation apart.
 Instead, we consider a slightly different scenario in which generation intervals are measured over multiple generations.
 This assumption better reflects real intervention strategies because contact tracing is often performed throughout an ongoing epidemic to prevent further infections. 
-In this case, the observed generation intervals are derived all infections that occured before the last date on which contact tracing was performed and are subject to right-censoring -- it is not possible to trace infections that did not happen yet.
+In this case, the observed generation intervals are derived all infections that occured before the last date on which contact tracing was performed and are subject to right-censoring -- it is not possible to trace individuals that have not been incted yet.
 
-When the epidemic is growing exponentially, the observed generation-interval distribution will always have a shorter mean than the intrinsic-interval distribution. 
+When the epidemic is growing exponentially, the observed generation-interval distribution will always have a shorter mean than the intrinsic-interval distribution due to right-censoring.
+Near the end of an epidemic, the effect of right-censoring becomes negligible but the observed generation intervals are still shorter on average than the intrinsic generation intervals.
+
+
+We further classify susceptible depletion into three levels: egocentric, local, and global.
+Egocentric susceptible depletion refers to the effect of an infected individual making multiple contacts to the same susceptible individual.
+Accounting for the egocentric effect allows us to reinterpret the results by Trapman et al using arguments based on generation intervals.
+Local susceptible depletion refers to the effect of other closely related infected individuals (e.g., in a household or neighborhood) making multiple contacts to the same susceptible individual.
+Global susceptible depletion refers to the overall decrease in the susceptible pool in the population.
+
+Susecptible depletion happening at all three levels shortens realized generation intervals but acts on different time scales.
+
+
+
+
+Limitations
+\begin{itemize}
+	\item Exponential growth; polynomial
+	\item Extending the framework (accounting for control)
+	\item Low coverage of gamma
+	\item Serial interval
+\end{itemize}
 
 
 
@@ -373,104 +394,6 @@ The Susceptible-Exposed-Infected-Recovered (SEIR)
 
 \subsection{Stochastic SEIR model on a network}
 
-
-\subsection{Derivation of the individual-based method}
-
-
-\pagebreak
-
-\section{Junk}
-
-First, we compare how the estimates from the two methods vary across time using a single stochastic simulation on a homogeneous network (\fref{example}).
-During the initial exponential growth period (approximately between 9 and 20 weeks), both population-level and individual-level methods yield similar estimates of mean generation interval and reproductive number.
-However, we observe opposite trends after the growth period (approximately after 20 weeks). \jd{I kind of feel we're gettting off track here. The main focus should be on early fits, and we should be describing how cool \fref{cmp} is before we wander off into these woods.}
-As the population-level method takes a weighted average of the observed distribution, increase in the observed mean generation interval leads to increase in the nonparametric estimates of both mean generation interval and reproductive number.
-On the other hand, as the individual-level method assumes a Poisson process with constant proportion of susceptibles, decrease in the number of susceptible is translated to underestimation of both mean generation interval and reproductive number.
-we observe gradual increase in the observed mean-generation interval as we aggregate more data, but using the raw observed generation interval distributions always underestimate both mean generation interval and reproductive number, as predicted from the deterministic simulation (Figure~\ref{fig:censor}).
-Around the 14th week, reproductive number estimate based on the observed generation interval approximately matches the true reproductive number; this is due to initial overestimation of the initial growth rate and we generally expect reproductive to be underestimated. \swp{Maybe another figure in the supp}
-
-\begin{figure}
-\includegraphics[width=\textwidth]{../fig/example.pdf}
-\caption{\swp{Need to re-do this figure; initial overestimation of little $r$ is weird}}
-\label{fig:example}
-\end{figure}
-
-We compare accuracy and reliability of the two methods during the initial growth period using 100 stochastic simulations on a homogeneous network (Figure~\ref{fig:test}).
-We find that the individual-level method provides the most consistent (least variable) estimates.
-The population method overestimates reproductive number initially but this is likely to be driven by the initial overestimation of the growth rate as discussed above (Figure~\ref{fig:example}).
-
-\begin{figure}
-\includegraphics[width=\textwidth]{../fig/compare_methods.pdf}
-\caption{\swp{Need to re-do this figure; initial overestimation of little $r$ is weird}.}
-\label{fig:test}
-\end{figure}
-
-We also compare coverage probabilities of these methods. 
-Coverage probabilities are defined as the proportion of confidence intervals that contain the true value in a repeated simulations; for example, a 95\% confidence interval should attain 95\% coverage probability by its definition.
-Surprisingly, both methods only attain approximately 70\% coverage.
-Even though the gamma distribution looks indistinguishable from the shape of the intrinsic generation-interval distribution, making a wrong distributional assumption leads to narrow confidence intervals.
-To confirm that the undercoverage is caused by distribuional assumption, we simulated an epidemic using gamma intrinsic generation-interval and found that fitting the true shape yields nominal coverage (see Appendix).
-These results are particularly alarming because shape of the generation-interval distribution have often been assumed in outbreak analyses and it is impossible to know the true shape of the distribution [CITE].
-
-
-\clearpage
-
-\section{Discussion}
-
-\section{Methods}
-
-The first method is a non-parametric method.
-Recall that the observed generation-interval distribution is a weighted intrinsic generation-interval distribution (equation~\ref{eq:obsg}). 
-Then, the intrinsic generation-interval distribution can be obtained by taking the inverse weight:
-\begin{equation}
-g(\tau) \propto c_t(\tau) \frac{1}{\int_{0}^t i(s-\tau) S(s) ds}
-\end{equation}
-However, this method requires a knowledge of susceptible dynamics and may difficult to use in practice.
-Instead, during the exponential period, the generation-interval distribution is
-\begin{equation}
-g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau)
-\end{equation}
-and the reproductive number is
-\begin{equation}
-\RR = \int \tsub{c}{exp}(\tau) \exp(r\tau) d\tau.
-\end{equation}
-Note that applying the Lotka-Euler equation directly to the observed generation intervals will always underestimate the reproductive number:
-\begin{equation}
-\int_0^\infty \tsub{g}{exp}(\tau) \exp(r\tau) d\tau > \left(\int_0^\infty \tsub{g}{exp}(\tau). \exp(-r\tau) d\tau\right)^{-1}
-\end{equation}
-
-Finally, we obtain an estimator for mean generation interval and the reproductive number:
-\begin{equation}
-\begin{aligned}
-\hat{G} &= \frac{\sum_{i} \exp(r c_i) c_i}{\sum_{i} \exp(r c_i)},\\
-\hat{\RR} &= \sum_{i} \exp(r c_i),
-\end{aligned}
-\end{equation}
-where $r$ is the exponential growth rate and $c_i$ is an individual generation interval sample.
-
-\section{Appendix}
-
-These are notes for now ... Need to move them elsewhere and change notation... but this is part of our figure for empirical network ...
-
-$$
-1 = \kappa \phi_L(\alpha) \frac{\lambda^{(net)}}{\alpha + \lambda^{(net)}} (1 - \phi_I(\alpha+\lambda^{(net)}))
-$$
-where in our specific example,
-$$
-\phi_L(\alpha) = \frac{4 \delta^2}{(2 \delta + \alpha)^2}
-$$
-and so we have
-$$
-1 = \frac{4 \delta^2}{(2 \delta + \alpha)^2} \frac{\kappa \lambda^{(net)}}{\lambda^{(net)} + \alpha + \gamma},
-$$
-which suggests that
-$$
-\lambda^{(net)} = \frac{(2\delta + \alpha)^2 (\alpha + \gamma)}{(\kappa - 1) 4 \delta^2 - 4 \delta \alpha - \alpha^2}
-$$
-We can substitute into the following equation to obtain the $r$ and $\RR$ relationship:
-$$
-\RR = \kappa \frac{\lambda^{(net)}}{\lambda^{(net)} + \gamma}
-$$
 
 \bibliography{network}
 \end{document}
