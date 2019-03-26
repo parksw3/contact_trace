@@ -50,7 +50,7 @@ gendata2 <- genlist %>%
 
 ggR <- ggplot(RRdata2 %>% filter(type=="Larger epidemic")) +
 	geom_boxplot(aes(key, value, fill=key), alpha=0.7) +
-	ylab("Reproductive number") +
+	scale_y_log10("Reproductive number", breaks=c(2.5, 5, 10, 20)) +
 	facet_grid(~group, scale="free", space="free_x") +
 	theme(
 		panel.spacing.x = unit(0, "lines"),
