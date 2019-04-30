@@ -134,6 +134,8 @@ g(\tau) = \frac{K(\tau)}{\RR_0}.
 
 \jd{Rewrite these equations a bit more consistently. What are we using for: index infection, current infection? $\tau$ is difference between them. Is it simpler just to use ' for dummies?}
 \swp{I tried. $t$ is current time, $\tau$ is time difference. $s$ and $x$ are used for integrals.}
+\jd{How about: $s$ as a dummy for $t$, $\sigma$ as a dummy for $\tau$?}
+
 In a homogeneously mixing population, we can assume that the disease incidence $i(t)$ is the product of the current infectiousness of previously infected individuals and the proportion of the population susceptible, $S(t)$.
 \begin{equation}
 i(t) = S(t) \int K(s) i(t-s) ds = \RR \int g(s) i(t-s) ds,
@@ -166,6 +168,7 @@ b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-s) g(s) ds}
 \jd{Can we just skip this \P, or put in an appendix or something?}
 \swp{We decided to ask David for opinion}
 \swp{I tried to rewrite the section to make things clearer; it seems to make this paragraph less boring and more relevant?}
+
 On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections that are $\tau$ time units apart from any cohort infection time $s$ before $t$.
 Then, the censored generation-interval distribution is given by
 \begin{equation}\label{eq:obsg}
