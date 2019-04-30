@@ -48,11 +48,8 @@
 
 \section{Introduction}
 
-%% SWP:
-%% Got data from
+%% SWP: see or cite
 %% https://www.ncbi.nlm.nih.gov/pubmed/29087987
-%% Try and analyze
-%% See what's different and understand what they did
 
 An epidemic can be characterized by its speed (exponential growth rate, $r$) and its strength (reproductive number, \RR).
 Reproductive number, defined as the average number of secondary cases arising from a primary case, is of particular interest as it provides information about the final size of an epidemic \citep{anderson1991infectious, diekmann1990definition}.
@@ -68,19 +65,21 @@ while \emph{observed} generation intervals refer to the time between actual infe
 Observed generation intervals in turn can be \emph{aggregated} across time, measured \emph{forward} in time by looking at a cohort of individuals infected at the same time and asking when they infected others, or measured \emph{backward in time} by looking at a cohort and asking when their infectors were infected \citep{champredon2015intrinsic}.
 % When aggregated generation intervals are observed until a given time in an ongoing epidemic (often via contact tracing), we refer to these as \emph{censored} (or right-censored) intervals.
 
-Early in an epidemic, when depletion of susceptibles is negligible, we expect the forward generation-interval distribution to be similar to the intrinsic generation-interval distribution.
-As an epidemic progresses, an infector is less likely to infect individuals later in time due to decrease in susceptibles and the distribution of forward generation intervals will be shorter than the intrinsic distribution \citep{kenah2008generation, tomba2010some, champredon2015intrinsic}.
+Early in an epidemic, when depletion of susceptibles is negligible, we expect the forward generation-interval distribution to be similar to the intrinsic generation-interval distribution \citep{champredon2015intrinsic}.
+As an epidemic progresses, an infector is less likely to infect individuals later in time due to decrease in susceptibles, 
+and the distribution of forward generation intervals will be shorter than the intrinsic distribution \citep{kenah2008generation, tomba2010some, champredon2015intrinsic}.
 Conversely, when an epidemic is growing exponentially, as often occurs near the beginning of an outbreak, the number of newly infected individuals will be large relative to the number infected earlier on. 
-A susceptible individual is thus relatively more likely to be infected by a newly infected individual, and the distribution of backward generation intervals will be shorter than the intrinsic distribution \citep{champredon2015intrinsic, britton2019estimation}.
+A susceptible individual is thus relatively more likely to be infected by a newly infected individual, 
+and the distribution of backward generation intervals will be shorter than the intrinsic distribution \citep{champredon2015intrinsic, britton2019estimation}.
 When epidemic is subsiding, most infections are caused by the remaining infectors, rather than new infectors, and the backward generation interval will be long \citep{tomba2010some, champredon2015intrinsic}.
 
 In practice, generation intervals are often measured by aggregating available information from contact tracing. 
-Whereas forward and backward generation intervals represent infections that are one generation away from the focal cohort, these aggregated generation intervals represent infections across multiple cohorts. 
-In this case, the time of infection of a cohort can range anywhere from the beginning of an epidemic to the most recent infection.
+Whereas forward and backward generation intervals represent infections that are one generation apart from a cohort, these aggregated generation intervals represent infections across multiple cohorts; 
+the time of infection of a cohort can range anywhere from the beginning of an epidemic to the most recent infection.
 As a result, while an epidemic is ongoing, these measurements are ``censored'': we don't know what happens after the observation time.
 These censored observations can be thought of as a weighted average of backward generation-interval distributions; like them, the distribution of censored intervals will have a shorter mean than the intrinsic distribution early in an epidemic.
 
-Realized generation intervals also vary across space.
+Realized generation intervals can also vary across space.
 In a structured population (that is, any population that does not mix homogeneously), susceptibility will tend to decrease more quickly in the neighborhood of infected individuals than in the general population even in the early phase of an epidemic. 
 This means that contacts made late in infection are more likely to be ``masked'' due to infectious contacts that were made earlier.
 Therefore, realized generation intervals will be shorter and observed generation intervals may underestimate the intrinsic generation-interval distribution even when population-level susceptibility is very high.
@@ -91,10 +90,7 @@ We show that directly using the \emph{observed} generation-interval distribution
 We discuss statistical approaches to estimating effective generation-interval distributions and reproductive number of an outbreak from observed generation-interval distributions.
 \swp{Come back and fix this}
 
-\swp{I might rename the sections later but I think I like the current order.}
-\section{Generation-interval distributions across time}
-
-\subsection{Intrinsic generation-interval distribution}
+\section{Intrinsic generation-interval distributions}
 
 \begin{figure}[t]
 \includegraphics[width=\textwidth]{../fig/individual_and_population.pdf}
@@ -117,25 +113,22 @@ The population-level kernel is given by integrating over these individual variat
 K(\tau) = \int K_a (\tau) dA.
 \end{equation}
 The population-level kernel describes the rate at which secondary infections are expected to be caused by an \emph{average} infected individual.
-In order to integrate over the aspect space $A$, we have to assume that (1) theoretical distribution of individual kernel properties are known exactly and (2) the individual properties are independent of risk of infection; 
-therefore, it only makes sense to define this integral for simple epidemic models for homogeneously mixing population, such as the Susceptible-Infected-Recovered (SIR) model (or its extensions).
-In practice, it is unlikely that averaging across an empirical distribution will give us the correct population-level kernel, especially when an epidemic is driven by a few highly infectious individuals.
-For brevity, we use this notation to distinguish the difference between the individual- and the population-level kernels.
+Here, we assume that the individual properties are independent of risk of infection.
+In practice, it is unlikely that naively averaging across an empirical distribution will give us the correct population-level kernel, especially when an epidemic is driven by a few highly infectious individuals.
 \jd{This is assuming that we know how to average across infected individuals. Do we need to assume that individual kernel properties are independent of risk of infection? If we have high-degree individuals, does it already break that assumption?}
 \swp{Can we say this?}
 
 There are two components to infection kernels: intrinsic infectiousness of an infected individual (the basic reproductive number) and time distribution of new infections (generation-interval distribution).
-The basic reproductive number -- expected number of secondary cases caused by an \emph{average} primary case in a fully susceptible population -- is defined as: 
+Assuming that a population mixes homogeneously, the basic reproductive number -- expected number of secondary cases caused by an \emph{average} primary case in a fully susceptible population -- can be defined as: 
 \begin{equation}
 \RR_0 = \int K(\tau) d\tau.
 \end{equation}
 \jd{OK, this one definitely looks problematic; that's not what happens with high degree.}
+\swp{Can we just say this? I'm not sure what else we can say.}
 Finally, the intrinsic generation-interval distribution is simply the population-level kernel normalized by the basic reproductive number:
 \begin{equation}
 g(\tau) = \frac{K(\tau)}{\RR_0}.
 \end{equation}
-These definitions of the basic reproductive number and the intrinsic generation-interval distribution assume homogeneous mixing, as discussed above.
-\swp{Can we just say this? I'm not sure what else we can say.}
 
 \jd{Rewrite these equations a bit more consistently. What are we using for: index infection, current infection? $\tau$ is difference between them. Is it simpler just to use ' for dummies?}
 \swp{I tried. $t$ is current time, $\tau$ is time difference. $s$ and $x$ are used for integrals.}
@@ -150,15 +143,16 @@ Over a period of time where the proportion of susceptible $S$ remains roughly co
 \frac{1}{\RR} = \int g(s) \exp(-r s) ds.
 \end{equation}
 
-\subsection{Right-censored generation-interval distribution}
+\section{Generation-interval distributions across time}
 
-Generation intervals estimated during an outbreak are ``right-censored'', because intervals that end after the observation time are not observed. 
-Several studies have associated the backward generation-interval distribution with the early-epidemic censored generation-interval distribution \citep{tomba2010some, nishiura2010time, champredon2015intrinsic, britton2019estimation}. 
-The censored generation-interval distribution in fact averages over backward generation-interval distributions up until the observation time.
-While we mathematically expect these underlying distributions to be the same (and thus the same distribution as their average) during the exponential growth phase, these assumptions can break down (due to susceptible depletion or other temporal change).
-This, it is useful to conceptually distinguish the censored distribution the backward distribution.
+When generation intervals are measured through contact tracing during an outbreak, 
+the observed intervals are ``right-censored'', because intervals that end after the observation time are not observed. 
+Several studies have associated the backward generation-interval distribution with the early-epidemic observed generation-interval distribution \citep{tomba2010some, nishiura2010time, champredon2015intrinsic, britton2019estimation};
+in fact, the censored generation-interval distribution averages over backward generation-interval distributions up until the observation time.
+While we mathematically expect these underlying distributions to be the same (and thus the same distribution as their average) during the exponential growth phase, these assumptions can break down as an epidemic progresses.
+Here, we want to conceptually distinguish the censored distribution the backward distribution.
 
-The density of infections occuring at time $t$ caused by infectors who were infected at time $t-\tau$ is given by
+The density of new infections occuring at time $t$ caused by infectors who were infected at time $t-\tau$ is given by
 \begin{equation}
 i_{t-\tau}(t) = \RR i(t-\tau) g(\tau) S(t)
 \end{equation}
@@ -169,7 +163,7 @@ b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-s) g(s) ds}
 
 \jd{Can we just skip this \P, or put in an appendix or something?}
 \swp{We decided to ask David for opinion}
-On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections that are $\tau$ time units apart from any reference time $s$ before $t$.
+On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections that are $\tau$ time units apart from any cohort infection time $s$ before $t$.
 Then, the censored generation-interval distribution is given by
 \begin{equation}\label{eq:obsg}
 c_t(\tau) = \frac{g(\tau) \int_0^t i(s-\tau) S(s) ds}{\int_0^t g(x) \int_0^t i(s-x) S(s) ds dx}
@@ -358,31 +352,30 @@ For smaller values of \RR, we expect the differences to become smaller.
 
 \section{Discussion}
 
-The intrinsic generation-interval distribution, which describes the expected time distribution of secondary cases, provides a direct link between speed (exponential growth rate, $r$) and strength (reproductive number, $\RR$) of an epidemic \citep{wallinga2007generation, park2019practical}.
-This link has been widely adopted in outbreak analyses as it allows us to conveniently estimate the reproductive number from measurable quantities.
-However, determining the \emph{correct} generation-interval distribution is challenging: observed generation-interval distributions can vary depending on how and when it is measured \citep{nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation}.
-Here, we decompose variation in the observed generation intervals into spatial and temporal components under a realistic setting where contact tracing data are aggregated over time.
-We use simple models to distinguish among different sources of variations in the observed generation intervals.
-We provide two methods for correcting temporal bias and test their accuracy using simulations.
+The intrinsic generation-interval distribution, which describes the expected time distribution of secondary cases, provides a direct link between speed (exponential growth rate, $r$) and strength (reproductive number, $\RR$) of an epidemic \citep{wallinga2007generation, svensson2007note, svensson2015influence, park2019practical}.
+However, observed generation-interval distributions can vary depending on how and when it is measured \citep{nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation};
+determining which distribution correctly links $r$ and $\RR$ can be challenging.
+Here, we explore how observed generation intervals, measured through contact tracing, vary across time and space.
+Whereas temporal variations represent observation bias, spatial variations reflect the contact structure of a realized outbreak.
+Therefore, correcting for temporal variation, but not for spatial variation, in an observed generation-interval distribution provides the correct link between $r$ and $\RR$, allowing us to estimate the reproductive number $\RR$ that is consistent with the realized infection process.
 
 Generation intervals can be measured either forward (by tracing the infectees of an infected individual) or backward (by tracing the infector of an infected individual).
-Previous studies have characterized changes in these distributions over time by looking at infections that are one generation apart.
+Previous studies have characterized changes in these distributions over time by looking at infections that are one generation apart from a single cohort.
 Instead, we consider a slightly different scenario in which generation intervals are measured over multiple generations.
 This assumption better reflects real intervention strategies because contact tracing is often performed throughout an ongoing epidemic to prevent further infections. 
-In this case, the observed generation intervals are derived all infections that occured before the last date on which contact tracing was performed and are subject to right-censoring -- it is not possible to trace individuals that have not been incted yet.
+In this case, the observed generation intervals are derived from all infections that occured before the last date on which contact tracing was performed.
 
-When the epidemic is growing exponentially, the observed generation-interval distribution will always have a shorter mean than the intrinsic-interval distribution due to right-censoring.
-Near the end of an epidemic, the effect of right-censoring becomes negligible but the observed generation intervals are still shorter on average than the intrinsic generation intervals.
+The observed generation intervals are subject to right-censoring -- it is not possible to trace individuals that have not been incted yet.
+During an ongoing outbreak, the observed generation-interval distribution will always have a shorter mean than the intrinsic-interval distribution due to right-censoring.
+Near the end of an outbreak, the effect of right-censoring becomes negligible but the observed generation intervals are still shorter on average than the intrinsic generation intervals. 
+The remaining bias can be explained by depletion of the susceptible population.
 
-
-We further classify susceptible depletion into three levels: egocentric, local, and global.
+We classify susceptible depletion into three levels: egocentric, local, and global.
 Egocentric susceptible depletion refers to the effect of an infected individual making multiple contacts to the same susceptible individual.
-Accounting for the egocentric effect allows us to reinterpret the results by Trapman et al using arguments based on generation intervals.
+Accounting for the egocentric effect allows us to reinterpret the results by \cite{trapman2016inferring} using arguments based on generation intervals.
 Local susceptible depletion refers to the effect of other closely related infected individuals (e.g., in a household or neighborhood) making multiple contacts to the same susceptible individual.
 Global susceptible depletion refers to the overall decrease in the susceptible pool in the population.
-
-Susecptible depletion happening at all three levels shortens realized generation intervals but acts on different time scales.
-
+Egocentric and local depletion effects are important 
 
 
 
