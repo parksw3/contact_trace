@@ -201,8 +201,9 @@ As a result, even if contact tracing is performed through an entire epidemic, th
 
 \section{Generation-interval distributions across space}
 
-An infected individual may contact the same susceptible individual multiple times, but only the first effective contact gives rise to infection in a given individual (after this, they are no longer susceptible).
+Infected individuals may contact the same susceptible individual multiple times, but only the first effective contact gives rise to infection in a given individual (after this, they are no longer susceptible).
 Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average, in a limited contact network.
+
 To explore the effect of multiple contacts on realized generation intervals, we first consider the infection process from an ``egocentric'' point of view, taking into account infectious contacts made by a single infector.
 We define the egocentric kernel as the rate at which secondary infections are realized by a single primary case $a$ in the absence of other infectors:
 \jd{We can't use dilution directly in the hazard term: it needs to be multiplied by something like big R. I would put $R\delta$ there. The extreme dilution examples would be mean degree (if highly connected people infect that much more) or individual degree (if they don't infect more at all.)}
@@ -213,7 +214,7 @@ We define the egocentric kernel as the rate at which secondary infections are re
 where $K_a(\tau)$ is the individual-level intrinsic kernel and $e^{- \delta_a \int_0^\tau K_a(s) ds}$ is the probability that a susceptible acquaintance has not yet been contacted by individual $a$.
 The dilution term, $\delta_a$, models how contacts are distributed among susceptible acquaintances.
 Throughout this paper, we assume that there is a constant per-pair contact rate $\lambda$ \citep{trapman2016inferring}.
-Then, the infectiousness of an individual $\RR_a = \int K_a(s) ds$ is the product of the number of acquaintances $N_a$ and the contact rate $\lambda$ and the dilution term is equal to the reciprocal of the number of acquaintances: $\delta_a = 1/N_a$.
+Then, the infectiousness of an individual $\RR_a = \int K_a(s) ds$ is the product of the number of acquaintances $N_a$ and the contact rate $\lambda$; the dilution term is equal to the reciprocal of the number of acquaintances: $\delta_a = 1/N_a$.
 
 The population-level egocentric kernel is given by integrating over individual variations:
 \begin{equation}\label{eq:ego}
@@ -231,8 +232,7 @@ Finally, the egocentric reproductive number can be estimated by integrating over
 \frac{1}{\hat{\RR}} = \int \hat{g}(\tau) \exp(-r \tau) d\tau.
 \end{equation}
 As the egocentric distribution always has a shorter mean than the intrinsic distribution, \Rhat\ will always be smaller than $\RR$ estimated from the intrinsic distribution.
-Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\, since it does not account for depletion of susceptibles by other routes.
-
+% Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\, since it does not account for depletion of susceptibles by other routes.
 
 For example, consider a susceptible-exposed-infected-recovered (SEIR) model, which assumes that latent and infectious periods are exponentially distributed.
 The intrinsic generation-interval distribution that corresponds to this model can be written has \citep{svensson2015influence}:
@@ -267,6 +267,7 @@ The egocentric generation interval \eref{conditional} only explains some of the 
 Generation intervals are also shortened by indirect connections: a susceptible individual can be infected through another route before the focal individual makes infectious contacts.
 Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
 
+\swp{Shouldn't we put this earlier?}
 In general, spatial reduction in the mean generation interval can be viewed as an effect of susceptible depletion and can be further classified into three levels: egocentric, local, and global.
 Egocentric depletion, as discussed previously, is caused by an infected individual making multiple contacts to the same individual.
 Local depletion refers to a depletion of susceptible individuals in a household or neighborhood;
@@ -274,7 +275,7 @@ this effect can be observed early in an epidemic, especially in a highly structu
 Finally, global depletion refers to overall depeletion of susceptibility as a population-level and explains the reduction in realized compared to intrinsic generation intervals that occurs even in a well-mixed population (\fref{censor}). 
 
 Although the effect of the overall depletion of susceptible individuals is relatively well-understood \citep{champredon2015intrinsic}, estimating the local effects on observed generation intervals is expected to be a hard problem on realistic networks -- although there has been interesting work on special cases, particularly on hierarchical networks of households nested within communities (e.g.,  \cite{tomba2010some}). \jd{I wonder if any of Frank Ball's household work could be relevant.}
-\swp{Come back.}
+\swp{Will come back.}
 
 \section{Inferring generation-interval distributions from a contact tracing data}
 
