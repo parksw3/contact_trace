@@ -176,10 +176,11 @@ c_t(\tau) \propto \int_0^t b_s(\tau) S(s) ds.
 Therefore, we expect the backward generation-interval distribution to be equivalent to the censored generation-interval distribution when $S \approx 1$, i.e., when the epidemic is growing exponentially;
 however, this assumption quickly breaks down as the epidemic progresses (Figure~\ref{fig:censor}).
 
-\begin{figure}[t]
+\begin{figure}[!ht]
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
 \caption{\textbf{Temporal variation in the mean observed generation interval.}
 A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model was simulated using Ebola-like parameters and the backward and the censored mean generation interval were calculated over the course of an epidemic.
+The dotted horizontal line represents the mean intrinsic generation interval.
 }
 \label{fig:censor}
 \end{figure}
@@ -359,19 +360,19 @@ For smaller values of \RR, we expect the differences to become smaller.
 The intrinsic generation-interval distribution, which describes the expected time distribution of secondary cases, provides a direct link between speed (exponential growth rate, $r$) and strength (reproductive number, $\RR$) of an epidemic \citep{wallinga2007generation, svensson2007note, svensson2015influence, park2019practical}.
 However, observed generation-interval distributions can vary depending on how and when it is measured \citep{nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation};
 determining which distribution correctly links $r$ and $\RR$ can be challenging.
-Here, we explore how observed generation intervals, measured through contact tracing, vary across time and space.
-Whereas temporal variations represent observation bias, spatial variations reflect the contact structure of a realized outbreak.
-Therefore, correcting for temporal variation, but not for spatial variation, in an observed generation-interval distribution provides a link between $r$ and $\RR$ which allows us to estimate the reproductive number $\RR$ that is consistent with the realized infection process.
+Here, we analyze how observed generation intervals, measured through contact tracing, vary across time and space.
+Temporal variations represent observation bias, whereas spatial variations reflect the contact structure of a realized outbreak.
+Therefore, correcting for temporal variation, but not for spatial variation, in an observed generation-interval distribution provides the correct link between $r$ and $\RR$.
 
 Generation intervals can be measured either forward (by tracing the infectees of an infected individual) or backward (by tracing the infector of an infected individual).
 Previous studies have characterized changes in these distributions over time by looking at infections that are one generation apart from a single cohort.
 Instead, we consider a slightly different scenario in which generation intervals are measured over multiple generations.
 This assumption better reflects real intervention strategies because contact tracing is often performed throughout an ongoing epidemic to prevent further infections. 
-In this case, the observed generation intervals are derived from all infections that occured before the last date on which contact tracing was performed.
+In this case, the generation intervals are measured from all observed cases that occured before the last date on which contact tracing was performed.
 
 The observed generation intervals are subject to right-censoring -- it is not possible to trace individuals that have not been incted yet.
 During an ongoing outbreak, the observed generation-interval distribution will always have a shorter mean than the intrinsic-interval distribution due to right-censoring.
-Near the end of an outbreak, the effect of right-censoring becomes negligible but the observed generation intervals are still shorter on average than the intrinsic generation intervals. 
+Near the end of an outbreak, the effect of right-censoring becomes negligible but the observed generation intervals are still shorter on average than the intrinsic generation intervals.
 The remaining bias can be explained by depletion of the susceptible population.
 
 We classify susceptible depletion into three levels: egocentric, local, and global.
@@ -379,6 +380,20 @@ Egocentric susceptible depletion refers to the effect of an infected individual 
 Accounting for the egocentric effect allows us to reinterpret the results by \cite{trapman2016inferring} using arguments based on generation intervals.
 Local susceptible depletion refers to the effect of other closely related infected individuals (e.g., in a household or neighborhood) making multiple contacts to the same susceptible individual.
 Global susceptible depletion refers to the overall decrease in the susceptible pool in the population.
+
+Susecptible depletion happening at all three levels shortens realized generation intervals but acts on different time scales.
+Egocentric and local depletion effects are present from the beginning of an epidemic, even when depletion in the global susceptible population is negligible, and can strongly affect the initial spread of an epidemic.
+Therefore, we expect the observed generation intervals during an exponential growth phase to contain information about the contact structure, allowing us to estimate the reproductive number by simply accounting for the right-censoring.
+We refer to the temporally-corrected distribution as the effective generation-interval distribution.
+
+We compare two methods for estimating the effective generation-interval distribution and assume that the effective generation-interval distribution follows a gamma distribution.
+The gamma approximation of the generation interval distribution has widely used due to its simplicity;
+we previously thought that summarizing the entire distribution with two moments (mean and variance) is sufficient to understand the role of generation-interval distributions in linking $r$ and $\RR$.
+However, further investigation of our methods suggests that making a wrong distributional assumption leads to narrow confidence intervals, even though the gamma distribution looks indistinguishable from the shape of the intrinsic generation-interval distribution (derived from the SEIR model), making a wrong distributional assumption leads to narrow confidence intervals \swp{Appendix}.
+These results are particularly alarming because it is impossible to know the true shape of the distribution [CITE].
+
+
+
 
 \bibliography{network}
 \end{document}
