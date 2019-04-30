@@ -202,8 +202,6 @@ As a result, even if contact tracing is performed through an entire epidemic, th
 
 \section{Generation-interval distributions across space}
 
-
-
 Infected individuals may contact the same susceptible individual multiple times, but only the first effective contact gives rise to infection in a given individual (after this, they are no longer susceptible).
 Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average, in a limited contact network.
 
@@ -283,10 +281,12 @@ Although the effect of the overall depletion of susceptible individuals is relat
 
 When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric depletion effect, (3) local depletion effect and (4) global depletion effect.
 We can correct explicitly for the egocentric effect and, in the case of exponential growth, the right-censoring effect.
-While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and estimated reproductive numbers. 
-Both local and global depletion effects reduce number of infections that occur and shorten generation intervals but the time scale on which they matter differs:
-local depletion will be important early in an epidemic whereas global depletion will be small until sufficient amount of susceptible individuals become infected.
-As a result, we expect the initial spread of a disease and the realized reproductive number to be heavily dependent on local structure of the contact network near the source of an outbreak.
+While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and estimated reproductive numbers: 
+both local and global depletion effects reduce number of infections that occur and shorten generation intervals.
+% SWP: I would rather put these in Discussion?
+% but the time scale on which they matter differs:
+% local depletion will be important early in an epidemic whereas global depletion will be small until sufficient amount of susceptible individuals become infected.
+% As a result, we expect the initial spread of a disease and the realized reproductive number to be heavily dependent on local structure of the contact network near the source of an outbreak.
 
 Since the right-censoring effect is a sampling bias, it must be taken into account explicitly.
 In contrast, spatial effects have the same effect on how the epidemic spreads as they do on observed generation intervals. 
@@ -318,12 +318,11 @@ g(\tau) \propto \tsub{c}{exp}(\tau) \exp(r\tau).
 When the susceptible dynamics is known, this equation can be generalized by using \eref{obsg}; we do not pursue this direction here.
 The population-level method is simple and intuitive, but does not take into account who infected whom.
 
-\swp{Cite something about poisson process}
 We refer to the second method as the individual-level method because it relies on individual contact information.
-We model each infection $i$ from an infected individual $j$ as a non-homogeneous Poisson process between the time at which infector $j$ was infected ($t_j$) and the censorship time ($\tsub{t}{censor}$), where the time-varying Poisson rate is equal to the effective generation-interval distribution.
-Then, the probability that an individual $j$ infects $n_j$ individuals between $t_j$ and $\tsub{t}{censor}$ is proportional to
+We model each infection $i$ from an infected individual $j$ as a non-homogeneous Poisson process between the time at which infector $j$ was infected ($t_j$) and the censorship time ($\tsub{t}{censor}$), where the time-varying Poisson rate is equal to the effective generation-interval distribution \citep{daley2007introduction}.
+Then, the probability that an individual $j$ infects $n_j$ individuals between $t_j$ and $\tsub{t}{censor}$ is equal to
 \begin{equation}
-\RR^{n_j} \exp \big(- \RR G(\tsub{t}{censor} - t_j ;\theta) \big) \prod_{i=1}^{n_j} g(s_{i, j}; \theta),
+\frac{\RR^{n_j} \exp \big(- \RR G(\tsub{t}{censor} - t_j ;\theta) \big) \prod_{i=1}^{n_j} g(s_{i, j}; \theta)}{n_j!},
 \end{equation}
 where $s_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is a (vector) parameter of the generation-interval distribution $g$ (and the corresponding cumulative distribution function $G$).
 We use gamma distribution to model the effective generation-interval distribution;
@@ -365,8 +364,8 @@ Temporal variations represent observation bias, whereas spatial variations refle
 Therefore, correcting for temporal variation, but not for spatial variation, in an observed generation-interval distribution provides the correct link between $r$ and $\RR$.
 
 Generation intervals can be measured either forward (by tracing the infectees of an infected individual) or backward (by tracing the infector of an infected individual).
-Previous studies have characterized changes in these distributions over time by looking at infections that are one generation apart from a single cohort.
-Instead, we consider a slightly different scenario in which generation intervals are measured over multiple generations.
+Previous studies have characterized changes in these distributions over time by looking at infections that are one generation apart from a single cohort \citep{kenah2008generation, nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation}.
+Instead, we considered a slightly different scenario in which generation intervals are measured over multiple generations.
 This assumption better reflects real intervention strategies because contact tracing is often performed throughout an ongoing epidemic to prevent further infections. 
 In this case, the generation intervals are measured from all observed cases that occured before the last date on which contact tracing was performed.
 
@@ -375,22 +374,30 @@ During an ongoing outbreak, the observed generation-interval distribution will a
 Near the end of an outbreak, the effect of right-censoring becomes negligible but the observed generation intervals are still shorter on average than the intrinsic generation intervals.
 The remaining bias can be explained by depletion of the susceptible population.
 
-We classify susceptible depletion into three levels: egocentric, local, and global.
+We classified susceptible depletion into three levels: egocentric, local, and global.
 Egocentric susceptible depletion refers to the effect of an infected individual making multiple contacts to the same susceptible individual.
-Accounting for the egocentric effect allows us to reinterpret the results by \cite{trapman2016inferring} using arguments based on generation intervals.
+Accounting for the egocentric effect allowed us to reinterpret the results by \cite{trapman2016inferring} using arguments based on generation intervals.
 Local susceptible depletion refers to the effect of other closely related infected individuals (e.g., in a household or neighborhood) making multiple contacts to the same susceptible individual.
 Global susceptible depletion refers to the overall decrease in the susceptible pool in the population.
 
 Susecptible depletion happening at all three levels shortens realized generation intervals but acts on different time scales.
 Egocentric and local depletion effects are present from the beginning of an epidemic, even when depletion in the global susceptible population is negligible, and can strongly affect the initial spread of an epidemic.
-Therefore, we expect the observed generation intervals during an exponential growth phase to contain information about the contact structure, allowing us to estimate the reproductive number by simply accounting for the right-censoring.
-We refer to the temporally-corrected distribution as the effective generation-interval distribution.
+Therefore, we predicted the observed generation intervals during an exponential growth phase to contain information about the contact structure, allowing us to estimate the \emph{effective} generation-interval distribution by simply accounting for the right-censoring.
+Simulation studies confirmed our prediction: using the effective generation-interval distribution provides a proper link between $r$ and $\RR$.
 
 We compare two methods for estimating the effective generation-interval distribution and assume that the effective generation-interval distribution follows a gamma distribution.
 The gamma approximation of the generation interval distribution has widely used due to its simplicity;
 we previously thought that summarizing the entire distribution with two moments (mean and variance) is sufficient to understand the role of generation-interval distributions in linking $r$ and $\RR$.
 However, further investigation of our methods suggests that making a wrong distributional assumption leads to narrow confidence intervals, even though the gamma distribution looks indistinguishable from the shape of the intrinsic generation-interval distribution (derived from the SEIR model), making a wrong distributional assumption leads to narrow confidence intervals \swp{Appendix}.
 These results are particularly alarming because it is impossible to know the true shape of the distribution [CITE].
+
+\swp{Conclusion?}
+
+
+
+\section{Methods}
+
+
 
 
 
