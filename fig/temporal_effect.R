@@ -1,4 +1,5 @@
 library(deSolve)
+library(tidyr)
 library(dplyr)
 library(ggplot2); theme_set(theme_bw())
 library(gridExtra)
@@ -14,16 +15,6 @@ seir.ode <- function(t, y, parms) {
         dI <- sigma*E - gamma*I
         list(c(dS, dE, dI))
     })
-}
-
-## we want to simulate equilibrium state!
-seirs.ode <- function(t, y, parms) {
-	with(as.list(c(y, parms)), {
-		dS <- gamma * I -beta/N*S*I
-		dE <- beta/N*S*I - sigma*E
-		dI <- sigma*E - gamma*I
-		list(c(dS, dE, dI))
-	})
 }
 
 sumfun <- function(out,
@@ -46,6 +37,13 @@ sumfun <- function(out,
 		beta*sum(incidence[1:(m-i+1)] * out$S[i:m]/N)/total*genden[i]
 	}
 	
+	backward <- function(tau, tmax) {
+		m <- which(zapsmall((tmax-tau)-t)==0)
+		i <- which(t==tau)
+		
+		incidence[m] * genden[i]
+	}
+	
 	mean.censor <- function(tmax) {
 		if (tmax<=0){
 			return(0)
@@ -57,12 +55,25 @@ sumfun <- function(out,
 		}
 	}
 	
+	mean.backward <- function(tmax) {
+		if (tmax<=0){
+			return(0)
+		} else{
+			t <- t[t <= tmax]
+			
+			dc <- sapply(t, backward, tmax=tmax)
+			return(sum(dc*t)/sum(dc))
+		}
+	}
+	
 	tau <- seq(0, tmax, tauby)
 	cm <- sapply(tau, mean.censor)
+	bm <- sapply(tau, mean.backward)
 	
 	censor.df <- data.frame(
 		t=tau
-		, mean=cm
+		, censored=cm
+		, backward=bm
 	)
 }
 
@@ -73,26 +84,20 @@ dt <- 0.1
 tmax <- 305
 t <- seq(0, tmax, dt)
 out1 <- as.data.frame(ode(y, t, seir.ode, parms))
-out2 <- as.data.frame(ode(y, t, seirs.ode, parms))
-out3 <- as.data.frame(ode(unlist(tail(out2, 1))[-1] , t, seirs.ode, parms))
-out3 <- as.data.frame(ode(unlist(tail(out3, 1))[-1] , t, seirs.ode, parms))
-names(out1)[1] <- names(out2)[1] <- names(out3)[1] <- "t"
+names(out1)[1] <- "t"
 
-outlist <- list(out1, out3)
-
-gensum <- lapply(outlist, sumfun, tmax=305, t=t, tauby=5)
+gensum <- sumfun(out1, tmax=tmax, t=t, tauby=5)
 
 # gensum_long <- sumfun(out4, tmax=10000, t=0:10000, tauby=1000)
 
-outdata <- bind_rows(out1, out3, .id="type") %>%
+outdata <- out1 %>%
 	mutate(
-		incidence=beta*S*I/N,
-		type=factor(type, label=c("epidemic", "equilibrium"))
+		incidence=beta*S*I/N
 	)
 
 ## We probably don't need to show the endemic case.. seems trivial...
 
-g1 <- ggplot(outdata %>% filter(type=="epidemic"), aes(t, incidence)) +
+g1 <- ggplot(outdata, aes(t, incidence)) +
     geom_line(lwd=1.2) +
     scale_x_continuous(expand=c(0,0), limits=c(0, 300), breaks=seq(0, 250, by=50)) +
     scale_y_continuous("daily incidence", expand=c(0,0), limits=c(-5, 700)) +
@@ -106,13 +111,14 @@ g1 <- ggplot(outdata %>% filter(type=="epidemic"), aes(t, incidence)) +
     )
 
 gendata <- gensum %>%
-	bind_rows(.id="type")
+	gather(key, value, -t)
 
-g2 <- ggplot(gendata %>% filter(type==1), aes(t, mean)) +
+g2 <- ggplot(gendata, aes(t, value, lty=key)) +
     geom_line(lwd=1.2) +
-    geom_hline(yintercept = 1/sigma + 1/gamma, lty=2) +
+    geom_hline(yintercept = 1/sigma + 1/gamma, lty=3) +
     scale_x_continuous("time (days)", expand=c(0,0), limits=c(0, 300), breaks=seq(0, 250, by=50)) +
-    scale_y_continuous("mean observed GI", expand=c(0,0), limits=c(0, 1/sigma+1/gamma+4)) +
+    scale_y_continuous("mean observed GI (days)", expand=c(0,0), limits=c(0, 30)) +
+	scale_linetype_manual(values=c(2, 1)) +
 	# facet_wrap(~type) +
 	theme(
         panel.grid=element_blank(),
@@ -120,9 +126,12 @@ g2 <- ggplot(gendata %>% filter(type==1), aes(t, mean)) +
         plot.margin=unit(c(5.5, 10, 5.5, 5.5), "points"),
         strip.background = element_blank(),
         strip.text = element_blank(),
-        panel.spacing = unit(0, "cm")
+        panel.spacing = unit(0, "cm"),
+        legend.title = element_blank(),
+        legend.position = c(0.15, 0.87),
+        legend.key.width = grid::unit(2, "cm")
     )
 
-gg_temporal <- arrangeGrob(g1, g2, nrow=2)
+gg_temporal <- arrangeGrob(g1, g2, nrow=2, heights=c(0.4, 0.6))
 
-ggsave("temporal_effect.pdf", gg_temporal, width=6, height=4)
+ggsave("temporal_effect.pdf", gg_temporal, width=6, height=6)

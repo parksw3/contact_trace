@@ -163,6 +163,7 @@ b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-s) g(s) ds}
 
 \jd{Can we just skip this \P, or put in an appendix or something?}
 \swp{We decided to ask David for opinion}
+\swp{I tried to rewrite the section to make things clearer; it seems to make this paragraph less boring and more relevant?}
 On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections that are $\tau$ time units apart from any cohort infection time $s$ before $t$.
 Then, the censored generation-interval distribution is given by
 \begin{equation}\label{eq:obsg}
@@ -172,12 +173,13 @@ Alternatively, the censored generation-interval distribution can be interpreted 
 \begin{equation}
 c_t(\tau) \propto \int_0^t b_s(\tau) S(s) ds.
 \end{equation}
-Therefore, we expect the backward generation-interval distribution to be equivalent to the censored generation-interval distribution when $S \approx 1$, i.e., when the epidemic is growing exponentially.
+Therefore, we expect the backward generation-interval distribution to be equivalent to the censored generation-interval distribution when $S \approx 1$, i.e., when the epidemic is growing exponentially;
+however, this assumption quickly breaks down as the epidemic progresses (Figure~\ref{fig:censor}).
 
 \begin{figure}[t]
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
 \caption{\textbf{Temporal variation in the mean observed generation interval.}
-A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model was simulated using Ebola-like parameters and the observed (right-censored) mean generation interval was calculated over the course of an epidemic (see methods).
+A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model was simulated using Ebola-like parameters and the backward and the censored mean generation interval were calculated over the course of an epidemic.
 }
 \label{fig:censor}
 \end{figure}
@@ -193,9 +195,9 @@ the censored generation-interval distribution is equivalent to the inverse expon
 \end{equation}
 % As backward generation-interval distributions are always shorter than the intrinsic generation-interval distribution during the exponential growth period, their weighted average (i.e., the censored intervals) will also be shorter.
 Second, decreasing number of susceptibles over the course of an epidemic makes long infections less likely to occur, and the realized intervals will always be shorter \citep{champredon2015intrinsic}.
-As a result, even if contact tracing is performed through an entire epidemic, mean generation interval will be underestimated.
+As a result, even if contact tracing is performed through an entire epidemic, the mean intrinsic generation interval will be underestimated.
 
-When a disease is at (or near) endemic equilibrium, the number of susceptibles remains (approximately) constant over time, and we expect the observed generation-interval distribution to be similar to the intrinsic generation-interval distribution.
+% When a disease is at (or near) endemic equilibrium, the number of susceptibles remains (approximately) constant over time, and we expect the observed generation-interval distribution to be similar to the intrinsic generation-interval distribution.
 
 \section{Generation-interval distributions across space}
 
