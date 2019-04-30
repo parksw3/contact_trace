@@ -59,7 +59,7 @@ These two quantities are linked by generation-interval distributions \citep{wear
 
 Generation interval is defined as the time between when a person becomes infected and when that person infects another person \citep{svensson2007note}.
 Due to individual variation in infection time, the observed generation-interval distribution can change depending on when and how it is measured \citep{svensson2007note, kenah2008generation, nishiura2010time, champredon2015intrinsic}.
-There are important distinctions to be made when estimating generation intervals: \emph{intrinsic} generation intervals are measured by evaluating the infectiousness of infected people,
+There are important distinctions to be made when estimating generation intervals: \emph{intrinsic} generation intervals are based on the infectiousness of infected people,
 %% without regard to actual infection events,
 while \emph{observed} generation intervals refer to the time between actual infection events.
 Observed generation intervals in turn can be \emph{aggregated} across time, measured \emph{forward} in time by looking at a cohort of individuals infected at the same time and asking when they infected others, or measured \emph{backward in time} by looking at a cohort and asking when their infectors were infected \citep{champredon2015intrinsic}.
@@ -76,10 +76,11 @@ When epidemic is subsiding, most infections are caused by the remaining infector
 In practice, generation intervals are often measured by aggregating available information from contact tracing. 
 Whereas forward and backward generation intervals represent infections that are one generation apart from a cohort, these aggregated generation intervals represent infections across multiple cohorts; 
 the time of infection of a cohort can range anywhere from the beginning of an epidemic to the most recent infection.
-As a result, while an epidemic is ongoing, these measurements are ``censored'': we don't know what happens after the observation time.
+While an epidemic is ongoing, these measurements are ``censored'': we don't know what happens after the observation time.
 These censored observations can be thought of as a weighted average of backward generation-interval distributions; like them, the distribution of censored intervals will have a shorter mean than the intrinsic distribution early in an epidemic.
 
 Realized generation intervals can also vary across space.
+\jd{Realized generation intervals are also affected by spatial and network structure.}
 In a structured population (that is, any population that does not mix homogeneously), susceptibility will tend to decrease more quickly in the neighborhood of infected individuals than in the general population even in the early phase of an epidemic. 
 This means that contacts made late in infection are more likely to be ``masked'' due to infectious contacts that were made earlier.
 Therefore, realized generation intervals will be shorter and observed generation intervals may underestimate the intrinsic generation-interval distribution even when population-level susceptibility is very high.
@@ -117,6 +118,7 @@ Here, we assume that the individual properties are independent of risk of infect
 In practice, it is unlikely that naively averaging across an empirical distribution will give us the correct population-level kernel, especially when an epidemic is driven by a few highly infectious individuals.
 \jd{This is assuming that we know how to average across infected individuals. Do we need to assume that individual kernel properties are independent of risk of infection? If we have high-degree individuals, does it already break that assumption?}
 \swp{Can we say this?}
+\jd{Let's discuss the whole thing. Maybe we can refer to a theoretical average?}
 
 There are two components to infection kernels: intrinsic infectiousness of an infected individual (the basic reproductive number) and time distribution of new infections (generation-interval distribution).
 Assuming that a population mixes homogeneously, the basic reproductive number -- expected number of secondary cases caused by an \emph{average} primary case in a fully susceptible population -- can be defined as: 
@@ -149,8 +151,8 @@ When generation intervals are measured through contact tracing during an outbrea
 the observed intervals are ``right-censored'', because intervals that end after the observation time are not observed. 
 Several studies have associated the backward generation-interval distribution with the early-epidemic observed generation-interval distribution \citep{tomba2010some, nishiura2010time, champredon2015intrinsic, britton2019estimation};
 in fact, the censored generation-interval distribution averages over backward generation-interval distributions up until the observation time.
-While we mathematically expect these underlying distributions to be the same (and thus the same distribution as their average) during the exponential growth phase, these assumptions can break down as an epidemic progresses.
-Here, we want to conceptually distinguish the censored distribution the backward distribution.
+During the exponential growth phase, we expect the backward distributions to be the same (and thus the censored distribution should match them).
+This connection will break down as the epidemic progresses, however, so we will to distinguish the censored distribution from the backward distribution.
 
 The density of new infections occuring at time $t$ caused by infectors who were infected at time $t-\tau$ is given by
 \begin{equation}
