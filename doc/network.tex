@@ -201,6 +201,8 @@ As a result, even if contact tracing is performed through an entire epidemic, th
 
 \section{Generation-interval distributions across space}
 
+
+
 Infected individuals may contact the same susceptible individual multiple times, but only the first effective contact gives rise to infection in a given individual (after this, they are no longer susceptible).
 Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average, in a limited contact network.
 
@@ -258,7 +260,7 @@ Theoretical distributions and means are shown in color (and are the same in each
 (Left) the intrinsic generation-interval distribution corresponds to all contacts by a focal individual, regardless of whether the individual contacted is susceptible (simulated on a star network).
 (Middle) the egocentric generation-interval distribution corresponds to the distribution of all infectious contacts by the focal individual with susceptible individuals, in the case where the focal individual is the only possible infector (simulated on a star network).
 (Right) realized generation-interval distributions are shorter than egocentric distributions in general, because contacts can be wasted when susceptibles become infected through other routes (simulated on a homogeneous network).
-All graphs were generated using 5000 stochastic simulations were on a network with 5 nodes (1 infector and 4 susceptibles).
+All figures were generated using 5000 stochastic simulations on a network with 5 nodes (1 infector and 4 susceptibles).
 }
 \label{fig:local}
 \end{figure}
@@ -267,7 +269,6 @@ The egocentric generation interval \eref{conditional} only explains some of the 
 Generation intervals are also shortened by indirect connections: a susceptible individual can be infected through another route before the focal individual makes infectious contacts.
 Simulations on a small homogeneous network confirm this additional effect (\fref{local}, right panel). 
 
-\swp{Shouldn't we put this earlier?}
 In general, spatial reduction in the mean generation interval can be viewed as an effect of susceptible depletion and can be further classified into three levels: egocentric, local, and global.
 Egocentric depletion, as discussed previously, is caused by an infected individual making multiple contacts to the same individual.
 Local depletion refers to a depletion of susceptible individuals in a household or neighborhood;
@@ -360,7 +361,7 @@ However, observed generation-interval distributions can vary depending on how an
 determining which distribution correctly links $r$ and $\RR$ can be challenging.
 Here, we explore how observed generation intervals, measured through contact tracing, vary across time and space.
 Whereas temporal variations represent observation bias, spatial variations reflect the contact structure of a realized outbreak.
-Therefore, correcting for temporal variation, but not for spatial variation, in an observed generation-interval distribution provides the correct link between $r$ and $\RR$, allowing us to estimate the reproductive number $\RR$ that is consistent with the realized infection process.
+Therefore, correcting for temporal variation, but not for spatial variation, in an observed generation-interval distribution provides a link between $r$ and $\RR$ which allows us to estimate the reproductive number $\RR$ that is consistent with the realized infection process.
 
 Generation intervals can be measured either forward (by tracing the infectees of an infected individual) or backward (by tracing the infector of an infected individual).
 Previous studies have characterized changes in these distributions over time by looking at infections that are one generation apart from a single cohort.
