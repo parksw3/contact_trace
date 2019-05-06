@@ -412,20 +412,32 @@ Parameters of the model are specified as follows: $N$ is the total population si
 
 \subsection{Stochastic SEIR model}
 
-\swp{What do I cite here? Gillespie?}
-We use individual-based simulations of the stochastic SEIR model on a network to study variation in realized generation intervals.
-Every node of a network is numbered from 1 to $N$, where $N$ is the total number of nodes. 
-Each node represents an individual.
-Likewise, an edge of a network represents acquaintanceship; infected individuals can only contact their acquaintances. 
+\swp{What do I cite here?}
+We develop an algorithm to simulate an individual-based SEIR model on a network to keep track of generation intervals.
+Our algorithm is based on the Gillespie algorithm.
+We model individuals with nodes on a network and their acquaintanceships with edges; infected individuals can only contact their acquaintances.
 
-First, we begin by randomly selecting initially infected individuals.
-For each infected individual $i$, we randomly draw a random number $E_i$ from an Erlang distribution with mean $1/\sigma$ and shape $n_E$.
-Given a total contact rate of $k_i \lambda$, where $k_i$ is the number of acquaintances and $\lambda$ is the per-pair contact rate, and a transition rate of $n_I \gamma$ between each infectious stages, 
-the total number of contacts that an indiviudal $i$ in infectious stage $j$ makes before moving to infectious stage $j+1$ follows a geometric distribution with probability $n_I\gamma/(k_i \lambda + n_I\gamma)$:
+First, we begin by randomly selecting initially infected individuals; these individuals are assumed to be infected at $t = 0$.
+For each infected individual $i$, we randomly draw a random number $E_i$ from an Erlang distribution with mean $1/\sigma$ and shape $n_E$ to represent the length of their latent period.
+Given a total contact rate of $S_i \lambda$, where $S_i$ is the number of susceptible acquaintances and $\lambda$ is the per-pair contact rate, and a transition rate of $n_I \gamma$ between each infectious stages, 
+the total number of contacts that an indiviudal $i$ in infectious stage $j$ makes before moving to infectious stage $j+1$ follows a geometric distribution with probability $n_I\gamma/(S_i \lambda + n_I\gamma)$:
 \begin{equation}
-C_{i, j} \sim \mathrm{Geometric}\left(\frac{n_I\gamma}{k_i \lambda + n_I\gamma}\right).
+C_{i, j} \sim \mathrm{Geometric}\left(\frac{n_I\gamma}{S_i \lambda + n_I\gamma}\right).
 \end{equation}
 For each contact, a contactee is uniformly sampled from the set of acquaintances of the individual $i$.
+Then, the time between two events follows an exponential distribution with rate $S_i \lambda + n_I\gamma$:
+\begin{equation}
+T_{i, j, k} \sim \mathrm{Exponential}\left(S_i \lambda + n_I\gamma\right),
+\end{equation}
+where $k = 1, 2, \dots, C_{i, j}, C_{i, j} + 1$. Here, the $(C_{i, j} + 1)$-th event is the transition from the infectious stage from $j$ to $j+1$.
+This process is repeated until the individual fully recovers (i.e., goes through all infectious stages).
+Then, the time at which individual $i$ makes $k$-th contact is given by the sum of current time $t$, the length of latent period $E_i$, and the time between all events (either a contact or transistion between states) caused by this individual prior to the contact:
+\begin{equation}
+\begin{cases}
+t + E_i + \sum_{n=1}^k T_{i, j, n}, & \text{if } j = 1,\\
+t + E_i + \sum_{m=1}^{j-1} \sum_{n=1}^{C_{i, m} + 1} T_{i, m, n} + \sum_{n=1}^k T_{i, j, n}, & \text{if } j > 1,
+\end{cases}
+\end{equation}
 
 
 
