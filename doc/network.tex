@@ -79,8 +79,7 @@ the time of infection of a cohort can range anywhere from the beginning of an ep
 While an epidemic is ongoing, these measurements are ``censored'': we don't know what happens after the observation time.
 These censored observations can be thought of as a weighted average of backward generation-interval distributions; like them, the distribution of censored intervals will have a shorter mean than the intrinsic distribution early in an epidemic.
 
-Realized generation intervals can also vary across space.
-\jd{Realized generation intervals are also affected by spatial and network structure.}
+Realized generation intervals are also affected by spatial and network structure.
 In a structured population (that is, any population that does not mix homogeneously), susceptibility will tend to decrease more quickly in the neighborhood of infected individuals than in the general population even in the early phase of an epidemic. 
 This means that contacts made late in infection are more likely to be ``masked'' due to infectious contacts that were made earlier.
 Therefore, realized generation intervals will be shorter and observed generation intervals may underestimate the intrinsic generation-interval distribution even when population-level susceptibility is very high.
@@ -116,25 +115,16 @@ K(\tau) = \int K_a (\tau) dA.
 The population-level kernel describes the rate at which secondary infections are expected to be caused by an \emph{average} infected individual.
 Here, we assume that the individual properties are independent of risk of infection.
 In practice, it is unlikely that naively averaging across an empirical distribution will give us the correct population-level kernel, especially when an epidemic is driven by a few highly infectious individuals.
-\jd{This is assuming that we know how to average across infected individuals. Do we need to assume that individual kernel properties are independent of risk of infection? If we have high-degree individuals, does it already break that assumption?}
-\swp{Can we say this?}
-\jd{Let's discuss the whole thing. Maybe we can refer to a theoretical average?}
 
 There are two components to infection kernels: intrinsic infectiousness of an infected individual (the basic reproductive number) and time distribution of new infections (generation-interval distribution).
 Assuming that a population mixes homogeneously, the basic reproductive number -- expected number of secondary cases caused by an \emph{average} primary case in a fully susceptible population -- can be defined as: 
 \begin{equation}
 \RR_0 = \int K(\tau) d\tau.
 \end{equation}
-\jd{OK, this one definitely looks problematic; that's not what happens with high degree.}
-\swp{Can we just say this? I'm not sure what else we can say.}
 Finally, the intrinsic generation-interval distribution is simply the population-level kernel normalized by the basic reproductive number:
 \begin{equation}
 g(\tau) = \frac{K(\tau)}{\RR_0}.
 \end{equation}
-
-\jd{Rewrite these equations a bit more consistently. What are we using for: index infection, current infection? $\tau$ is difference between them. Is it simpler just to use ' for dummies?}
-\swp{I tried. $t$ is current time, $\tau$ is time difference. $s$ and $x$ are used for integrals.}
-\jd{How about: $s$ as a dummy for $t$, $\sigma$ as a dummy for $\tau$?}
 
 In a homogeneously mixing population, we can assume that the disease incidence $i(t)$ is the product of the current infectiousness of previously infected individuals and the proportion of the population susceptible, $S(t)$.
 \begin{equation}
@@ -150,7 +140,7 @@ Over a period of time where the proportion of susceptible $S$ remains roughly co
 \section{Generation-interval distributions across time}
 
 When generation intervals are measured through contact tracing during an outbreak, 
-the observed intervals are ``right-censored'', because intervals that end after the observation time are not observed. 
+the observed intervals are ``right-censored'', because intervals that end after the observation time are not observed.
 Several studies have associated the backward generation-interval distribution with the early-epidemic observed generation-interval distribution \citep{tomba2010some, nishiura2010time, champredon2015intrinsic, britton2019estimation};
 in fact, the censored generation-interval distribution averages over backward generation-interval distributions up until the observation time.
 During the exponential growth phase, we expect the backward distributions to be the same (and thus the censored distribution should match them).
@@ -160,9 +150,9 @@ The density of new infections occuring at time $t$ caused by infectors who were 
 \begin{equation}
 i_{t-\tau}(t) = \RR i(t-\tau) g(\tau) S(t)
 \end{equation}
-The backward generation-interval distribution, $b_t(\tau)$, describes a distribution of infection that occured $\tau$ time units before the referece time $t$ and is proportional to $i(t-\tau) g(s)$:
+The backward generation-interval distribution, $b_t(\tau)$, describes a distribution of infection that occured $\tau$ time units before the referece time $t$ and is proportional to $i(t-\tau) g(\tau)$:
 \begin{equation}
-b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-s) g(s) ds}
+b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-\sigma) g(\sigma) d\sigma}
 \end{equation}
 
 \jd{Can we just skip this \P, or put in an appendix or something?}
@@ -172,7 +162,7 @@ b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-s) g(s) ds}
 On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections that are $\tau$ time units apart from any cohort infection time $s$ before $t$.
 Then, the censored generation-interval distribution is given by
 \begin{equation}\label{eq:obsg}
-c_t(\tau) = \frac{g(\tau) \int_0^t i(s-\tau) S(s) ds}{\int_0^t g(x) \int_0^t i(s-x) S(s) ds dx}
+c_t(\tau) = \frac{g(\tau) \int_0^t i(s-\tau) S(s) ds}{\int_0^t g(x) \int_0^t i(s-\sigma) S(s) ds d\sigma}
 \end{equation}
 Alternatively, the censored generation-interval distribution can be interpreted as a weighted distribution of the backward generation intervals:
 \begin{equation}
@@ -212,8 +202,6 @@ Therefore, we expect realized generation intervals to be shorter than intrinsic 
 
 To explore the effect of multiple contacts on realized generation intervals, we first consider the infection process from an ``egocentric'' point of view, taking into account infectious contacts made by a single infector.
 We define the egocentric kernel as the rate at which secondary infections are realized by a single primary case $a$ in the absence of other infectors:
-\jd{We can't use dilution directly in the hazard term: it needs to be multiplied by something like big R. I would put $R\delta$ there. The extreme dilution examples would be mean degree (if highly connected people infect that much more) or individual degree (if they don't infect more at all.)}
-\swp{That seems redundant. $K_a$ already has big (individual) R. Why do we multiply by another R? I added more. Is this better?}
 \begin{equation}
 \hat{K}_a(\tau) = K_a(\tau) \exp \left(- \delta_a \int_0^\tau K_a(s) ds\right),
 \end{equation}
@@ -397,18 +385,13 @@ However, further investigation of our methods suggests that making a wrong distr
 These results are particularly alarming because it is impossible to know the true shape of the distribution [CITE].
 
 \swp{Conclusion?}
-
-<<<<<<< HEAD
-\section{Methods}
-
-
-=======
 \jd{Let me try.}
 
 \section{Methods}
 
-\jd{Maybe a bit more detail here.}
->>>>>>> dc54fdf3dc27499dda8c54ed3cd1ca03a0b04ac7
+
+
+
 
 \bibliography{network}
 \end{document}
