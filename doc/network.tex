@@ -158,7 +158,7 @@ The density of new infections occuring at time $t$ caused by infectors who were 
 \begin{equation}
 i_{t-\tau}(t) = \RR i(t-\tau) g(\tau) S(t)
 \end{equation}
-The backward generation-interval distribution, $b_t(\tau)$, describes a distribution of infection that occured $\tau$ time units before the referece time $t$ and is proportional to $i_{t-\tau}(t)$:
+The backward generation-interval distribution, $b_t(\tau)$, describes a distribution of infection that occured $\tau$ time units before the referece time $t$ and is proportional to $i(t-\tau) g(s)$:
 \begin{equation}
 b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-s) g(s) ds}
 \end{equation}
@@ -395,12 +395,7 @@ These results are particularly alarming because it is impossible to know the tru
 
 \swp{Conclusion?}
 
-
-
 \section{Methods}
-
-
-
 
 
 
