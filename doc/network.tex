@@ -431,15 +431,21 @@ T_{i, j, k} \sim \mathrm{Exponential}\left(S_i \lambda + n_I\gamma\right),
 \end{equation}
 where $k = 1, 2, \dots, C_{i, j}, C_{i, j} + 1$. Here, the $(C_{i, j} + 1)$-th event is the transition from the infectious stage from $j$ to $j+1$.
 This process is repeated until the individual fully recovers (i.e., goes through all infectious stages).
-Then, the time at which individual $i$ makes $k$-th contact is given by the sum of current time $t$, the length of latent period $E_i$, and the time between all events (either a contact or transistion between states) caused by this individual prior to the contact:
+Then, the (yet to be realized) generation time between individual $i$ and the $k$-th contactee (during infectious stage $j$) is equal the sum of the length of latent period $E_i$ and the time between all events (either a contact or transistion between states) caused by this individual prior to the contact:
 \begin{equation}
-\begin{cases}
-t + E_i + \sum_{n=1}^k T_{i, j, n}, & \text{if } j = 1,\\
-t + E_i + \sum_{m=1}^{j-1} \sum_{n=1}^{C_{i, m} + 1} T_{i, m, n} + \sum_{n=1}^k T_{i, j, n}, & \text{if } j > 1,
+G_{i,j,k} = \begin{cases}
+E_i + \sum_{n=1}^k T_{i, j, n}, & \text{if } j = 1,\\
+E_i + \sum_{m=1}^{j-1} \sum_{n=1}^{C_{i, m} + 1} T_{i, m, n} + \sum_{n=1}^k T_{i, j, n}, & \text{if } j > 1.
 \end{cases}
 \end{equation}
+Finally, the time at which this individual is contacted by individual $i$ is equal to the sum of current time $t$ and the generation time $G_{i,j,k}$.
 
-
+After repeating the contact process for all initially infected individuals, all contacts are put into a sorted queue.
+The first person in the queue becomes infected, and the current time is updated to infection time of this individual. 
+Any subsequent contacts made to this individual are removed from the queue because they will no longer be effective.
+We repeat the contact process for this newly infected individual.
+Then, new contacts are added to the sorted queue.
+Simulation continues until there are no more contacts are left in the queue.
 
 \subsection{Empirical network}
 
