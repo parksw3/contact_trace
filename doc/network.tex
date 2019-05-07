@@ -345,6 +345,7 @@ While both population- and individual-level corrections provide similar estimate
 population-level estimates are more variable as they are more sensitive to outliers in generation intervals and our estimate of the growth rate.
 For smaller values of \RR, we expect the differences to become smaller. 
 \swp{TODO: In Appendix, we present the same figure using Erlang-distributed latent periods, which better corresponds to Ebola. Overall, our qualitative conclusions do not change.}
+\jd{TODO: Somehting about Erlang/Gmma}
 
 \section{Discussion}
 
@@ -418,27 +419,15 @@ Our algorithm is based on the Gillespie algorithm.
 We model individuals with nodes on a network and their acquaintanceships with edges; infected individuals can only contact their acquaintances.
 
 First, we begin by randomly selecting initially infected individuals; these individuals are assumed to be infected at $t = 0$.
-For each infected individual $i$, we randomly draw a random number $E_i$ from an Erlang distribution with mean $1/\sigma$ and shape $n_E$ to represent the length of their latent period.
-Given a total contact rate of $S_i \lambda$, where $S_i$ is the number of susceptible acquaintances and $\lambda$ is the per-pair contact rate, and a transition rate of $n_I \gamma$ between each infectious stages, 
-the total number of contacts that an indiviudal $i$ in infectious stage $j$ makes before moving to infectious stage $j+1$ follows a geometric distribution with probability $n_I\gamma/(S_i \lambda + n_I\gamma)$:
-\begin{equation}
-C_{i, j} \sim \mathrm{Geometric}\left(\frac{n_I\gamma}{S_i \lambda + n_I\gamma}\right).
-\end{equation}
-For each contact, a contactee is uniformly sampled from the set of acquaintances of the individual $i$.
-Then, the time between two events follows an exponential distribution with rate $S_i \lambda + n_I\gamma$:
-\begin{equation}
-T_{i, j, k} \sim \mathrm{Exponential}\left(S_i \lambda + n_I\gamma\right),
-\end{equation}
-where $k = 1, 2, \dots, C_{i, j}, C_{i, j} + 1$. Here, the $(C_{i, j} + 1)$-th event is the transition from the infectious stage from $j$ to $j+1$.
-This process is repeated until the individual fully recovers (i.e., goes through all infectious stages).
-Then, the (yet to be realized) generation time between individual $i$ and the $k$-th contactee (during infectious stage $j$) is equal the sum of the length of latent period $E_i$ and the time between all events (either a contact or transistion between states) caused by this individual prior to the contact:
-\begin{equation}
-G_{i,j,k} = \begin{cases}
-E_i + \sum_{n=1}^k T_{i, j, n}, & \text{if } j = 1,\\
-E_i + \sum_{m=1}^{j-1} \sum_{n=1}^{C_{i, m} + 1} T_{i, m, n} + \sum_{n=1}^k T_{i, j, n}, & \text{if } j > 1.
-\end{cases}
-\end{equation}
-Finally, the time at which this individual is contacted by individual $i$ is equal to the sum of current time $t$ and the generation time $G_{i,j,k}$.
+For each infected individual $i$, we randomly draw the latent period $E_i$ from an Erlang distribution with mean $1/\sigma$ and shape $n_E$.
+We then construct the random infectious period and infectious contact times simultaneously as follows.
+For each of the $n_I$ stages of the Erlang infectious period, we draw the number of effective contacts from a geometric distribution with mean $S_i \lambda / n_I\gamma$, where $S_i$ is the number
+of susceptible acquaintances and $\lambda$ is the per-pair contact rate.
+We then choose the time between consecutive events (the chosen number of contacts, followed by exit from the given stage of infection) from an exponential distribution with rate $S_i \lambda + n_I\gamma$.
+For each contact, a contactee is uniformly sampled from the set of susceptible acquaintances of the individual $i$.
+The infectious period $I_i$ is the sum of all of these waiting times.
+
+[[Add flowchart?]]
 
 After repeating the contact process for all initially infected individuals, all contacts are put into a sorted queue.
 The first person in the queue becomes infected, and the current time is updated to infection time of this individual. 
