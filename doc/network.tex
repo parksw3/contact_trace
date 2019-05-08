@@ -438,8 +438,14 @@ The simulation continues until there are no more contacts are left in the queue.
 
 \subsection{Empirical network}
 
+To simulate epidemics on a realistic network, we use the `condensed matter physics' network from the Stanford Large Network Dataset Collection \citep{leskovec2016snap}.
+This graph describes co-authorship among anyone who submitted a paper to Condensed Matter category in the arXiv between January 1993 and April 2003 \citep{leskovec2007graph}.
+It consists of 23133 nodes and 93497 edges.
+\cite{trapman2016inferring} used the same network to simulate epidemics.
 
+\subsection{Measuring the exponential growth rate}
 
+\section{Appendix}
 
 \bibliography{network}
 \end{document}
