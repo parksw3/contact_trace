@@ -66,11 +66,11 @@ Observed generation intervals in turn can be measured either \emph{forward} in t
 
 Early in an epidemic, when depletion of susceptibles is negligible, we expect the forward generation-interval distribution to be similar to the intrinsic generation-interval distribution \citep{champredon2015intrinsic}.
 As an epidemic progresses, an infector is less likely to infect individuals later in time due to decrease in susceptibles, 
-and the distribution of forward generation intervals will be shorter than the intrinsic distribution \citep{kenah2008generation, tomba2010some, champredon2015intrinsic}.
+and the distribution of forward generation intervals will have shorter mean than the intrinsic distribution \citep{kenah2008generation, tomba2010some, champredon2015intrinsic}.
 Conversely, when an epidemic is growing exponentially, as often occurs near the beginning of an outbreak, the number of newly infected individuals will be large relative to the number infected earlier on. 
 A susceptible individual is thus relatively more likely to be infected by a newly infected individual, 
 and the distribution of backward generation intervals will be shorter than the intrinsic distribution \citep{champredon2015intrinsic, britton2019estimation}.
-When epidemic is subsiding, most infections are caused by the remaining infectors, rather than new infectors, and the backward generation interval will be long \citep{tomba2010some, champredon2015intrinsic}.
+When an epidemic is subsiding, most infections are caused by the remaining infectors, rather than new infectors, and the backward generation interval will be long \citep{tomba2010some, champredon2015intrinsic}.
 
 In practice, generation intervals are often measured by aggregating available information from contact tracing. 
 Whereas forward and backward generation intervals represent infections that are one generation apart from a cohort, these aggregated generation intervals represent infections across multiple cohorts; 
@@ -84,7 +84,7 @@ In a structured population (that is, any population that does not mix homogeneou
 This means that contacts made late in infection are more likely to be ``masked'' due to infectious contacts that were made earlier.
 As a result, realized generation intervals will have shorter mean than the intrinsic generation-interval distribution.
 This perspective allows us to reinterpret the finding of \cite{trapman2016inferring} that, given an intrinsic generation interval and an observed growth rate $r$, the reproductive number $\RR$ on various network structures is always smaller on a network than would be predicted from homogeneous mixing.
-These observations allow us to make the following prediction: removing the right-censoring bias from the observed generation intervals will give us a distribution that contains information about the population structure; using this will allow us to correctly infer $\RR$ from $r$.
+These observations allow us to make the following prediction: removing the censoring bias from the observed generation intervals will give us a distribution that contains information about the population structure; using this distribution should allow us to correctly infer $\RR$ from $r$.
 
 In this study, we explore spatiotemporal variation in generation intervals measured through contact tracing.
 We extend previous frameworks to study how the censored generation-interval distributions change over time and compare this distribution with the backward generation-interval distribution.
