@@ -54,7 +54,9 @@
 
 An epidemic can be characterized by its speed (exponential growth rate, $r$) and its strength (reproductive number, \RR).
 Reproductive number, defined as the average number of secondary cases arising from a primary case, is of particular interest as it provides information about the final size of an epidemic \citep{anderson1991infectious, diekmann1990definition}.
-However, directly measuring the reproductive number often requires detailed knowledge of the natural history of a disease and may not be feasible early in an epidemic \citep{dietz1993estimation}.
+However, directly measuring the reproductive number often requires detailed knowledge of the natural history of a disease 
+\dc{and also knowing the transmission chains; but that means doing some sort of contact tracing...}
+ and may not be feasible early in an epidemic \citep{dietz1993estimation}.
 Instead, the reproductive number can be \emph{indirectly} estimated from the exponential growth rate, which can often be estimated from incidence data \citep{chowell2003sars, mills2004transmissibility, nishiura2009transmission, nishiura2010pros, ma2014estimating}.
 These two quantities are linked by generation-interval distributions \citep{wearing2005appropriate, svensson2007note, roberts2007model, wallinga2007generation, park2019practical}.
 
@@ -141,11 +143,14 @@ Over a period of time where the proportion of susceptible $S$ remains roughly co
 
 \section{Generation-interval distributions across time}
 
+\dc{you make several assertions that are difficult to understand that early in the text. It really doesn't flow well, it was hard to follow, evn fo me who has worked on this kind of things. I suggest you define first c_t.}
+
 When generation intervals are measured through contact tracing during an outbreak, 
 the observed intervals are ``right-censored'', because intervals that end after the observation time are not observed.
 Several studies have associated the backward generation-interval distribution with the early-epidemic observed generation-interval distribution \citep{tomba2010some, nishiura2010time, champredon2015intrinsic, britton2019estimation};
 in fact, the censored generation-interval distribution averages over backward generation-interval distributions up until the observation time.
-During the exponential growth phase, we expect the backward distributions to be the same (and thus the censored distribution should match them).
+\dc{You define $c_t$ after saying this, this is confusing.}
+During the exponential growth phase, we expect the backward distributions to be the same (and thus the censored distribution should match them). \dc{again, this is explained after... reading doesn't flow well}
 This connection will break down as the epidemic progresses, however, so we will to distinguish the censored distribution from the backward distribution.
 
 The density of new infections occuring at time $t$ caused by infectors who were infected at time $t-\tau$ is given by
@@ -159,6 +164,8 @@ b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-\sigma) g(\sigma) d\sigma}
 
 \jd{Can we just skip this \P, or put in an appendix or something?}
 \swp{We decided to ask David for opinion}
+\dc{I'm not sure which paragraph you are mentionning. If it's the one preceding, well, see my comment above. If it's the one following, yes, keep it. 
+More generally, I would keep as much definitions as it is necessary for the average reader to understand. Even if many thing said up to now are in other papers (that you cite), it really helps to have everything re-defined and interpreted in this context. This is relatively deep stuff, so anything that helps is welcome, at the risk of being slightly repetitive with previous work. }
 On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections ($i_{s-\tau}(s)$) that are $\tau$ time units apart from any cohort infection time $s$ before $t$.
 Then, the censored generation-interval distribution is given by
 \begin{equation}\label{eq:obsg}
@@ -187,6 +194,7 @@ There are two reasons for this phenomenon.
 First, any infection events that occur after the contact tracing period cannot be observed due to right censoring and short generation intervals are more likely to be observed.
 In particular, when an epidemic is growing exponentially ($i(t) = i(0) \exp(rt)$), 
 the censored generation-interval distribution is equivalent to the inverse exponentially weighted intrinsic generation-interval distribution \citep{britton2019estimation}:
+\dc{notation c_{exp} is not really consistent with Equation (9) c_t}
 \begin{equation}
 \tsub{c}{exp}(\tau) \propto g(\tau) \exp(-r\tau).
 \label{eq:exp}
@@ -245,6 +253,9 @@ Assuming a constant per-pair contact rate of $\lambda$ for any pair, we obtain t
 \begin{equation}
 \hat{g}(\tau) = \frac{\sigma (\gamma + \lambda)}{\sigma - (\gamma + \lambda)} \left(e^{-(\gamma + \lambda)t} - e^{-\sigma t}\right)
 \end{equation}
+
+\dc{I'm surely missing something obvious, but how do you justify this equation from the one above? }
+
 In this case, with fixed infectiousness during the infection period, the effect of accounting for pairwise contacts is the same as an increase in the recovery rate: infecting a susceptible contact is analogous to no longer being infectious (since the contact cannot be infected again). 
 
 This calculation can be validated by simulating stochastic infection processes on a ``star'' network (i.e, a single infected individual at the center connected to multiple susceptible individuals who are not connected with each other).
@@ -273,6 +284,7 @@ Egocentric depletion, as discussed previously, is caused by an infected individu
 Local depletion refers to a depletion of susceptible individuals in a household or neighborhood;
 this effect can be observed early in an epidemic, especially in a highly structured population, even if most of the population remains susceptible.
 Finally, global depletion refers to overall depeletion of susceptibility as a population-level and explains the reduction in realized compared to intrinsic generation intervals that occurs even in a well-mixed population (\fref{censor}). 
+\dc{Would it be possible to define local depletion using a more rigorous network topology, rather than households/neighborhood? (Would it help?). The same way the egocentric is defined with a star-shaped network, can we define the local depletion with a (well-known?) shape? Global depletion may be fine as it is, as this is something we are used to in general (in other modelling frameworks). }
 
 \section{Inferring generation-interval distributions from a contact tracing data}
 
@@ -316,6 +328,7 @@ The population-level method is simple and intuitive, but does not take into acco
 
 We refer to the second method as the individual-level method because it relies on individual contact information.
 We model each infection $i$ from an infected individual $j$ as a non-homogeneous Poisson process between the time at which infector $j$ was infected ($t_j$) and the censorship time ($\tsub{t}{censor}$), where the time-varying Poisson rate at time $t$ is equal to $\RR g(t - t_j)$, where $g(t)$ is the effective generation-interval distribution \citep{daley2007introduction}.
+\dc{is effective GI distribution, $g$, the same as the intrinsic? The notation implies it is... but I'm confused now.}
 We use a gamma distribution (parameterized by its mean and shape) to model the effective generation-interval distribution.
 Then, the probability that an individual $j$ infects $n_j$ individuals between $t_j$ and $\tsub{t}{censor}$ is equal to
 \begin{equation}
@@ -335,6 +348,8 @@ Here, we estimate parameters $\RR$ and $\theta$ by maximum likelihood.
 Since the estimate of $\RR$ is sensitive to under-reporting, we use the estimated generation-interval distribution to infer the effective reproductive number from the estimated growth rate.
 \cite{forsberg2008likelihood} proposed a related approach based on discretized incidence reports.
 
+\dc{that reminds me of Cauchemez's 2006 AJE paper: ``Estimating in Real Time the Efficacy of Measures to Control Emerging Communicable''. Not sure if it's really relevant, but just in case...  }
+
 To test these methods, we simulate 100 epidemics with Ebola-like parameters on an empirical network \citep{leskovec2016snap} and compare the estimates of reproductive number with empirical reproductive numbers, which we define as the average number of secondary cases generated by the first 100 infected individuals (\fref{cmp}).
 \cite{trapman2016inferring} defined the empirical reproductive number by dividing the total number of infected individuals in generations $2$ to $k+1$ by the total number of infected individuals in generations $1$ to $k$, where the reference generation $k$ is defined to be the first generation that contains at least 75 infected individuals;
 however, individuals in later generations are potentially subject to stronger local depletion and even global depletion effects.
@@ -342,7 +357,7 @@ Therefore, we expect our empirical estimate to better reflect the infection proc
 \swp{TODO: Compare Trapman vs our estimate of empirical R0 in Appendix; Trapman estimate is much lower.}
 
 As we predicted earlier, calculating reproductive number based on the intrinsic generation-interval distribution overestimates the empirical reproductive number;
-estimates based on the egocentric generation-interval distribution (\eref{conditional}) are closer to empirical reproductive numbers but still suffer from overestimation as they do not account for indirect spatial effects.
+estimates based on the egocentric generation-interval distribution (\eref{conditional}) are closer to empirical reproductive numbers but still suffer from overestimation as they do not account for indirect spatial effects. \dc{Figure? I guess this is work in progress...}
 Direct estimates based on contact tracing data severely underestimates the empirical estimates.
 While both population- and individual-level corrections provide similar estimates to the empirical reproductive number,
 population-level estimates are more variable as they are more sensitive to outliers in generation intervals and our estimate of the growth rate.
