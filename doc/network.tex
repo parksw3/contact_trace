@@ -148,10 +148,11 @@ Over a period of time where the proportion of susceptible $S$ remains roughly co
 When generation intervals are estimated through contact tracing during an outbreak, infection events that have not happened yet are not observed. 
 This effect is called ``right-censoring''.
 We can understand the effect of right-censoring using backward generation-interval distributions \citep{tomba2010some, nishiura2010time, champredon2015intrinsic, britton2019estimation}:
-the observed (censored) generation-interval is a weighted distribution averages over backward generation-interval distributions up until the observation time.
-\dc{You define $c_t$ after saying this, this is confusing.}
-During the exponential growth phase, we expect the backward distributions to be the same (and thus the censored distribution should match them). \dc{again, this is explained after... reading doesn't flow well}
-This connection will break down as the epidemic progresses, however, so we will to distinguish the censored distribution from the backward distribution.
+the observed (censored) generation-interval distribution is a weighted average of backward generation-interval distributions up until the observation time.
+
+%% \dc{You define $c_t$ after saying this, this is confusing.}
+%% During the exponential growth phase, we expect the backward distributions to be the same (and thus the censored distribution should match them). \dc{again, this is explained after... reading doesn't flow well}
+%% This connection will break down as the epidemic progresses, however, so we will to distinguish the censored distribution from the backward distribution.
 
 The density of new infections occuring at time $t$ caused by infectors who were infected at time $t-\tau$ is given by
 \begin{equation}
@@ -161,11 +162,6 @@ The backward generation-interval distribution, $b_t(\tau)$, describes a distribu
 \begin{equation}
 b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-\sigma) g(\sigma) d\sigma}
 \end{equation}
-
-\jd{Can we just skip this \P, or put in an appendix or something?}
-\swp{We decided to ask David for opinion}
-\dc{I'm not sure which paragraph you are mentionning. If it's the one preceding, well, see my comment above. If it's the one following, yes, keep it. 
-More generally, I would keep as much definitions as it is necessary for the average reader to understand. Even if many thing said up to now are in other papers (that you cite), it really helps to have everything re-defined and interpreted in this context. This is relatively deep stuff, so anything that helps is welcome, at the risk of being slightly repetitive with previous work. }
 On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections ($i_{s-\tau}(s)$) that are $\tau$ time units apart from any cohort infection time $s$ before $t$.
 Then, the censored generation-interval distribution is given by
 \begin{equation}\label{eq:obsg}
