@@ -8,7 +8,7 @@ current: target
 
 ## uplink-style makestuff
 
-Sources += Makefile .ignore
+Sources += Makefile
 Ignore += .gitignore
 
 msrepo = https://github.com/dushoff
