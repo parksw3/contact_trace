@@ -44,9 +44,9 @@ minuslogl.gamma <- function(log.mean, log.shape, gen) {
 	-sum(dgamma(gen, shape=shape, rate=rate, log=TRUE))
 }
 
-populationfun <- function(mean, shape, gen, r) {
+populationfun <- function(gen, r) {
 	m <- mle2(minuslogl.gamma, 
-			  start=list(log.mean=log(mean), log.shape=log(shape)),
+			  start=list(log.mean=log(mean(gen)), log.shape=log(mean(gen)^2/var(gen))),
 			  method="Nelder-Mead",
 			  optimizer="optim",
 			  data=list(gen=gen),
