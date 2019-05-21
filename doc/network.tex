@@ -446,6 +446,14 @@ It consists of 23133 nodes and 93497 edges.
 
 \subsection{Measuring the exponential growth rate}
 
+We estimate the exponential growth rate $r$ of an epidemic from daily incidence by modeling the cumulative incidence $c(t)$ with a logistic function \citep{ma2014estimating}: 
+\begin{equation}
+c(t) = \frac{K}{1 + \[(K/c_0) - 1\] e^{-rt}},
+\end{equation}
+where $K$ is the final size of an epidemic and $c_0$ is the initial number of cases.
+Fitting this curve directly to cumulative incidence can lead to overly confident result \citep{king2015avoidable}; instead we fit interval incidence $x(t) = c(t + \Delta t) - c(t)$, where $\Delta t$ is 1 day, to daily incidence, assuming that daily incidence follows a negative binomial distribution. 
+This assumption requires us to estimate the dispersion parameter $\theta$ of a negative binomial distribution.
+Parameters $r$, $K$, $c_0$, and $\theta$ are estimated simultaneously by maximizing the likelihood.
 
 
 \section{Appendix}
