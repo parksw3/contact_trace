@@ -30,8 +30,6 @@ d <- degree(cmpGraph)
 
 kappa <- var(d)/mean(d) + mean(d) -1
 
-beta <- 0.13/5
-
 ## This is SEIR
 R0fun.network <- function(r) (gamma+r)/(gamma*sigma/(sigma+r)+r/kappa)
 
@@ -46,11 +44,15 @@ censor.gi <- lapply(
 	reslist
 	, network.generation
 	, plot=FALSE
-	, interval=c(10, 400)
+	, interval=c(10, 1010)
 	, interval.type="cases"
 )
 
+count <- 0
+
 growth <- lapply(reslist, function(x){
+	count <<- count + 1
+	print(count)
 	day <- floor(x$data$time) + 1
 	
 	fitdata <- data.frame(
@@ -58,21 +60,21 @@ growth <- lapply(reslist, function(x){
 		cases=as.vector(table(day))
 	)
 	
-	fitdata <- fitdata[cumsum(fitdata$cases) <= 1000,]
+	ee <- epigrowthfit(time=fitdata$day,
+				 deaths=fitdata$cases,
+				 model="logistic")
 	
-	ee <- MASS::glm.nb(cases~day, data=fitdata)
-	
-	dd <- data.frame(r=coef(ee)[2])
+	dd <- data.frame(r=coef(ee)[1])
 	
 	dd
 }) %>%
 	bind_rows(.id="sim")
 
 individual.est <- lapply(reslist, function(x){
-	tmax <- x$data[1000-9,1]
+	tmax <- x$data[1001,1]
 	gendata <- generation.data(x, tmax=tmax)
 	
-	est <- as.data.frame(t(parametricfun(5, true.mean, true.shape, gendata, tmax)))
+	est <- as.data.frame(t(parametricfun(5, 10, 2, gendata, tmax)))
 	
 	est$type <- c("RR", "mean", "shape")
 	
@@ -106,7 +108,7 @@ population.est2 <- lapply(1:100, function(x){
 	cg <- censor.gi[[x]]
 	gg <- growth[x,2]
 	
-	populationfun(true.mean, true.shape, cg, gg)
+	populationfun(cg, gg)
 }) %>%
 	bind_rows(.id="sim")
 
@@ -132,7 +134,7 @@ empirical.est <- lapply(reslist, empirical.R0, 100)
 RRdata <- data.frame(
 	observed=observed.est$estimate[observed.est$type=="RR"],
 	individual=unlist(individual.RR),
-	population=population.est$estimate[population.est$type=="RR"],
+	population=population.est2$estimate[population.est2$type=="RR"],
 	intrinsic=unlist(intrinsic.est),
 	network=unlist(network.est),
 	trapman=unlist(trapman.est),
