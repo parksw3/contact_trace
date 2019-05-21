@@ -67,16 +67,19 @@ Observed generation intervals in turn can be measured either \emph{forward} in t
 % When aggregated generation intervals are observed until a given time in an ongoing epidemic (often via contact tracing), we refer to these as \emph{censored} (or right-censored) intervals.
 
 \jd{Still too much forward stuff for me; we don't use it for anything.}
-Early in an epidemic, when depletion of susceptibles is negligible, we expect the forward generation-interval distribution to be similar to the intrinsic generation-interval distribution \citep{champredon2015intrinsic}.
-As an epidemic progresses, an infector is less likely to infect individuals later in time due to decrease in susceptibles, 
-and the distribution of forward generation intervals will have shorter mean than the intrinsic distribution \citep{kenah2008generation, tomba2010some, champredon2015intrinsic}.
-Conversely, when an epidemic is growing exponentially, as often occurs near the beginning of an outbreak, the number of newly infected individuals will be large relative to the number infected earlier on. 
+\swp{Got rid of forward stuff with some justification (?)}
+% Early in an epidemic, when depletion of susceptibles is negligible, we expect the forward generation-interval distribution to be similar to the intrinsic generation-interval distribution \citep{champredon2015intrinsic}.
+% As an epidemic progresses, an infector is less likely to infect individuals later in time due to decrease in susceptibles, 
+% and the distribution of forward generation intervals will have shorter mean than the intrinsic distribution.
+Unlike the intrinsic generation-interval distribution, the observed generation-interval distributions depend on when and how they are measured \citep{kenah2008generation, nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation}. 
+Here, we describe how backward generation-interval distributions change over time (see \cite{kenah2008generation, nishiura2010time, tomba2010some, champredon2015intrinsic} for discussion on forward generation intervals); backward measurements better reflect real outbreak scenarios where contact tracing is performed by identifying infectors of infected individuals.
+When an epidemic is growing exponentially, as often occurs near the beginning of an outbreak, the number of newly infected individuals will be large relative to the number infected earlier on. 
 A susceptible individual is thus relatively more likely to be infected by a newly infected individual, 
-and the distribution of backward generation intervals will be shorter than the intrinsic distribution \citep{champredon2015intrinsic, britton2019estimation}.
-When an epidemic is subsiding, most infections are caused by the remaining infectors, rather than new infectors, and the backward generation interval will be long \citep{tomba2010some, champredon2015intrinsic}.
+and the distribution of backward generation intervals will be shorter than the intrinsic distribution \citep{nishiura2010time, champredon2015intrinsic, britton2019estimation}.
+When an epidemic is subsiding, most infections are caused by the remaining infectors, rather than new infectors, and backward generation intervals will be long \citep{nishiura2010time, tomba2010some, champredon2015intrinsic}.
 
 In practice, generation intervals are often measured by aggregating available information from contact tracing. 
-Whereas forward and backward generation intervals represent infections that are one generation apart from a cohort, these aggregated generation intervals represent infections across multiple cohorts; 
+Whereas backward (and forward) generation intervals represent infections that are one generation apart from a cohort, these aggregated generation intervals represent infections across multiple cohorts; 
 the time of infection of a cohort can range anywhere from the beginning of an epidemic to the most recent infection.
 While an epidemic is ongoing, these measurements are ``censored'': we don't know what happens after the observation time.
 These censored observations can be thought of as a weighted average of backward generation-interval distributions;
@@ -92,7 +95,7 @@ These observations allow us to make the following prediction: removing the censo
 In this study, we explore spatiotemporal variation in generation intervals measured through contact tracing.
 We extend previous frameworks to study how the censored generation-interval distributions change over time and compare this distribution with the backward generation-interval distribution.
 We classify sources of spatial variation in generation intervals into three levels (egocentric, local, and global) and discuss how they affect observed generation-interval distributions.
-Finally, we propose two methods for accounting for temporal bias and test our prediction using simulations.
+Finally, we comapre two methods for accounting for temporal bias and test our prediction using simulations.
 
 \section{Intrinsic generation-interval distributions}
 
