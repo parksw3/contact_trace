@@ -115,14 +115,14 @@ making this distinction clear will be particularly useful when we discuss spatia
 An individual-level intrinsic kernel $K_a(\tau)$ describes the rate at which secondary infections are expected to be caused by an infected individual $a$.
 Individuals may vary in their prognosis (e.g., duration of a latent and an infectious period) and their infectiousness, which can depend both on the infectiousness of a disesase as well as the contact structure around them.
 
-The population-level kernel is given by integrating over these individual variations:
+Assuming that the individual properties are independent of risk of infection, the population-level kernel is given by integrating over these individual variations:
 \begin{equation}
 K(\tau) = \int K_a (\tau) dA.
 \end{equation}
 The population-level kernel describes the rate at which secondary infections are expected to be caused by an \emph{average} infected individual.
-Here, we assume that the individual properties are independent of risk of infection.
-In practice, it is unlikely that naively averaging across an empirical distribution will correspond to the correct population-level kernel at a particular time, especially when an epidemic is driven by a few highly infectious individuals. 
+% In practice, it is unlikely that naively averaging across an empirical distribution will correspond to the correct population-level kernel at a particular time, especially when an epidemic is driven by a few highly infectious individuals. 
 \jd{I'd rather drop that clause here; we can get back to it in Discussion if necessary.}
+\swp{Dropped.}
 
 There are two components to an infection kernel: intrinsic infectiousness of an infected individual (the basic reproductive number) and time distribution of new infections (generation-interval distribution).
 Assuming that a population mixes homogeneously, we can write: 
@@ -137,7 +137,7 @@ In a homogeneously mixing population, disease incidence $i(t)$ is the product of
 i(t) = S(t) \int K(s) i(t-s) ds = \RR \int g(s) i(t-s) ds,
 \end{equation}
 where $\RR = S(t) \RR_0$ is the effective reproductive number.
-This model, also referred to as the renewal equation, can represent a wide range of epidemic models \citep{heesterbeek1996concept, diekmann2000mathematical, roberts2004modelling, aldis2005integral, wallinga2007generation, roberts2007model}.
+This model, also referred to as the renewal equation, can describe a wide range of epidemic models \citep{heesterbeek1996concept, diekmann2000mathematical, roberts2004modelling, aldis2005integral, wallinga2007generation, roberts2007model}.
 Over a period of time where the proportion of susceptible $S$ remains roughly constant, we would expect approximately exponential growth in incidence $i(t)$; assuming $i(t) = i(0) \exp(r t)$ yields the Euler-Lotka equation \citep{lotka1907relation}, which provides a direct link between speed and strength of an epidemic:
 \begin{equation}
 \frac{1}{\RR} = \int g(s) \exp(-r s) ds.
