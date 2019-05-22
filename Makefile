@@ -10,7 +10,7 @@ current: target
 
 # stuff
 
-Sources += Makefile .ignore 
+Sources += Makefile
 Ignore += .gitignore
 
 msrepo = https://github.com/dushoff
