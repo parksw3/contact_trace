@@ -390,10 +390,9 @@ Understanding the role of contact tracing and developing protocols that are info
 
 \subsection{Deterministic SEIR model}
 
-\swp{CITE}
 To study the effects on right-censoring on the observed generation intervals, we use the deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model.
 The SEIR model describes how a disease spreads in a homogeneously mixing population; it assumes that infeceted individuals become infectious after a latent period.
-We use a \seminar\ model, which extends the SEIR model to have multiple equivalent stages in the latent and infectious periods. This gives periods with Erlang distributions (gamma distributions with integer shape parameters), which are often more realistic than the exponentially distributed periods in the standard SEIR model: 
+We use a \seminar\ model, which extends the SEIR model to have multiple equivalent stages in the latent and infectious periods. This gives periods with Erlang distributions (gamma distributions with integer shape parameters), which are often more realistic than the exponentially distributed periods in the standard SEIR model \citep{anderson1980spread, bailey1964some}: 
 \jd{Mention that our main-text models use exponential later instead.}
 \begin{equation}
 \begin{aligned}
@@ -405,13 +404,12 @@ We use a \seminar\ model, which extends the SEIR model to have multiple equivale
 \end{aligned}
 \end{equation}
 where $S$ is the number of susceptible individuals, $E_m$ is the number of exposed individuals in the $m$-th compartment, $I_n$ is the number of infectious individuals in the $n$-th compartment, and $R$ is the number of recovered individuals.
-Parameters of the model are specified as follows: $N$ is the total population size, $\beta$ is the transmission rate, $1/\sigma$ is the mean latent period, and $1/\gamma$ is the mean infectious period.
+Parameters of the model are specified as follows: $N$ is the total population size, $\beta$ is the transmission rate, $1/\sigma$ is the mean latent period, $n_E$ is the number of latent compartments, $1/\gamma$ is the mean infectious period, and $n_I$ is the number of infectious compartments.
 
 \subsection{Stochastic SEIR model}
 
-\swp{What do I cite here?}
 We develop an algorithm to simulate an individual-based SEIR model on a network to keep track of generation intervals.
-Our algorithm is based on the Gillespie algorithm.
+Our algorithm is based on the Gillespie algorithm \citep{gillespie1977exact}.
 We model individuals with nodes on a network and their acquaintanceships with edges; infected individuals can only contact their acquaintances.
 
 First, we begin by randomly selecting initially infected individuals; these individuals are assumed to be infected at $t = 0$.
@@ -423,7 +421,7 @@ We then choose the time between consecutive events (the chosen number of contact
 For each contact, a contactee is uniformly sampled from the set of susceptible acquaintances of the individual $i$.
 The infectious period $I_i$ is the sum of all of these waiting times.
 
-[[Add flowchart?]]
+\jd{Add flowchart?}
 
 After repeating the contact process for all initially infected individuals, all contacts are put into a sorted queue.
 The first person in the queue becomes infected, and the current time is updated to infection time of this individual. 
@@ -480,8 +478,6 @@ To simulate epidemics on a realistic network, we use the `condensed matter physi
 This graph describes co-authorship among anyone who submitted a paper to Condensed Matter category in the arXiv between January 1993 and April 2003 \citep{leskovec2007graph}.
 It consists of 23133 nodes and 93497 edges.
 \cite{trapman2016inferring} used the same network to simulate epidemics.
-
-
 
 \section{Appendix}
 
