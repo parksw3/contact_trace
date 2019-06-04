@@ -401,6 +401,7 @@ To study the effects on right-censoring on the observed generation intervals, we
 The SEIR model describes how a disease spreads in a homogeneously mixing population; it assumes that infeceted individuals become infectious after a latent period.
 We use a \seminar\ model, which extends the SEIR model to have multiple equivalent stages in the latent and infectious periods. This gives periods with Erlang distributions (gamma distributions with integer shape parameters), which are often more realistic than the exponentially distributed periods in the standard SEIR model \citep{anderson1980spread, bailey1964some}: 
 \jd{Mention that our main-text models use exponential later instead.}
+\swp{Done.}
 \begin{equation}
 \begin{aligned}
 \frac{dS}{dt} &= - \beta S \frac{\sum_{k=1}^{n_I} I_k}{N}\\
@@ -412,6 +413,7 @@ We use a \seminar\ model, which extends the SEIR model to have multiple equivale
 \end{equation}
 where $S$ is the number of susceptible individuals, $E_m$ is the number of exposed individuals in the $m$-th compartment, $I_n$ is the number of infectious individuals in the $n$-th compartment, and $R$ is the number of recovered individuals.
 Parameters of the model are specified as follows: $N$ is the total population size, $\beta$ is the transmission rate, $1/\sigma$ is the mean latent period, $n_E$ is the number of latent compartments, $1/\gamma$ is the mean infectious period, and $n_I$ is the number of infectious compartments.
+While we use the SEIR model for simulations in our main text, we show results based on more realistic distributions in Appendix.
 
 \subsection{Stochastic SEIR model}
 
