@@ -97,17 +97,6 @@ population.est <- lapply(1:100, function(x){
 	cg <- censor.gi[[x]]
 	gg <- growth[x,2]
 	
-	data.frame(
-		estimate=c(weighted.mean(cg, exp(gg*cg)), mean(exp(gg*cg))),
-		type=c("mean", "RR")
-	)
-}) %>%
-	bind_rows(.id="sim")
-
-population.est2 <- lapply(1:100, function(x){
-	cg <- censor.gi[[x]]
-	gg <- growth[x,2]
-	
 	populationfun(cg, gg)
 }) %>%
 	bind_rows(.id="sim")
@@ -134,7 +123,7 @@ empirical.est <- lapply(reslist, empirical.R0, 100)
 RRdata <- data.frame(
 	observed=observed.est$estimate[observed.est$type=="RR"],
 	individual=unlist(individual.RR),
-	population=population.est2$estimate[population.est2$type=="RR"],
+	population=population.est$estimate[population.est$type=="RR"],
 	intrinsic=unlist(intrinsic.est),
 	network=unlist(network.est),
 	trapman=unlist(trapman.est),

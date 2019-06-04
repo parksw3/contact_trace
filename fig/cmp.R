@@ -8,49 +8,26 @@ source("../sim/ebola_param_seminr.R")
 scale_colour_discrete <- function(...,palette="Dark2") scale_colour_brewer(...,palette=palette)
 scale_fill_discrete <- function(...,palette="Dark2") scale_fill_brewer(...,palette=palette)
 
-genlist <- list()
-RRlist <- list()
-
 load("../analysis/cmp_compare.rda")
 
-genlist$big <- gendata
-RRlist$big <- RRdata
-
-load("../analysis/cmp_compare_2.rda")
-
-genlist$small <- gendata
-RRlist$small <- RRdata
-
 RRgroup <- data.frame(
-	key=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", "tree\nbased", "empirical", "local\ncorrection", "intrinsic"),
+	key=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", "tree\nbased", "empirical", "egocentric", "intrinsic"),
 	group=factor(c("tracing based", "tracing based", "tracing based", "empirical", "empirical", "individual based", "individual based"),
 				 levels=c("tracing based", "empirical", "individual based"))
 )
 
-RRdata2 <- RRlist %>%
-	bind_rows(.id="type") %>%
-	gather(key, value, -type) %>%
+RRdata2 <- RRdata %>%
+	gather(key, value) %>%
 	mutate(key=factor(key, 
 					  levels=c("observed", "population", "individual", "trapman", "empirical", "network", "intrinsic"),
 					  labels=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", 
-					  		 "tree\nbased", "empirical", "local\ncorrection", "intrinsic"))) %>%
-	merge(RRgroup) %>%
-	filter(key != "tree\nbased") %>%
-	mutate(type=factor(type, levels=c("small", "big"), labels=c("Smaller epidemic", "Larger epidemic")))
-
-gendata2 <- genlist %>%
-	bind_rows(.id="type") %>%
-	gather(key, value, -type) %>%
-	mutate(key=factor(key, 
-					  levels=c("observed", "population", "individual", "trapman", "empirical", "network", "intrinsic"),
-					  labels=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", 
-					  		 "tree\nbased", "empirical", "local\ncorrection", "intrinsic"))) %>%
+					  		 "tree\nbased", "empirical", "egocentric", "intrinsic"))) %>%
 	merge(RRgroup) %>%
 	filter(key != "tree\nbased")
 
-ggR <- ggplot(RRdata2 %>% filter(type=="Larger epidemic")) +
+ggR <- ggplot(RRdata2) +
 	geom_boxplot(aes(key, value, fill=key), alpha=0.7) +
-	scale_y_log10("Reproductive number", breaks=c(2.5, 5, 10, 20)) +
+	scale_y_log10("Reproductive number", breaks=c(1, 2, 4, 8, 16)) +
 	facet_grid(~group, scale="free", space="free_x") +
 	theme(
 		panel.spacing.x = unit(0, "lines"),
