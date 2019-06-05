@@ -1,9 +1,9 @@
 set.seed(101)
 beta <- 2/5
 sigma <- 1/11.4
-m.sigma <- round(1.75)
+m.sigma <- 2
 gamma <- 1/5
-n.gamma <- round((5/4.7)^2)
+n.gamma <- 1
 N <- 100000
 
 true.mean <- 1/sigma + 1/gamma
