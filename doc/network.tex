@@ -476,7 +476,7 @@ Population-level method tries to estimate the effective generation-interval dist
 \begin{equation}
 \tsub{g}{eff}(\tau) \propto c_t(\tau) \exp(r\tau).
 \end{equation}
-In order to do so, we first fit a gamma distribution to the observed generation-interval distributions; specifically, we esimatemean $\bar G$ and shape $\alpha$ of a gamma distribution by maximum likelihood.
+In order to do so, we first fit a gamma distribution to the observed generation-interval distributions; specifically, we estimate the mean $\bar G$ and shape $\alpha$ of a gamma distribution by maximum likelihood.
 Then, the effective generation-interval distribution also follows a gamma distribution with mean $\alpha/(\alpha/\bar G - r)$ and shape $\alpha$.
 
 \subsection{Individual-level method for estimating generation-interval distributions from contact tracing data}
@@ -485,15 +485,15 @@ We model each infection $i$ from an infected individual $j$ as a non-homogeneous
 We use a gamma distribution (parameterized by its mean and shape) to model the effective generation-interval distribution.
 Then, the probability that an individual $j$ infects $n_j$ individuals between $t_j$ and $\tsub{t}{censor}$ is equal to
 \begin{equation}
-\frac{\RR^{n_j} \exp \big(- \RR \tsub{G}{eff}(\tsub{t}{censor} - t_j ;\theta) \big) \prod_{i=1}^{n_j} \tsub{g}{eff}(s_{i, j}; \theta)}{n_j!},
+\frac{\RR^{n_j} \exp \big(- \RR\, \tsub{G}{eff}(\tsub{t}{censor} - t_j ;\theta) \big) \prod_{i=1}^{n_j} \tsub{g}{eff}(s_{i, j}; \theta)}{n_j!},
 \end{equation}
 where $s_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is a (vector) parameter of the generation-interval distribution $g$ (and the corresponding cumulative distribution function $\tsub{G}{eff}$).
 
-The entire data likelihood of the nonhomogeneous poisson process can be written as:
+The entire data likelihood of the non-homogeneous poisson process can be written as:
 \begin{equation}
 \begin{aligned}
 &\mathcal{L}(\RR, \theta\,|\, \mathbf{s}, \mathbf{t}, \mathbf{n}, \tsub{t}{censor})\\
-&\quad=\prod_{j=1}^N \left(\RR^{n_j} \exp \big(- \RR \tsub{G}{eff}(\tsub{t}{censor} - t_j ;\theta) \big) \prod_{i=1}^{n_j} \tsub{g}{eff}(s_{i, j}; \theta) \right),
+&\quad=\prod_{j=1}^N \left(\RR^{n_j} \exp \big(- \RR \, \tsub{G}{eff}(\tsub{t}{censor} - t_j ;\theta) \big) \prod_{i=1}^{n_j} \tsub{g}{eff}(s_{i, j}; \theta) \right),
 \end{aligned}
 \end{equation}
 where $N$ is the total number of infected individuals.
@@ -513,6 +513,7 @@ This assumption requires us to estimate the dispersion parameter $\theta$ of a n
 Parameters $r$, $K$, $c_0$, and $\theta$ are estimated by maximum likelihood.
 Fitting time window is defined from the last trough before the peak of an epidemic to the first day after the peak of an epidemic.
 \swp{This is using epigrowthfit. How do I cite it? It's not out yet...}
+\dc{isn't this based on ``Estimating Initial Epidemic Growth Rates'' from Ma et al BMB 2013?}
 
 \subsection{Empirical network}
 
@@ -544,8 +545,8 @@ All other parameters are the same as in \fref{cmp}.
 \begin{figure}[!h]
 \includegraphics[width=\textwidth]{../fig/cmp_reproductive_seminr.pdf}
 \caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
-This figure matches \fref{cmp} in the main text.
-Erland-distributed latent period ($n_E=2$) is used to simulate epidemics; this assumption better matches the incubation period distribution of the Ebola virus disease than the exponential assumption \citep{who2014ebola}.
+This figure matches \fref{cmp} in the main text which used a SEIR model.
+Here, an Erland-distributed latent period ($n_E=2$) is used to simulate epidemics; this assumption better matches the incubation period distribution of the Ebola virus disease than the exponential assumption \citep{who2014ebola}.
 All other parameters are the same as in \fref{cmp}.
 }
 \label{fig:cmpseminir}
