@@ -79,16 +79,18 @@ and the distribution of backward generation intervals will be shorter than the i
 When an epidemic is subsiding, most infections are caused by the remaining infectors, rather than new infectors, and backward generation intervals will be longer than the intrinsic one \citep{nishiura2010time, tomba2010some, champredon2015intrinsic}.
 
 In practice, generation intervals are often measured by aggregating available information from contact tracing. 
-Whereas backward generation intervals represent infections that are one generation apart from a cohort, these aggregated generation intervals represent infections across multiple cohorts; 
-the time of infection of the infectors can range anywhere from the beginning of an epidemic to the most recent infection.
+Whereas backward generation intervals represent infections that are one generation apart from a cohort of infectees, these aggregated generation intervals represent infections across multiple cohorts (i.e., the time of infection of the infectees can range anywhere from the beginning of an epidemic to the most recent infection).
 \dc{I found the previous paragraph difficult to read and edited it to try to improve. The `cohorts` were not referring to the same ones (I think) and that was confusing. The bckwrd GI is observed at one given time and those infectees each had infectors from potentially different cohorts.}
+\swp{I meant to say that because the backward GI is observed GI is observed at one given time, all infectees share the same infection time. Is this clearer?}
 While an epidemic is ongoing, these measurements are ``censored'': we don't know what happens after the observation time.
-These censored observations can be thought of as a weighted average of backward generation-interval distributions; \dc{weighted by what?}
+These censored observations can be thought of as a weighted average of backward generation-interval distributions (weighted by incidence); \dc{weighted by what?} \swp{equation 8}
 like them, the distribution of censored intervals will have a shorter mean than the intrinsic distribution early in an epidemic.
 
 Realized generation intervals are also affected by spatial structure.
 In a structured population (that is, any population that does not mix homogeneously), susceptibility will tend to decrease more quickly in the neighbourhood of infected individuals than in the general population even in the early phase of an epidemic. 
-This means that contacts made late in an individual's infection are more likely to be ``masked'' due to infectious contacts that were made earlier \dc{Although I get you try to explain in simple terms what's going on with ``masked'', I think it's not really clear: masked by what?  is it that subsequent contacts in the neighbourhood do not count given they were infected earlier?}.
+This means that contacts made late in an individual's infection are more likely to be ineffective due to infectious contacts that were made earlier (and so the contactee will have been infected already) 
+\dc{Although I get you try to explain in simple terms what's going on with ``masked'', I think it's not really clear: masked by what?  is it that subsequent contacts in the neighbourhood do not count given they were infected earlier?}.
+\swp{Tried to clarify}
 As a result, realized generation intervals will have shorter mean than the intrinsic generation-interval distribution.
 This perspective allows us to reinterpret the finding of \cite{trapman2016inferring} that, given an intrinsic generation interval and an observed growth rate $r$, the reproductive number $\RR$ on various network structures is always smaller on a network than would be predicted from homogeneous mixing.
 These observations allow us to make the following prediction: removing the censoring bias from observed generation intervals will give us a distribution that contains information about the population structure; using this distribution should allow us to correctly infer $\RR$ from $r$.
@@ -112,17 +114,23 @@ Parameters are chosen to reflect the West African Ebola outbreak \citep{who2014e
 
 Generation-interval distributions are often considered as population averages, but we can distinguish population-level distributions from individual-level distributions \citep{svensson2007note, svensson2015influence}; 
 making this distinction clear will be particularly useful when we discuss spatial components (see \fref{indpop}).
-An individual-level intrinsic infection kernel $K_a(\tau)$ \dc{is it clearer to specify the kernel is about infections?} describes the rate at which secondary infections are expected to be caused by an infected individual $a$.
+An individual-level intrinsic infection kernel $K_a(\tau)$ describes the rate at which secondary infections are expected to be caused by an infected individual $a$.
+\dc{is it clearer to specify the kernel is about infections?}
+\swp{Yes,}
 Individuals may vary in their prognosis (e.g., duration of a latent and an infectious period) and their infectiousness, which can depend both on the intrinsic infectiousness of a disease as well as the contact structure around an infected individual.
 
 Assuming that the individual properties are independent of risk of infection, the population-level kernel is given by integrating over these individual variations:
 \begin{equation}
-K(\tau) = \int K_a (\tau) da.
+K(\tau) = \int K_a (\tau) dA.
 \end{equation}
-The population-level kernel describes the rate at which secondary infections are expected to be caused by an \emph{average} infected individual.
+\swp{David seems to prefer da over dA. I think I prefer to keep it as dA to represent the space of variation? Need to clarify this?}
+The population-level kernel describes the rate at which secondary infections are expected to be caused by an an infected individual, on \emph{average}.
 \dc{wouldn't it be better to say: ``The population-level kernel describes the rate at which secondary infections are expected to be caused by an infected individual, on \emph{average}.'' I have troubles describing an ``average  infected individual''... Oh no, but you say it again below... well, I keep this comment, do whatever you want! }
+\swp{I think that's clearer too.}
 
-There are two components to an infection kernel: intrinsic infectiousness of an average infected individual (the basic reproductive number)\dc{again, for me it's the intrinsic infectiousness averaged over the population, that's the $\int da$ thing. I stop from now on complaining about this ;)} and time distribution of new infections (generation-interval distribution).
+\dc{again, for me it's the intrinsic infectiousness averaged over the population, that's the $\int da$ thing. I stop from now on complaining about this ;)}
+\swp{I think figure 1 shows that we're averaging across infectioussness as well as the time distribution. We also say above that ``Individuals may vary in their prognosis (e.g., duration of a latent and an infectious period) and their infectiousness''}
+There are two components to an infection kernel: intrinsic infectiousness of an average infected individual (the basic reproductive number) and time distribution of new infections (generation-interval distribution).
 Assuming that a population mixes homogeneously, we can write: 
 \begin{equation}
 K(\tau) = \RR_0 g(\tau),
@@ -149,30 +157,30 @@ Over a period of time where the proportion of susceptible $S$ remains roughly co
 When generation intervals are estimated through contact tracing during an outbreak, infection events that have not happened yet are not observed. 
 This effect is called ``right-censoring''.
 We can understand the effect of right-censoring using backward generation-interval distributions \citep{tomba2010some, nishiura2010time, champredon2015intrinsic, britton2019estimation}:
-the observed (censored) generation-interval distribution is a weighted average of backward generation-interval distributions up until the observation time.
+the observed (censored) generation-interval distribution is a weighted average of backward generation-interval distributions (weighted by incidence) up until the observation time.
 \dc{again, weighted by what? the binary variable ``observed/not observed''? It's disturbing that we talk about weights but never say what they are...}
+\swp{They were (and are) in equation 8. I made it explicit.}
 
 The density of new infections occurring at time $t$ caused by infectors who were infected at time $t-\tau$ is given by
 \begin{equation}
 i_{t-\tau}(t) = \RR \, i(t-\tau) g(\tau) S(t)
 \end{equation}
 As shown in \cite{champredon2015intrinsic} \dc{I added the reference for the reader who wants to see how exactly this is derived}, the backward generation-interval distribution, $b_t(\tau)$, describes a distribution of infection that occurred $\tau$ time units before the reference time $t$ and is proportional to $i(t-\tau) g(\tau)$:
-\begin{equation}
+\begin{equation}\label{eq:backward}
 b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-\sigma) g(\sigma) d\sigma}
 \end{equation}
-On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections that are $\tau$ time units apart from any cohort infection time $s$ \dc{you mean:``[...] any cohort infected at time $s$[...]''?}  before $t$: $\int_0^t i_{s-\tau}(s) ds$.
-Then, the censored generation-interval distribution is given by normalizing \dc{I felt we could explain a bit more, hence edited accordingly}
+On the other hand, the censored generation-interval distribution, $c_t(\tau)$, describes a distribution of \emph{all} infections that are $\tau$ time units apart from any cohort infected at time $s$ before $t$: $\int_0^t i_{s-\tau}(s) ds$.
+Then, the censored generation-interval distribution is given by normalizing
 \begin{equation}\label{eq:obsg}
 \begin{aligned}
 c_t(\tau) 
 &= \frac{\int_0^t i_{s-\tau}(s) ds}{\int_0^t \int_0^t i_{s-\sigma}(s) ds d\sigma}= \frac{\int_0^t i(s-\tau) g(\tau) S(s) ds}{\int_0^t \int_0^t i(s-\sigma) g(x) S(s) ds d\sigma}\\
 \end{aligned}
 \end{equation}
-Substituting $b_s(\tau) = i(s-\tau) g(\tau)$ allows us to rewrite the censored generation-interval distribution as a weighted distribution of the backward generation intervals:
+Substituting \eref{backward} allows us to rewrite the censored generation-interval distribution as a weighted distribution of the backward generation intervals:
 \begin{equation}
-c_t(\tau) \propto \int_0^t b_s(\tau) S(s) ds.
+c_t(\tau) \propto \int_0^t b_s(\tau) i(s) ds.
 \end{equation}
-This relationship shows that the backward generation-interval distribution is equivalent to the censored generation-interval distribution when $S \approx 1$, i.e., during the initial stage of the epidemic, when it is growing exponentially.
 
 \begin{figure}[!pbth]
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
@@ -184,7 +192,9 @@ The dotted horizontal line represents the mean intrinsic generation interval.
 \label{fig:censor}
 \end{figure}
 
-For a single outbreak, the observed mean \dc{shouldn't it be ``censored'' instead of ``observed mean''??} generation interval through contact tracing will always be shorter than the mean intrinsic generation interval (Figure~\ref{fig:censor}).
+\dc{shouldn't it be ``censored'' instead of ``observed mean''??}
+\swp{I think observed in OK. Observation through contact tracing is what causes censoring.}
+For a single outbreak, the observed mean  generation interval through contact tracing will always be shorter than the mean intrinsic generation interval (Figure~\ref{fig:censor}).
 There are two reasons for this phenomenon.
 First, any infection events that occur after the contact tracing period cannot be observed due to right censoring and short generation intervals are more likely to be observed.
 In particular, when an epidemic is growing exponentially ($i(t) = i(0) \exp(rt)$), 
@@ -193,13 +203,15 @@ the censored generation-interval distribution (as well as the backward generatio
 \jd{Use math formatting in comments or it can mess up the whole doc.}
 \swp{Should I just write it as $c_t$? I can't come up with a better notation.}
 \dc{what about $c_t^{\exp}$ ?}
+\swp{TODO: ask JD}
 \begin{equation}
 c_t(\tau) = b_t(\tau) \propto g(\tau) \exp(-r\tau).
 \label{eq:exp}
 \end{equation}
 A deterministic simulation confirms that the censored generation-interval distribution has the same mean as the backward generation-interval distribution during this period (Figure~\ref{fig:censor}).
 \dc{I'm confused... Figure~\ref{fig:censor} does not show they are the same. On the other hand, \autoref{eq:exp} is an equality... which one shall I believe?}
-Second, decreasing number of susceptibles over the course of an epidemic makes long infections less likely to occur, and the realized \dc{censored?} intervals will always be shorter \citep{champredon2015intrinsic}.
+\swp{This is a notation issue... equality only holds during the exponential period. TODO: talk to Jonathan about notation.}
+Second, decreasing number of susceptibles over the course of an epidemic makes long infections less likely to occur, and the realized \dc{censored?} \swp{no, realized; there is no observation process in the second phenomenon} intervals will always be shorter \citep{champredon2015intrinsic}.
 As a result, even if contact tracing is performed through an entire epidemic, the mean intrinsic generation interval will be underestimated.
 Long backward generation intervals near the end of an epidemic have little effect on the censored generation-interval distributions because they represent only a small portion of an outbreak.
 Overall, we expect, naively using the observed generation-interval distribution, to underestimate the reproductive number.
@@ -226,7 +238,7 @@ for brevity, we do not pursue these directions here.
 
 The population-level egocentric kernel is found by integrating over individual variations:
 \begin{equation}\label{eq:ego}
-\hat{K}(\tau) = \int \hat{K}_a(\tau) da.
+\hat{K}(\tau) = \int \hat{K}_a(\tau) dA.
 \end{equation}
 \cite{trapman2016inferring} used this same kernel (also assuming a constant per-pair contact rate) to study the effect of network structure on the estimate of reproductive number.
 The population-level egocentric generation-interval distribution is:
@@ -237,6 +249,7 @@ The population-level egocentric generation-interval distribution is:
 The population-level egocentric generation-interval distribution describes the distribution of times at which secondary infections are realized by an \emph{average} primary case; for convenience, we will often omit ``population-level''.
 Finally, the egocentric reproductive number can be defined by integrating over the egocentric kernel $\hat{K}(\tau)$ directly or by applying the Euler-Lotka equation to the egocentric generation-interval distribution \citep{trapman2016inferring}:
 \dc{but that is only during the exponential growth phase, isn't it?}
+\swp{Yes and no. Egocentric kernel is like an intrinsic kernel so there is no observation process attached to it.}
 \begin{equation}
 \frac{1}{\hat{\RR}} = \int \hat{g}(\tau) \exp(-r \tau) d\tau.
 \label{eq:egorR}
@@ -246,7 +259,7 @@ this generation-interval-based argument provides a clear biological interpretati
 % Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\, since it does not account for depletion of susceptibles by other routes.
 
 For example, consider a susceptible-exposed-infected-recovered (SEIR) model, which assumes that latent and infectious periods are exponentially distributed.
-The intrinsic generation-interval distribution that corresponds to this model can be written has \citep{Champredon2018equivalence} \dc{changed to a more appropriate reference (and self-promotion!)}:
+The intrinsic generation-interval distribution that corresponds to this model can be written as \citep{Champredon2018equivalence}:
 \begin{equation}
 g(\tau) = \frac{\sigma \gamma}{\sigma - \gamma} \left(e^{-\gamma t} - e^{-\sigma t}\right),
 \end{equation}
@@ -319,23 +332,18 @@ Per-pair contact rate $\lambda = 0.08 \textrm{ days}^{-1}$ is chosen to be suffi
 \end{figure}
 
 Here, we investigate two methods for correcting for temporal bias in a contact tracing data (see Methods for details).
-We refer to the first method as the population-level method as it relies on the observed distribution aggregated across the entire population.
-When an epidemic is growing exponentially, the right-censoring causes the observed generation-interval inverse exponentially weighted \eref{exp}; \dc{the previous sentence doesn't read well; forgot words?}
+We refer to the first method (Section~\ref{poplevel}) as the population-level method as it relies on the observed distribution aggregated across the entire population.
+When an epidemic is growing exponentially, the right-censoring causes the observed generation-interval to be inverse-exponentially weighted \eref{exp}; \dc{the previous sentence doesn't read well; forgot words?} \swp{Yes, forgot words. Not sure if ``inverse-exponentially weighted'' is clear, however.}
 hence, we can ``undo'' the censoring by exponentially weighting the observed generation-interval distribution \citep{tomba2010some, nishiura2010time, britton2019estimation}:
 \begin{equation}
 \tsub{g}{eff}(\tau) \propto c_t(\tau) \exp(r\tau),
 \label{eq:geff}
 \end{equation}
 where $r$ is the exponential growth rate.
-We refer to the second method as the individual-level method because it relies on individual contact information.
-\dc{Wait, I'm lost! what is the first method? what it the second method?!}
-We model each infection as a non-homogeneous Poisson process arising from the infector; 
+We refer to the second method (Section~\ref{indlevel}) as the individual-level method because it relies on individual contact information.
+We model each infection as a non-homogeneous Poisson process arising from the infector \eref{nonhomogeneous}; 
 incorporating information about time of infection of an infector, time of infection of an infectee, and time since the beginning of an epidemic allows us to explicitly model the censoring process in the observed generation intervals.
 For both methods, mean and coefficient of variation (CV) of generation-interval distributions are estimated by maximum likelihood; the inferred generation-interval distribution is then used to estimate the reproductive number $\RR$ from the observed growth rate $r$.
-
-\dc{I'm confused... \autoref{eq:geff} shows the adjustment needed because of the censoring, that is clear. Is this what you call ``population-level''? But does the paragraph above provide also an adjustment?? The individual-level?? }
-
-\dc{Oh OK, I'm back here after reading the Methods section. Please, give an explicit reference to that section, and also to the equations. As you could see with my comment above, I was lost, but having such references would have helped me followed... }
 
 To test these methods, we simulate 100 epidemics with Ebola-like parameters on an empirical network \citep{leskovec2016snap} and compare the estimates of reproductive number with empirical reproductive numbers, which we define as the average number of secondary cases generated by the first 100 infected individuals (\fref{cmp}).
 As we predicted earlier, calculating reproductive number based on the intrinsic generation-interval distribution overestimates the empirical reproductive number;
@@ -471,6 +479,7 @@ which completes the egocentric relationship between $r$ and $\RR$:
 \end{equation}
 
 \subsection{Population-level method for estimating generation-interval distributions from contact tracing data}
+\label{poplevel}
 
 Population-level method tries to estimate the effective generation-interval distribution by reverting the inverse exponential weighting in the observed generation-interval distribution:
 \begin{equation}
@@ -480,6 +489,7 @@ In order to do so, we first fit a gamma distribution to the observed generation-
 Then, the effective generation-interval distribution also follows a gamma distribution with mean $\alpha/(\alpha/\bar G - r)$ and shape $\alpha$.
 
 \subsection{Individual-level method for estimating generation-interval distributions from contact tracing data}
+\label{indlevel}
 
 We model each infection $i$ from an infected individual $j$ as a non-homogeneous Poisson process between the time at which infector $j$ was infected ($t_j$) and the censorship time ($\tsub{t}{censor}$), where the time-varying Poisson rate at time $t$ is equal to $\RR \tsub{g}{eff}(t - t_j)$, where $\tsub{g}{eff}(t)$ is the effective generation-interval distribution \citep{daley2007introduction}.
 We use a gamma distribution (parameterized by its mean and shape) to model the effective generation-interval distribution.
@@ -490,7 +500,7 @@ Then, the probability that an individual $j$ infects $n_j$ individuals between $
 where $s_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is a (vector) parameter of the generation-interval distribution $g$ (and the corresponding cumulative distribution function $\tsub{G}{eff}$).
 
 The entire data likelihood of the non-homogeneous poisson process can be written as:
-\begin{equation}
+\begin{equation}\label{eq:nonhomogeneous}
 \begin{aligned}
 &\mathcal{L}(\RR, \theta\,|\, \mathbf{s}, \mathbf{t}, \mathbf{n}, \tsub{t}{censor})\\
 &\quad=\prod_{j=1}^N \left(\RR^{n_j} \exp \big(- \RR \, \tsub{G}{eff}(\tsub{t}{censor} - t_j ;\theta) \big) \prod_{i=1}^{n_j} \tsub{g}{eff}(s_{i, j}; \theta) \right),
@@ -514,6 +524,7 @@ Parameters $r$, $K$, $c_0$, and $\theta$ are estimated by maximum likelihood.
 Fitting time window is defined from the last trough before the peak of an epidemic to the first day after the peak of an epidemic.
 \swp{This is using epigrowthfit. How do I cite it? It's not out yet...}
 \dc{isn't this based on ``Estimating Initial Epidemic Growth Rates'' from Ma et al BMB 2013?}
+\swp{Yes, but they also have a package called epigrowthfit which is based on Ma et al. Maybe in acknowledgements?}
 
 \subsection{Empirical network}
 
