@@ -47,12 +47,20 @@
 \begin{document}
 \maketitle
 
+\section*{Abstract}
+
+Generation intervals, defined as the time between when an individual is infected and when that individual infects another person, provides a link between two key quantities that describe an epidemic: the reproductive number, $\RR$, and the rate of exponential growth, $r$.
+Often, generation intervals are measured through contact tracing by identifying who infected whom;
+we study how these observed intervals vary both spatially and temporally.
+Temporal variation in generation intervals is caused by the censoring in the observation process through contact tracing, whereas spatial variation in generation intervals reflects the patterns of spread of disease.
+Therefore, correcting for temporal variation, but not for spatial variation, provides an ``effective'' generation-interval distribution, which correctly links $r$ and $\RR$.
+
 \section{Introduction}
 
 %% SWP: see or cite
 %% https://www.ncbi.nlm.nih.gov/pubmed/29087987
 
-An epidemic can be characterized by its speed (exponential growth rate, $r$) and its strength, characterized by its reproductive number, \RR.
+An epidemic can be characterized by the exponential growth rate, $r$, and the reproductive number, \RR.
 The reproductive number, defined as the average number of secondary cases arising from a primary case, is of particular interest as it provides information about the final size of an epidemic \citep{anderson1991infectious, diekmann1990definition}.
 \jd{Took out a comment about tracing and tried to clarify.}
 However, estimating the reproductive number directly from disease natural history requires detailed knowledge which is not often available, particularly early in an outbreak \citep{dietz1993estimation}.
