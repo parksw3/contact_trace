@@ -390,6 +390,8 @@ we therefore expect our simulations on an empirical network to be better charact
 However, our simulations suggest that the initial exponential growth assumption still provides a useful approach for estimating the reproductive number.
 %% This conclusion is supported by \cite{chowell2015western} who found that epidemics can exhibit exponential growth patterns globally even if local epidemics may not.
 
+\dc{I suggest a short paragraph putting this work in perspective to other studies (like for example https://www.ncbi.nlm.nih.gov/pubmed/29087987). You also did it with Trapman, etc. throughout the main text, but it would be nice to summarize }
+
 Estimating generation-interval distributions is a key, and often under-appreciated, component of disease modeling and forecasting.
 Different definitions, and different measurement approaches, produce different estimates of these distributions.
 We have shown that estimates based on observed generation intervals (e.g., through contact tracing) differ in predictable ways from estimates based on underlying measures of infectiousness (e.g., from shedding studies).
@@ -398,8 +400,6 @@ We have shown that correcting for temporal effects allows us to estimate a spati
 Future studies should carefully consider how measurement influences estimated generation-interval distributions, and how these distributions influence spread of disease. 
 %% Understanding the role of contact tracing and developing protocols that are informed by the theory will help researchers better prepare for future outbreaks.
 
-\dc{I suggest a short paragraph putting this work in perspective to other studies (like for example https://www.ncbi.nlm.nih.gov/pubmed/29087987). You also did it with Trapman, etc. throughout the main text, but it would be nice to summarize }
-
 \section{Methods}
 
 \subsection{Deterministic SEIR model}
@@ -407,8 +407,6 @@ Future studies should carefully consider how measurement influences estimated ge
 To study the effects on right-censoring on the observed generation intervals, we use the deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model.
 The SEIR model describes how a disease spreads in a homogeneously mixing population; it assumes that infeceted individuals become infectious after a latent period.
 We use a \seminar\ model, which extends the SEIR model to have multiple equivalent stages in the latent and infectious periods. This gives periods with Erlang distributions (gamma distributions with integer shape parameters), which are often more realistic than the exponentially distributed periods in the standard SEIR model \citep{anderson1980spread, bailey1964some}: 
-\jd{Mention that our main-text models use exponential later instead.}
-\swp{Done.}
 \begin{equation}
 \begin{aligned}
 \frac{dS}{dt} &= - \beta S \frac{\sum_{k=1}^{n_I} I_k}{N}\\
@@ -436,9 +434,6 @@ of susceptible acquaintances and $\lambda$ is the per-pair contact rate.
 We then choose the time between consecutive events (the chosen number of contacts, followed by exit from the given stage of infection) from an exponential distribution with rate $S_i \lambda + n_I\gamma$.
 For each contact, a contactee is uniformly sampled from the set of susceptible acquaintances of the individual $i$.
 The infectious period $I_i$ is the sum of all of these waiting times.
-
-\jd{Add flowchart?}
-\swp{Not sure what kind of flowchart you're thinking about.. let me think more...}
 
 After repeating the contact process for all initially infected individuals, all contacts are put into a sorted queue.
 The first person in the queue becomes infected, and the current time is updated to infection time of this individual. 
