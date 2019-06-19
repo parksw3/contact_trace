@@ -49,16 +49,12 @@
 
 \section*{Abstract}
 
-Generation intervals, defined as the time between when an individual is infected and when that individual infects another person, provides a link between two key quantities that describe an epidemic: the reproductive number, $\RR$, and the rate of exponential growth, $r$.
-Often, generation intervals are measured through contact tracing by identifying who infected whom;
-we study how these observed intervals vary both spatially and temporally.
-Temporal variation in generation intervals is caused by the censoring in the observation process through contact tracing, whereas spatial variation in generation intervals reflects the patterns of spread of disease.
-Therefore, correcting for temporal variation, but not for spatial variation, provides an ``effective'' generation-interval distribution, which correctly links $r$ and $\RR$.
+Generation intervals, defined as the time between when an individual is infected and when that individual infects another person, link two key quantities that describe an epidemic: the reproductive number, $\RR$, and the rate of exponential growth, $r$.
+Often, generation intervals are measured through contact tracing by identifying who infected whom.
+We study how observed intervals differ from ``intrinsic'' intervals that could be estimated by tracing individual-level infectiousness, and identify both spatial and temporal effects, including censoring (due to observation time), and the effects of susceptible depletion at various spatial scales. 
+We show that correcting observed intervals for the effect of temporal censoring but \emph{not} for spatial effects provides a spatially informed ``effective'' generation-interval distribution, which correctly links $r$ and $\RR$.
 
 \section{Introduction}
-
-%% SWP: see or cite
-%% https://www.ncbi.nlm.nih.gov/pubmed/29087987
 
 An epidemic can be characterized by the exponential growth rate, $r$, and the reproductive number, \RR.
 The reproductive number, defined as the average number of secondary cases arising from a primary case, is of particular interest as it provides information about the final size of an epidemic \citep{anderson1991infectious, diekmann1990definition}.
@@ -147,9 +143,6 @@ Over a period of time where the proportion of susceptible $S$ remains roughly co
 
 \section{Generation-interval distributions across time}
 
-%% \dc{you make several assertions that are difficult to understand that early in the text. It really doesn't flow well, it was hard to follow, evn fo me who has worked on this kind of things. I suggest you define first c_t.}
-%% \jd{I think that verbal explanations first are better for a larger fraction of people. Maybe we can just make the verbal explanations better. I agree that we should keep the horrible math if DC likes it.}
-
 When generation intervals are estimated through contact tracing during an outbreak, infection events that have not happened yet are not observed. 
 This effect is called ``right-censoring''.
 We can understand the effect of right-censoring using backward generation-interval distributions \citep{tomba2010some, nishiura2010time, champredon2015intrinsic, britton2019estimation}:
@@ -159,9 +152,7 @@ The density of new infections occurring at time $t$ caused by infectors who were
 \begin{equation}
 i_{t-\tau}(t) = \RR \, i(t-\tau) g(\tau) S(t)
 \end{equation}
-As shown in \cite{champredon2015intrinsic},
-%% \dc{I added the reference for the reader who wants to see how exactly this is derived}
-the backward generation-interval distribution, $b_t(\tau)$, describes a distribution of infection that occurred $\tau$ time units before the reference time $t$ and is proportional to $i(t-\tau) g(\tau)$:
+As shown in \cite{champredon2015intrinsic}, the backward generation-interval distribution, $b_t(\tau)$, describes a distribution of infection that occurred $\tau$ time units before the reference time $t$ and is proportional to $i(t-\tau) g(\tau)$:
 \begin{equation}\label{eq:backward}
 b_t(\tau) = \frac{i(t-\tau) g(\tau)}{\int_0^t i(t-\sigma) g(\sigma) d\sigma}
 \end{equation}
@@ -390,13 +381,14 @@ we therefore expect our simulations on an empirical network to be better charact
 However, our simulations suggest that the initial exponential growth assumption still provides a useful approach for estimating the reproductive number.
 %% This conclusion is supported by \cite{chowell2015western} who found that epidemics can exhibit exponential growth patterns globally even if local epidemics may not.
 
+\jd{\P\ about contact tracing.}
 \dc{I suggest a short paragraph putting this work in perspective to other studies (like for example https://www.ncbi.nlm.nih.gov/pubmed/29087987). You also did it with Trapman, etc. throughout the main text, but it would be nice to summarize }
 
 Estimating generation-interval distributions is a key, and often under-appreciated, component of disease modeling and forecasting.
 Different definitions, and different measurement approaches, produce different estimates of these distributions.
 We have shown that estimates based on observed generation intervals (e.g., through contact tracing) differ in predictable ways from estimates based on underlying measures of infectiousness (e.g., from shedding studies).
 These predictable differences can arise from temporal effects, local spatial (or network) effects and population-level effects.
-We have shown that correcting for temporal effects allows us to estimate a spatially informed distribution, which accurately describes how disease spreads in a population. 
+We have shown that correcting for temporal effects allows us to estimate a spatially informed ``effective'' distribution, which accurately describes how disease spreads in a population. 
 Future studies should carefully consider how measurement influences estimated generation-interval distributions, and how these distributions influence spread of disease. 
 %% Understanding the role of contact tracing and developing protocols that are informed by the theory will help researchers better prepare for future outbreaks.
 
