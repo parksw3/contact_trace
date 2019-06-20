@@ -378,19 +378,21 @@ Nonetheless, biases in the parameter estimates of a generation-interval distribu
 The generation-interval-based approaches to estimating the reproductive number often assumes that an epidemic grows exponentially \citep{wearing2005appropriate, wallinga2007generation, roberts2007model, park2019practical}.
 In practice, heterogeneity in population structure can lead to subexponential growth \citep{szendroi2004polynomial, chowell2015western, chowell2016growing, chowell2016characterizing, kiskowski2016modeling, viboud2016generalized};
 we therefore expect our simulations on an empirical network to be better characterized by subexponential growth models \citep{viboud2016generalized}.
-However, our simulations suggest that the initial exponential growth assumption still provides a useful approach for estimating the reproductive number.
-%% This conclusion is supported by \cite{chowell2015western} who found that epidemics can exhibit exponential growth patterns globally even if local epidemics may not.
+However, our simulations suggest that the initial exponential growth assumption still provides a viable approach for estimating the reproductive number.
 
-\jd{\P\ about contact tracing.}
-\dc{I suggest a short paragraph putting this work in perspective to other studies (like for example https://www.ncbi.nlm.nih.gov/pubmed/29087987). You also did it with Trapman, etc. throughout the main text, but it would be nice to summarize }
+\swp{New paragraph:}
+Contact tracing provides an effective way of collecting epidemiological data and controlling an outbreak \citep{clarke1998contact, eames2003contact, donnelly2003epidemiological}.
+In particular, using tracing information allows us to infer real-time estimates of the time-varying reproductive number \citep{cauchemez2006estimating, hens2012robust, jewell2012enhancing, soetens2018real};
+generation-interval distributions, which can be either assumed or estimated, often play a central role in describing these tracing data.
+Our study illustrates that generation intervals measured through contact tracing data contain information about the underlying contact structure, which can be implicitly reflected in the estimates of the reproductive number;
+this perspective can be particularly useful for characterizing an epidemic because detailed information about the contact structure is often unavailable.
 
-Estimating generation-interval distributions is a key, and often under-appreciated, component of disease modeling and forecasting.
+Generation-interval distribution is a key, and often under-appreciated, component of disease modeling and forecasting.
 Different definitions, and different measurement approaches, produce different estimates of these distributions.
 We have shown that estimates based on observed generation intervals (e.g., through contact tracing) differ in predictable ways from estimates based on underlying measures of infectiousness (e.g., from shedding studies).
-These predictable differences can arise from temporal effects, local spatial (or network) effects and population-level effects.
+These predictable differences can arise from temporal effects, egocentric spatial effects, local spatial (or network) effects and population-level effects.
 We have shown that correcting for temporal effects allows us to estimate a spatially informed ``effective'' distribution, which accurately describes how disease spreads in a population. 
 Future studies should carefully consider how measurement influences estimated generation-interval distributions, and how these distributions influence spread of disease. 
-%% Understanding the role of contact tracing and developing protocols that are informed by the theory will help researchers better prepare for future outbreaks.
 
 \section{Methods}
 
