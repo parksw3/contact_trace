@@ -144,6 +144,7 @@ K(\tau) = \int K_a (\tau) dA.
 \end{equation}
 \swp{David seems to prefer da over dA. I think I prefer to keep it as dA to represent the space of variation? Need to clarify this?}
 \jd{dA is better, and we obviously need to clarify.}
+\dc{So, isn't the standard way to write this integral like that: $ \int_{A} K_a (\tau) da$? Just trying to clarify here, this is confusing... }
 The population-level kernel describes the rate at which secondary infections are expected to be caused by an an infected individual, on \emph{average}.
 
 Assuming that a population mixes homogeneously, we can write: 
@@ -251,7 +252,8 @@ The population-level egocentric generation-interval distribution is:
 The population-level egocentric generation-interval distribution describes the distribution of times at which secondary infections are realized by an \emph{average} primary case; for convenience, we will often omit ``population-level''.
 Finally, the egocentric reproductive number can be defined by integrating over the egocentric kernel $\hat{K}(\tau)$ directly or by applying the Euler-Lotka equation to the egocentric generation-interval distribution \citep{trapman2016inferring}:
 \dc{but that is only during the exponential growth phase, isn't it?}
-\swp{Yes and no. Egocentric kernel is like an intrinsic kernel so there is no observation process attached to it.}
+\swp{Yes and no. Egocentric kernel is like an intrinsic kernel so there is no observation process attached to it.} 
+\dc{mmh, still not super clear, but I guess it's fine for now; I don't really know how to improve this though... also the reviewers will be a good test for the clarity of this part...}
 \begin{equation}
 \frac{1}{\hat{\RR}} = \int \hat{g}(\tau) \exp(-r \tau) d\tau.
 \label{eq:egorR}
@@ -406,7 +408,7 @@ Different definitions, and different measurement approaches, produce different e
 We have shown that estimates based on observed generation intervals (e.g., through contact tracing) differ in predictable ways from estimates based on underlying measures of infectiousness (e.g., from shedding studies).
 These predictable differences can arise from temporal effects, egocentric spatial effects, local spatial (or network) effects and population-level effects.
 We have shown that correcting for temporal effects allows us to estimate a spatially informed ``effective'' distribution, which accurately describes how disease spreads in a population. 
-Future studies should carefully consider how measurement influences estimated generation-interval distributions, and how these distributions influence spread of disease. 
+Future studies should carefully consider how measurement influences estimated generation-interval distributions, and how these distributions influence the spread of disease. 
 
 \section{Methods}
 
@@ -523,7 +525,7 @@ Parameters $r$, $K$, $c_0$, and $\theta$ are estimated by maximum likelihood.
 Fitting time window is defined from the last trough before the peak of an epidemic to the first day after the peak of an epidemic.
 \swp{This is using epigrowthfit. How do I cite it? It's not out yet...}
 \dc{isn't this based on ``Estimating Initial Epidemic Growth Rates'' from Ma et al BMB 2013?}
-\swp{Yes, but they also have a package called epigrowthfit which is based on Ma et al. Maybe in acknowledgements?}
+\swp{Yes, but they also have a package called epigrowthfit which is based on Ma et al. Maybe in acknowledgements?} \dc{Oh OK, yes}
 
 \subsection{Empirical network}
 
