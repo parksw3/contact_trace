@@ -76,6 +76,7 @@ Generation intervals, defined as the time between when an individual is infected
 Often, generation intervals are measured through contact tracing by identifying who infected whom.
 We study how observed intervals differ from ``intrinsic'' intervals that could be estimated by tracing individual-level infectiousness, and identify both spatial and temporal effects, including censoring (due to observation time), and the effects of susceptible depletion at various spatial scales. 
 We show that correcting observed intervals for the effect of temporal censoring but \emph{not} for spatial effects provides a spatially informed ``effective'' generation-interval distribution, which correctly links $r$ and $\RR$.
+TODO: Something about statistical methods?
 
 \section{Introduction}
 
@@ -85,7 +86,7 @@ However, estimating the reproductive number directly from disease natural histor
 Instead, the reproductive number can be \emph{indirectly} estimated from the exponential growth rate, which can be estimated from incidence data \citep{chowell2003sars, mills2004transmissibility, nishiura2009transmission, nishiura2010pros, ma2014estimating}.
 These two quantities are linked by generation-interval distributions \citep{wearing2005appropriate, svensson2007note, roberts2007model, wallinga2007generation, park2019practical}.
 
-Generation interval is defined as the time between when a person becomes infected and when that person infects another person \citep{svensson2007note}.
+A generation interval is defined as the time between when a person becomes infected and when that person infects another person \citep{svensson2007note}.
 Due to individual variation in infection time, the observed generation-interval distribution can change depending on when and how it is measured \citep{svensson2007note, kenah2008generation, nishiura2010time, champredon2015intrinsic}.
 There are important distinctions to be made when estimating generation intervals: \emph{intrinsic} generation intervals measure the infectiousness of an infected individual,
 while \emph{observed} generation intervals refer to the time between actual infection events.
@@ -107,14 +108,13 @@ In practice, generation intervals are often measured by aggregating available in
 While an epidemic is ongoing, these measurements are ``censored'': we don't know what happens after the observation time.
 Thus, there is a bias towards observing shorter intervals, which are more likely to have concluded by the observation time.
 In fact, censored observations can be thought of as an average of backward generation-interval distributions, over the cohorts which have been infected before the observation time (and weighted by cohort size).
-\jd{Simplified radically.}
 
 Realized generation intervals are also affected by spatial structure.
 In a structured population (that is, any population that does not mix homogeneously), susceptibility will tend to decrease more quickly in the neighbourhood of infected individuals than in the general population even in the early phase of an epidemic. 
 This means that contacts made late in an individual's infection are more likely to be ineffective due to contacts that were made earlier (because the contactee may have been infected already) 
 As a result, realized generation intervals will have shorter mean than the intrinsic generation-interval distribution.
 This perspective allows us to reinterpret the finding of \cite{trapman2016inferring} that, given an intrinsic generation interval and an observed growth rate, the reproductive number on various network structures is always smaller on a network than would be predicted from homogeneous mixing.
-These observations allow us to make the following prediction: removing the time-censoring bias from observed generation intervals will give us a corrected distribution that contains information about the population structure; using this corrected distribution should allow us to correctly infer the reproductive number from the exponential growth rate.
+These observations allow us to make the following prediction: removing the time-censoring bias from observed generation intervals will give us a corrected distribution that contains information about the population structure; using this corrected distribution should allow us to correctly infer the reproductive number from the exponential growth rate. In other words, Trapman's finding can be explained by the gap between the intrinsic generation interval and an ``effective'' (spatially corrected) generation interval \jdnew
 
 In this study, we explore spatiotemporal variation in generation intervals measured through contact tracing.
 We extend previous frameworks to study how the censored generation-interval distributions change over time and compare this distribution with the backward generation-interval distribution.
