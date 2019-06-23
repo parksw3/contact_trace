@@ -32,6 +32,8 @@ Sources += notes.md
 Sources += network.tex
 network.pdf: network.tex
 
+Sources += network.bib
+
 ######################################################################
 
 ### Makestuff
