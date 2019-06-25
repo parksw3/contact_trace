@@ -31,6 +31,9 @@ Sources += notes.md
 
 Sources += network.tex
 network.pdf: network.tex
+network.tex.a72dec.oldfile:
+network.ld.pdf: network.tex
+Ignore += *.ld.out *.ld.pdf
 
 Sources += network.bib
 
