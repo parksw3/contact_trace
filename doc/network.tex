@@ -262,7 +262,7 @@ The population-level egocentric generation-interval distribution is:
 \label{eq:conditional}
 \end{equation}
 The population-level egocentric generation-interval distribution describes the distribution of times at which secondary infections are realized by an \emph{average} primary case; for convenience, we will often omit ``population-level''.
-Finally, the link between the growth rate and the egocentric reproductive number can be obtained by applying the Euler-Lotka equation to the egocentric generation-interval distribution \citep{trapman2016inferring}:
+Finally, the link between the growth rate and the egocentric reproductive number are linked by the egocentric generation-interval distribution (and the Euler-Lotka equation) \citep{trapman2016inferring}:
 \begin{equation}
 \frac{1}{\hat{\RR}} = \int \hat{g}(\tau) \exp(-r \tau) d\tau.
 \label{eq:egorR}
@@ -285,7 +285,6 @@ In this case, with fixed infectiousness during the infection period, the effect 
 In practice, directly using this distribution to link $r$ and $\RR$ using the Euler-Lotka equation is unrealistic because it requires that we know the per-pair contact rate. 
 Instead, the per-pair contact rate can be inferred from the growth rate $r$, assuming that mean and variance of the degree distribution of a network is known (see \cite{trapman2016inferring} supplementary material section 1.4.2);
 we briefly describe this relationship in Section~\ref{egosection}.
-\swp{Is it OK to mention this here? Or should I say something about it at the end of the previous paragraph as well? I feel like it's too abstract to say anything there.} \jd{Seems fine this way, but let's discuss your concern.}
 
 This calculation can be validated by simulating stochastic infection processes on a ``star'' network (i.e, a single infected individual at the center connected to multiple susceptible individuals who are not connected with each other).
 Simulations (\fref{local}) confirm that in this case the distribution of \emph{contact} times matches the intrinsic generation-interval distribution (left panel), while the distribution of realized generation times (i.e., \emph{infection} times) matches the egocentric generation-interval distribution (middle panel).
@@ -329,8 +328,7 @@ In contrast, spatial effects have the same effect on how the epidemic spreads as
 We therefore expect that starting from observed generation intervals and correcting for the right-censoring effect, will allow us to estimate an ``effective'' generation interval that accurately reflects dynamics of spread. 
 When temporal correction is performed early in an outbreak, during the exponential growth phase, the effective distribution should incorporate egocentric and local spatial effects but not the global effects; we expect this distribution to correctly link $r$ and $\RR$. 
 We will call the temporally corrected effective generation-interval distribution $\tsub{g}{eff}(\tau)$.
-In a large homogeneously mixing population, the effective distribution is expected to be equivalent to the intrinsic distribution \swp{(since the egocentric depletion is negligible and the local depletion does not exist)}.
-\jd{This puts a focus on how we talk about global depletion. It's sort of a thing but also sort of accounted for in the equations that contain $S$. Maybe we should adddress that point explicitly.}
+In a large homogeneously mixing population, the effective distribution is expected to be equivalent to the intrinsic distribution (since the egocentric and local depletion are negligible in the absence of network structure, and global depletion is negligible early in the epidemic).
 
 \begin{figure}[!pbth]
 \includegraphics[width=\textwidth]{../fig/cmp_reproductive.pdf}

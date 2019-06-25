@@ -29,7 +29,7 @@ Sources += notes.md
 
 ## Manuscript
 
-Sources += network.tex
+Sources += network.tex cover.txt
 network.pdf: network.tex
 network.tex.a72dec.oldfile: ## JD Sunday edit
 network.tex.f3a46db.oldfile: ## pre-Sunday
