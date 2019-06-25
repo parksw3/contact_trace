@@ -253,9 +253,8 @@ for brevity, we do not pursue these directions here.
 
 The population-level egocentric kernel is found by integrating over individual variations:
 \begin{equation}\label{eq:ego}
-\hat{K}(\tau) = \int \hat{k}(\tau; a) \hat{f}(a) da,
+\hat{K}(\tau) = \int \hat{k}(\tau; a) f(a) da.
 \end{equation}
-where $\hat{f}(a)$ represents a probability density over an aspect space, including the contact structure from an egocentric point of view (i.e., the degree distribution across network). \swp{New notation (f hat)}\jd{This feels like a mistake. We have the same population, and therefore the same distribution over aspect space, even if we are using more information to calculate the egocentric kernel.}
 \cite{trapman2016inferring} used this same kernel (also assuming a constant per-pair contact rate) to study the effect of network structure on the estimate of reproductive number.
 The population-level egocentric generation-interval distribution is:
 \begin{equation}
@@ -467,8 +466,6 @@ The simulation continues until there are no more contacts are left in the queue.
 \subsection{Egocentric relationship between $r$ and $\RR$ (SEIR model)}
 \label{egosection}
 
-\swp{Can you check if this subsection is clear?}
-\jd{Seems clear enough. See framing below.}
 Here, we show that the egocentric relationship between $r$ and $\RR$ derived by Trapman \cite{trapman2016inferring} (see the original source for detailed derivations) can be derived simply by applying the Euler-Lotka equation and using the effective (rather than the intrinsic) generation-interval distribution. 
 Assume that latent and infectious periods are exponentially distributed with mean $1/\sigma$ and $1/\gamma$, respectively.
 Assuming a constant per-pair contact rate of $\lambda$ for any pair, the egocentric generation-interval distribution can be written:
