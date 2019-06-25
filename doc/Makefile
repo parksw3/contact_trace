@@ -31,7 +31,8 @@ Sources += notes.md
 
 Sources += network.tex
 network.pdf: network.tex
-network.tex.a72dec.oldfile:
+network.tex.a72dec.oldfile: ## JD Sunday edit
+network.tex.f3a46db.oldfile: ## pre-Sunday
 network.ld.pdf: network.tex
 Ignore += *.ld.out *.ld.pdf
 
