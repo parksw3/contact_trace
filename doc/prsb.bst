@@ -82,6 +82,10 @@ FUNCTION {output.check}
 if$
 }
 
+FUNCTION {add.blank}
+{  " " * before.all 'output.state :=
+}
+
 FUNCTION {output.bibitem}
 { newline$
 "\bibitem{" write$
@@ -184,8 +188,8 @@ FUNCTION {new.sentence}
 			
 			FUNCTION {format.names}
 			%
-			% Format names in "familiar" format, with first initial followed by
-			% last name. Like format.names, ALL names are formatted.
+			% Format names in "familiar" format, with last name followed by
+			% first initials. Like format.names, ALL names are formatted.
 			%
 			{ 's :=
 				#1 'nameptr :=               % nameptr = 1;
@@ -193,7 +197,7 @@ FUNCTION {new.sentence}
 				numnames 'namesleft :=
 					{ namesleft #0 > }
 		
-					{ s nameptr "{f.~}{vv~}{ll}{, jj}" format.name$ 't :=
+					{ s nameptr "{vv~}{ll~}{, jj}{f{}}" format.name$ 't :=
 			
 						nameptr #1 >
 							{ namesleft #1 >
@@ -304,6 +308,8 @@ FUNCTION {format.date}
 	{ "can't use both " swap$ * " fields in " * cite$ * warning$ }
 	if$
 	}
+
+
 
 FUNCTION {format.bvolume}
 { volume empty$
@@ -488,7 +494,7 @@ FUNCTION {format.crossref.editor}
 	{ pop$ " et~al." * }
 	{ #2 <
 		'skip$
-		{ editor #2 "{ff }{vv }{ll}{ jj}" format.name$ "others" =
+		{ editor #2 "{vv }{ll}{ jj}{ff}" format.name$ "others" =
 		{ " et~al." * }
 		{ " and " * editor #2 "{vv~}{ll}" format.name$ * }
 		if$
@@ -553,7 +559,7 @@ FUNCTION {format.crossref.editor}
 		format.authors "author" output.check
 		new.block
 		format.date "year" output.check
-		new.block
+		add.blank
 		format.title "title" output.check
 		new.block
 		crossref missing$
@@ -583,7 +589,7 @@ FUNCTION {format.crossref.editor}
 		if$
 		new.block
 		format.date "year" output.check
-		new.block
+		add.blank
 		format.btitle "title" output.check
 		crossref missing$
 		{ format.bvolume output
