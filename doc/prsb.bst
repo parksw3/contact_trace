@@ -1,3 +1,7 @@
+% Proceedings of Royal Society B bibliography style
+% based on `unsrt' style
+% written by Sang Woo Park
+
 % BibTeX standard bibliography style `unsrt'
    % Version 0.99b (8-Dec-10 release) for BibTeX versions 0.99a or later.
 % Copyright (C) 1984, 1985, 1988, 2010 Howard Trickey and Oren Patashnik.
