@@ -16,18 +16,6 @@ infection.generation <- function(x) {
     generation
 }
 
-##' @param x simulation result
-##' @param reference reference generation (first generation when there are n infected people)
-trapman.R0 <- function(x,
-                       reference=75,
-                       include.initial=FALSE) {
-    gen <- infection.generation(x)
-    if (!include.initial) gen <- gen[-1]
-    
-    k <- head(which(gen > reference), 1)
-    sum(gen[2:(k+1)])/sum(gen[1:k])
-}
-
 empirical.R0 <- function(x,
                          n=75) {
     o <- order(x$t_infected)
