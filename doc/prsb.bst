@@ -1,4 +1,4 @@
-% Proceedings of Royal Society B bibliography style
+% Proceedings of the Royal Society B bibliography style
 % based on `unsrt' style
 % written by Sang Woo Park
 
