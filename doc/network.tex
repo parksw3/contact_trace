@@ -332,7 +332,7 @@ Per-pair contact rate $\lambda = 0.08 \textrm{ days}^{-1}$ is chosen to be suffi
 \end{figure}
 
 Here, we investigate two methods for correcting for temporal bias in contact-tracing data (see Methods for details).
-We refer to the first method (Section~\ref{poplevel}) as the population-level method as it relies on the observed distribution aggregated across the entire population.
+We refer to the first method as the population-level method as it relies on the observed distribution aggregated across the entire population.
 When an epidemic is growing exponentially, right-censoring causes the observed generation interval to be discounted by the exponential growth rate \eref{exp};
 hence, we can ``undo'' the censoring by exponentially weighting the observed generation-interval distribution \citep{tomba2010some, nishiura2010time, britton2019estimation}:
 \begin{equation}
@@ -341,7 +341,7 @@ hence, we can ``undo'' the censoring by exponentially weighting the observed gen
 \end{equation}
 where $r$ is the exponential growth rate.
 
-We refer to the second method (Section~\ref{indlevel}) as the individual-level method because it relies on individual contact information.
+We refer to the second method as the individual-level method because it relies on individual contact information.
 We model each infection as a non-homogeneous Poisson process arising from the infector \eref{nonhomogeneous}; 
 incorporating information about time of infection of an infector, time of infection of an infectee, and time since the beginning of an epidemic allows us to explicitly model the censoring process in the observed generation intervals.
 For both methods, mean and coefficient of variation (CV) of generation-interval distributions are estimated by maximum likelihood; the inferred generation-interval distribution is then used to estimate the reproductive number $\RR$ from the observed growth rate $r$ using the Euler-Lotka equation.
@@ -426,19 +426,16 @@ We use a \seminar\ model, which extends the SEIR model to have multiple equivale
 \end{equation}
 where $S$ is the number of susceptible individuals, $E_m$ is the number of exposed individuals in the $m$-th compartment, $I_n$ is the number of infectious individuals in the $n$-th compartment, and $R$ is the number of recovered individuals.
 Parameters of the model are specified as follows: $N$ is the total population size, $\beta$ is the transmission rate, $1/\sigma$ is the mean latent period, $n_E$ is the number of latent compartments, $1/\gamma$ is the mean infectious period, and $n_I$ is the number of infectious compartments.
-While we use the SEIR model for simulations in our main text, we show results based on more realistic distributions in Appendix.
+We show results based on more realistic distributions in Appendix.
 
 \subsection{Stochastic SEIR model}
 
-We develop an algorithm to simulate an individual-based SEIR model on a network to keep track of generation intervals.
-Our algorithm is based on the Gillespie algorithm \citep{gillespie1977exact}.
-We model individuals with nodes on a network and their acquaintanceships with edges; infected individuals can only contact their acquaintances.
+We simulated an individual-based SEIR model on a contact network, using an algorithm based on the ``Gillespie algorithm'' \cite{Bartlett,gillespie1977exact}. \jd{Check Gillespie algorithm on wikipedia to find Bartlett cite.}
 
-First, we begin by randomly selecting initially infected individuals; these individuals are assumed to be infected at $t = 0$.
+We begin by randomly selecting individuals assumed to be infected at $t = 0$.
 For each infected individual $i$, we randomly draw the latent period $E_i$ from an Erlang distribution with mean $1/\sigma$ and shape $n_E$.
 We then construct the random infectious period and infectious contact times simultaneously as follows.
-For each of the $n_I$ stages of the infectious period, we draw the number of effective contacts (before transitioning to the next compartment) from a geometric distribution with probability $n_I\gamma/(S_i \lambda + n_I \gamma)$, where $S_i$ is the number
-of susceptible acquaintances and $\lambda$ is the per-pair contact rate.
+For each of the $n_I$ stages of the infectious period, we draw the number of effective contacts (before transitioning to the next compartment) from a geometric distribution with probability $n_I\gamma/(S_i \lambda + n_I \gamma)$, where $S_i$ is the number of susceptible acquaintances and $\lambda$ is the per-pair contact rate.
 We then choose the time between consecutive events (the chosen number of contacts, followed by exit from the given stage of infection) from an exponential distribution with rate $S_i \lambda + n_I\gamma$.
 For each contact, a contactee is uniformly sampled from the set of susceptible acquaintances of the individual $i$.
 The infectious period $I_i$ is the sum of all of these waiting times.
@@ -453,7 +450,7 @@ The simulation continues until there are no more contacts are left in the queue.
 \subsection{Egocentric relationship between $r$ and $\RR$ (SEIR model)}
 \label{egosection}
 
-Here, we show that the egocentric relationship between $r$ and $\RR$ derived by Trapman \cite{trapman2016inferring} (see the original source for detailed derivations) can be derived simply by applying the Euler-Lotka equation and using the effective (rather than the intrinsic) generation-interval distribution. 
+Here, we show that the egocentric relationship between $r$ and $\RR$ derived by Trapman \cite{trapman2016inferring} (see the original source for detailed derivations) matches what would be calculated by applying the Euler-Lotka equation to the effective (rather than the intrinsic) generation-interval distribution. 
 Assume that latent and infectious periods are exponentially distributed with mean $1/\sigma$ and $1/\gamma$, respectively.
 Assuming a constant per-pair contact rate of $\lambda$ for any pair, the egocentric generation-interval distribution can be written:
 \begin{equation}
@@ -478,20 +475,16 @@ which completes the relationship between the growth rate and the egocentric repr
 \hat\RR = \frac{\gamma + r}{\gamma \sigma/(\sigma + r) + r/\kappa}.
 \end{equation}
 
-\subsection{Population-level method for estimating generation-interval distributions from contact-tracing data}
-\label{poplevel}
+\subsection{Estimating generation-interval distributions from contact-tracing data}
 
-Population-level method tries to estimate the effective generation-interval distribution by reverting the inverse exponential weighting in the observed generation-interval distribution:
+The \textbf{Population-level method} estimates the effective generation-interval distribution by reversing the inverse exponential weighting in the observed generation-interval distribution:
 \begin{equation}
 \tsub{g}{eff}(\tau) \propto c_t(\tau) \exp(r\tau).
 \end{equation}
 In order to do so, we first fit a gamma distribution to the observed generation-interval distributions; specifically, we estimate the mean $\bar G$ and shape $\alpha$ of a gamma distribution by maximum likelihood.
 Then, the effective generation-interval distribution also follows a gamma distribution with mean $\alpha/(\alpha/\bar G - r)$ and shape $\alpha$.
 
-\subsection{Individual-level method for estimating generation-interval distributions from contact-tracing data}
-\label{indlevel}
-
-We model each infection $i$ from an infected individual $j$ as a non-homogeneous Poisson process between the time at which infector $j$ was infected ($t_j$) and the censorship time ($\tsub{t}{censor}$), where the time-varying Poisson rate at time $t$ is equal to $\RR \tsub{g}{eff}(t - t_j)$, where $\tsub{g}{eff}(t)$ is the effective generation-interval distribution \citep{daley2007introduction}.
+The \textbf{Individual-level method} models each infection $i$ from an infected individual $j$ as a non-homogeneous Poisson process between the time at which infector $j$ was infected ($t_j$) and the censorship time ($\tsub{t}{censor}$), with time-varying Poisson rate at time $t$ is equal to $\RR \tsub{g}{eff}(t - t_j)$, where $\tsub{g}{eff}(t)$ is the effective generation-interval distribution \citep{daley2007introduction}.
 We use a gamma distribution (parameterized by its mean and shape) to model the effective generation-interval distribution.
 Then, the probability that an individual $j$ infects $n_j$ individuals between $t_j$ and $\tsub{t}{censor}$ is equal to
 \begin{equation}
@@ -499,7 +492,7 @@ Then, the probability that an individual $j$ infects $n_j$ individuals between $
 \end{equation}
 where $s_{i,j}$ is the observed generation interval between infector $j$ and infectee $i$, and $\theta$ is a (vector) parameter of the generation-interval distribution $g$ (and the corresponding cumulative distribution function $\tsub{G}{eff}$).
 
-The entire data likelihood of the non-homogeneous poisson process can be written as:
+The likelihood of the non-homogeneous poisson process can be written as:
 \begin{equation}\label{eq:nonhomogeneous}
 \begin{aligned}
 &\mathcal{L}(\RR, \theta\,|\, \mathbf{s}, \mathbf{t}, \mathbf{n}, \tsub{t}{censor})\\
@@ -513,14 +506,9 @@ Since the estimate of $\RR$ is sensitive to under-reporting, we use the estimate
 
 \subsection{Measuring the exponential growth rate}
 
-We estimate the exponential growth rate $r$ of an epidemic from daily incidence by modeling the cumulative incidence $c(t)$ with a logistic function \citep{ma2014estimating}: 
-\begin{equation}
-c(t) = \frac{K}{1 + \left[(K/c_0) - 1\right] e^{-rt}},
-\end{equation}
-where $K$ is the final size of an epidemic and $c_0$ is the initial number of cases.
-Fitting this curve directly to cumulative incidence can lead to overly confident result \citep{king2015avoidable}; instead we fit interval incidence $x(t) = c(t + \Delta t) - c(t)$, where $\Delta t$ is 1 day, to daily incidence, assuming that daily incidence follows a negative binomial distribution. 
-This assumption requires us to estimate the dispersion parameter $\theta$ of a negative binomial distribution.
-Parameters $r$, $K$, $c_0$, and $\theta$ are estimated by maximum likelihood.
+We estimate the exponential growth rate $r$ of an epidemic from daily incidence by modeling the cumulative incidence $c(t)$ with a logistic function \citep{ma2014estimating}. 
+Fitting directly to cumulative incidence can lead to overly confident results \citep{king2015avoidable}; instead we fit interval incidence $x(t) = c(t + \Delta t) - c(t)$, where $\Delta t$ is 1 day, to daily incidence, assuming that daily incidence follows a negative binomial distribution. 
+We estimate the logistic parameters $r$, $K$, $c_0$, and $\theta$ are estimated by maximum likelihood.
 Fitting time window is defined from the last trough before the peak of an epidemic to the first day after the peak of an epidemic.
 
 \subsection{Empirical network}
