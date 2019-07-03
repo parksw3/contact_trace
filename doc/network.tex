@@ -509,7 +509,7 @@ Since the estimate of $\RR$ is sensitive to under-reporting, we use the estimate
 
 We estimate the exponential growth rate $r$ of an epidemic from daily incidence by modeling the cumulative incidence $c(t)$ with a logistic function \citep{ma2014estimating}. 
 Fitting directly to cumulative incidence can lead to overly confident results \citep{king2015avoidable}; instead we fit interval incidence $x(t) = c(t + \Delta t) - c(t)$, where $\Delta t$ is 1 day, to daily incidence, assuming that daily incidence follows a negative binomial distribution. 
-We estimate the logistic parameters $r$, $K$, $c_0$, and $\theta$ are estimated by maximum likelihood.
+We estimate the logistic parameters $r$, $K$, $c_0$, and $\theta$ by maximum likelihood.
 Fitting time window is defined from the last trough before the peak of an epidemic to the first day after the peak of an epidemic.
 
 \subsection{Empirical network}
