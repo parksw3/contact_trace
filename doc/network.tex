@@ -355,7 +355,7 @@ Direct estimates based on the observed generation intervals from contact tracing
 While both population- and individual-level corrections provide similar estimates to the empirical reproductive number on average,
 population-level estimates are more variable as they are more sensitive to outliers in generation intervals and our estimate of the growth rate.
 For smaller values of \RR, we expect the differences to become smaller.
-In Appendix, we present the same figure using smaller \RR\ (Appendix A.1) and using Erlang-distributed latent periods (Appendix A.2), which better corresponds to Ebola.
+In the electronic supplementary material, we present the same figure using smaller \RR\ (Appendix A.1) and using Erlang-distributed latent periods (Appendix A.2), which better corresponds to Ebola.
 Overall, our qualitative conclusions do not change.
 
 \section{Discussion}
@@ -451,7 +451,7 @@ The simulation continues until there are no more contacts are left in the queue.
 \subsection{Egocentric relationship between $r$ and $\RR$ (SEIR model)}
 \label{egosection}
 
-Here, we show that the egocentric relationship between $r$ and $\RR$ derived by Trapman \cite{trapman2016inferring} (see the original source for detailed derivations) matches what would be calculated by applying the Euler-Lotka equation to the effective (rather than the intrinsic) generation-interval distribution. 
+Here, we show that the egocentric relationship between $r$ and $\RR$ derived by Trapman \cite{trapman2016inferring} (see the original source for detailed derivations) matches what would be calculated by applying the Euler-Lotka equation to the egocentric (rather than the intrinsic) generation-interval distribution. 
 Assume that latent and infectious periods are exponentially distributed with mean $1/\sigma$ and $1/\gamma$, respectively.
 Assuming a constant per-pair contact rate of $\lambda$ for any pair, the egocentric generation-interval distribution can be written:
 \begin{equation}
@@ -530,58 +530,6 @@ The authors declare that they have no competing interests.
 \section*{Funding}
 
 This work was supported by the Canadian Institutes of Health Research [funding reference number 143486].
-
-
-\pagebreak
-\appendix
-\renewcommand\thefigure{\thesection.\arabic{figure}}
-\setcounter{figure}{0}    
-\section{Appendix}
-
-\subsection{Comparison of estimates of reproductive number -- smaller $\RR$}
-
-\begin{figure}[!h]
-\includegraphics[width=\textwidth]{../fig/cmp_reproductive_small.pdf}
-\caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
-This figure matches \fref{cmp} in the main text.
-A smaller per-pair contact rate ($\lambda = 0.0026 \textrm{ days}^{-1}$) is used to simulate epidemics.
-All other parameters are the same as in \fref{cmp}.
-}
-\label{fig:cmpsmall}
-\end{figure}
-
-\pagebreak
-
-\subsection{Comparison of estimates of reproductive number -- Erlang distributed latent periods}
-
-\begin{figure}[!h]
-\includegraphics[width=\textwidth]{../fig/cmp_reproductive_seminr.pdf}
-\caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
-This figure matches \fref{cmp} in the main text which used a SEIR model.
-Here, an Erland-distributed latent period ($n_E=2$) is used to simulate epidemics; this assumption better matches the incubation period distribution of the Ebola virus disease than the exponential assumption \citep{who2014ebola}.
-All other parameters are the same as in \fref{cmp}.
-}
-\label{fig:cmpseminir}
-\end{figure}
-
-\pagebreak
-
-\subsection{Testing the individual-based method on simulations on a homogeneous network}
-
-\begin{figure}[!h]
-\includegraphics[width=\textwidth]{../fig/full_coverage_fig.pdf}
-\caption{\textbf{Wrong distributional assumption may result in biased estimates of the parameters of a generation-interval distribution.}
-We simulate a stochastic SEIR model on a homogenous network with $10^5$ individuals using Ebola-like parameters \citep{who2014ebola}: mean latent period $1/\sigma = 5 \textrm{ days}$, mean infectious period $1/\gamma = 11.4 \textrm{ days}$, and the basic reproductive number $\RR_0 = 2$. Then, we apply the individual-based method based on the first 1000 infections.
-(A-B) A boxplot of 100 estimates of the mean generation intervals and their coefficient of variations (CV). 
-Dashed horizontal lines represent the true value.
-(C) Coverage probability of the mean generation intervals and their CVs based on the 95\% confidence interval.
-Dashed horizontal lines represent the 95\% coverage probability.
-(D) Estimated generation-interval distributions based on the gamma approximation and a true generation-interval distribution of an SEIR model.
-(E) Estimated $r$--$\RR$ relationships based on the gamma approximation and a true $r$-$\RR$ relationship of an SEIR model.
-Even though there are biases in the estimates of the parameters of the generation-interval distribution, we can still get an unbiased estimate of the $r$--$\RR$ relationship: a shorter mean generation interval decreases $\RR$ whereas a tighter generation-interval distribution increases $\RR$ \citep{wallinga2007generation, park2019practical}.
-}
-\label{fig:cover}
-\end{figure}
 
 \pagebreak
 
