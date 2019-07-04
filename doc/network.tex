@@ -234,7 +234,6 @@ We define the egocentric kernel as the rate at which secondary infections are re
 where $k(\tau; a)$ is the individual-level intrinsic kernel and $e^{- \delta(a) \int_0^\tau k(s; a) ds}$ is the probability that a susceptible acquaintance has not yet been contacted by a particular infected individual.
 The dilution term, $\delta(a)$, models how contacts are distributed among susceptible acquaintances.
 
-\jd{If $\lambda$ is constant, shouldn't that mean that $\delta(a)$ should depend on $\bar N$ and not $N(a)$?}
 Throughout this paper, we assume that there is a constant per-pair contact rate $\lambda$.
 In this case, the infectiousness of an individual $\RR(a) = \int k(s; a) ds$ is the product of the number of acquaintances $N(a)$ and the contact rate $\lambda$; the dilution term is equal to the reciprocal of the number of acquaintances: $\delta(a) = 1/N(a)$.
 This assumption can be relaxed by allowing for asymmetry \citep{trapman2016inferring} or heterogeneity \citep{ball1997epidemics, ball2002general} in contact rates; 
@@ -260,7 +259,6 @@ As the egocentric distribution always has a shorter mean than the intrinsic dist
 this generation-interval-based argument provides a clear biological interpretation for the result presented by \cite{trapman2016inferring}.
 % Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\, since it does not account for depletion of susceptibles by other routes.
 
-\jd{I don't love this analytic example. What do we need from this \P?}
 For example, consider a susceptible-exposed-infected-recovered (SEIR) model, which assumes that latent and infectious periods are exponentially distributed.
 The intrinsic generation-interval distribution that corresponds to this model can be written as \citep{Champredon2018equivalence}:
 \begin{equation}
@@ -431,8 +429,7 @@ We show results based on more realistic distributions in Appendix.
 
 \subsection{Stochastic SEIR model}
 
-We simulated an individual-based SEIR model on a contact network, using an algorithm based on the ``Gillespie algorithm'' \cite{Bartlett,gillespie1977exact}. \jd{Check Gillespie algorithm on wikipedia to find Bartlett cite.}
-
+We simulated an individual-based SEIR model on a contact network, using an algorithm based on the ``Gillespie algorithm'' \cite{bartlett1953stochastic,gillespie1977exact}.
 We begin by randomly selecting individuals assumed to be infected at $t = 0$.
 For each infected individual $i$, we randomly draw the latent period $E_i$ from an Erlang distribution with mean $1/\sigma$ and shape $n_E$.
 We then construct the random infectious period and infectious contact times simultaneously as follows.
