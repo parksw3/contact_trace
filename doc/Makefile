@@ -31,12 +31,18 @@ Sources += notes.md
 
 Sources += network.tex cover.txt
 network.pdf: network.tex
-network.tex.a72dec.oldfile: ## JD Sunday edit
-network.tex.f3a46db.oldfile: ## pre-Sunday
+
 network.ld.pdf: network.tex
+network.tex.2f572ca5a.oldfile: 
 Ignore += *.ld.out *.ld.pdf
 
 Sources += network.bib
+
+## network.tex.2f572ca5a.oldfile.texcount:
+## network.tex.texcount:
+Ignore += *.texcount
+%.texcount: %
+	texcount $< > $@
 
 ######################################################################
 
