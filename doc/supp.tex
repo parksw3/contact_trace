@@ -1,0 +1,103 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in,left=1in, right = 1in, footskip=1in]{geometry}
+
+\usepackage{graphicx}
+%\usepackage{adjustbox}
+
+\newcommand{\eref}[1]{(\ref{eq:#1})}
+\newcommand{\fref}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\Fref}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\sref}[1]{Sec.~\ref{#1}}
+\newcommand{\frange}[2]{Fig.~\ref{fig:#1}--\ref{fig:#2}}
+\newcommand{\tref}[1]{Table~\ref{tab:#1}}
+\newcommand{\tlab}[1]{\label{tab:#1}}
+\newcommand{\seminar}{SE\mbox{$^m$}I\mbox{$^n$}R}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\usepackage[pdfencoding=auto, psdextra]{hyperref}
+
+\usepackage{natbib}
+\setcitestyle{numbers} 
+\bibliographystyle{prsb}
+\date{\today}
+
+\usepackage{xspace}
+\newcommand*{\ie}{i.e.\@\xspace}
+
+\usepackage{color}
+
+\newcommand{\Rx}[1]{\ensuremath{{\mathcal R}_{#1}}} 
+\newcommand{\Ro}{\Rx{0}}
+\newcommand{\RR}{\ensuremath{{\mathcal R}}}
+\newcommand{\Rhat}{\ensuremath{{\hat\RR}}}
+\newcommand{\tsub}[2]{#1_{{\textrm{\tiny #2}}}}
+
+\newcommand{\comment}[3]{\textcolor{#1}{\textbf{[#2: }\textsl{#3}\textbf{]}}}
+\newcommand{\jd}[1]{\comment{cyan}{JD}{#1}}
+\newcommand{\swp}[1]{\comment{magenta}{SWP}{#1}}
+\newcommand{\dc}[1]{\comment{blue}{DC}{#1}}
+\newcommand{\hotcomment}[1]{\comment{red}{HOT}{#1}}
+
+\newcommand{\jdnew}{\jd{NEW}}
+\newcommand{\jddel}[1]{\jd{DELETE: #1}}
+
+\begin{document}
+
+\appendix
+\renewcommand\thefigure{\thesection.\arabic{figure}}
+\setcounter{figure}{0}    
+\section{Appendix}
+
+\subsection{Comparison of estimates of reproductive number -- smaller $\RR$}
+
+\begin{figure}[!h]
+\includegraphics[width=\textwidth]{../fig/cmp_reproductive_small.pdf}
+\caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
+This figure matches Fig. 4 in the main text.
+A smaller per-pair contact rate ($\lambda = 0.0026 \textrm{ days}^{-1}$) is used to simulate epidemics.
+All other parameters are the same as in Fig. 4 in the main text.
+}
+\label{fig:cmpsmall}
+\end{figure}
+
+\pagebreak
+
+\subsection{Comparison of estimates of reproductive number -- Erlang distributed latent periods}
+
+\begin{figure}[!h]
+\includegraphics[width=\textwidth]{../fig/cmp_reproductive_seminr.pdf}
+\caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
+This figure matches Fig. 4 in the main text which used a SEIR model.
+Here, an Erland-distributed latent period ($n_E=2$) is used to simulate epidemics; this assumption better matches the incubation period distribution of the Ebola virus disease than the exponential assumption \citep{who2014ebola}.
+All other parameters are the same as in Fig. 4 in the main text.
+}
+\label{fig:cmpseminir}
+\end{figure}
+
+\pagebreak
+
+\subsection{Testing the individual-based method on simulations on a homogeneous network}
+
+\begin{figure}[!h]
+\includegraphics[width=\textwidth]{../fig/full_coverage_fig.pdf}
+\caption{\textbf{Wrong distributional assumption may result in biased estimates of the parameters of a generation-interval distribution.}
+We simulate a stochastic SEIR model on a homogenous network with $10^5$ individuals using Ebola-like parameters \citep{who2014ebola}: mean latent period $1/\sigma = 5 \textrm{ days}$, mean infectious period $1/\gamma = 11.4 \textrm{ days}$, and the basic reproductive number $\RR_0 = 2$. Then, we apply the individual-based method based on the first 1000 infections.
+(A-B) A boxplot of 100 estimates of the mean generation intervals and their coefficient of variations (CV). 
+Dashed horizontal lines represent the true value.
+(C) Coverage probability of the mean generation intervals and their CVs based on the 95\% confidence interval.
+Dashed horizontal lines represent the 95\% coverage probability.
+(D) Estimated generation-interval distributions based on the gamma approximation and a true generation-interval distribution of an SEIR model.
+(E) Estimated $r$--$\RR$ relationships based on the gamma approximation and a true $r$-$\RR$ relationship of an SEIR model.
+Even though there are biases in the estimates of the parameters of the generation-interval distribution, we can still get an unbiased estimate of the $r$--$\RR$ relationship: a shorter mean generation interval decreases $\RR$ whereas a tighter generation-interval distribution increases $\RR$ \citep{wallinga2007generation, park2019practical}.
+}
+\label{fig:cover}
+\end{figure}
+
+\pagebreak
+
+\bibliography{networkprsb}
+\end{document}
