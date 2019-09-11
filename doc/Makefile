@@ -25,7 +25,7 @@ Makefile: $(ms) $(ms)/Makefile
 
 ## Notes
 
-Sources += notes.md
+Sources += notes.md response.md
 
 ## Manuscript
 
