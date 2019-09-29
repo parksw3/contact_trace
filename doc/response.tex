@@ -42,9 +42,9 @@ Below please find our responses from the previous round.
 \revtext{Given that the questions considered are important and worthwhile, my suggestion is that the paper should be revised with a substantial additional piece of work added involving work with a real epidemic dataset (not necessarily novel data) to demonstrate the theoretical developments, with R code in a tidier / more user-friendly format than is currently on the associated GitHub site.
 }
 
-As per editor's suggestion, we have transferred our submission to Interface journal, which better suits our manuscript in its current form. Due to time constraints, we will not be able to make substantial changes to our manuscript.
+Based on the comments of the transmitting editor, Dr.~Heesterbeek, we have decided that it makes more sense to transfer to \emph{Interface} than to engage at this time with an epidemic dataset. We have made an effort to make our GitHub site more user-friendly.
 
-Generation-interval-based approaches (Euler-Lotak equation) are still widely used in outbreak analyses to estimate the reproduction number. While some of the analytical results that we present here (e.g., egocentric kernel) may not be as general as would be expected, we expect biological intuitions (the effects of censoring and spatial reduction on generation intervals and reproduction number) that we get from our results to be fairly general. 
+\jd{Not sure what this \P\ is for. Drop it?} Generation-interval-based approaches (Euler-Lotka equation) are still widely used in outbreak analyses to estimate the reproduction number. While some of the analytical results that we present here (e.g., egocentric kernel) may not be as general as would be expected, we expect biological intuitions (the effects of censoring and spatial reduction on generation intervals and reproduction number) that we get from our results to be fairly general. 
 
 
 \revtext{Some minor comments:}
@@ -55,7 +55,7 @@ We have followed the reviewer's comment in changing the text:
 
 ``An epidemic can be described by the exponential growth rate, $r$, and the reproductive number, \RR.''
 
-\revtext{Fig 1 -> two things change between each figure. I would describe the left hand as an individual realisation of the random process, and the right hand as a population-level behaviour emerging from the random process.}
+\revtext{Fig 1: two things change between each figure. I would describe the left hand as an individual realisation of the random process, and the right hand as a population-level behaviour emerging from the random process.}
 
 We have followed the reviewer's comment in changing the figure caption:
 
@@ -64,7 +64,7 @@ this represents an individual realization of a random process.
 (Right) a population-level kernel of infected individuals with latent and infectious periods exponentially distributed with means of 11.4 and 5 days, respectively;
 this represents a population average of a random process.''
 
-\revtext{Eq(15) -> typo on last line of the equations.}
+\revtext{Eq(15): typo on last line of the equations.}
 
 Fixed.
 
@@ -154,7 +154,7 @@ both local and global depletion effects also reduce number of infections that oc
 
 We added the following sentences:
 
-``For brevity, we assume that \emph{all} generation intervals (no under-reporting) are observed without error.
+``For simplicity, we assume that \emph{all} generation intervals (no under-reporting) are observed without error.
 In practice, it is difficult to measure generation intervals precisely because (1) infection events are often unobserved and (2) there may be multiple potential infectors; these factors can introduce biases to the estiamtes of the reproduction number.
 We do not pursue these directions in this study.''
 

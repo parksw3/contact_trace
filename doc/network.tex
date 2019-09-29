@@ -42,10 +42,14 @@
 
 \newcommand{\comment}[3]{\textcolor{#1}{\textbf{[#2: }\textsl{#3}\textbf{]}}}
 \newcommand{\jd}[1]{\comment{cyan}{JD}{#1}}
-\newcommand{\swp}[1]{\comment{magenta}{SWP}{#1}}
 \newcommand{\dc}[1]{\comment{blue}{DC}{#1}}
 \newcommand{\hotcomment}[1]{\comment{red}{HOT}{#1}}
-\newcommand{\rev}[1]{\comment{red}{REV}{#1}}
+
+%% \newcommand{\rev}[1]{\comment{red}{REV}{#1}}
+\newcommand{\rev}[1]{}
+
+\newcommand{\swp}[1]{\comment{magenta}{SWP}{#1}}
+\newcommand{\new}[1]{\textcolor{blue}{#1}}
 
 \newcommand{\jdnew}{\jd{NEW}}
 \newcommand{\jddel}[1]{\jd{DELETE: #1}}
@@ -237,11 +241,12 @@ I have a problem with $N(a)$. Does your model allow for different number of acqu
 }
 Infected individuals may contact the same susceptible individual multiple times, but only the first effective contact gives rise to infection in a given individual (after this, they are no longer susceptible).
 Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average.
-\swp{
+\new{
 To explore the effect of multiple contacts on realized generation intervals, we no longer assume that the population is homogeneous (and therefore do not rely on the classical definition of the basic reproductive number).
 Instead, we assume that a disease spreads on a network;
 infected individuals contact their ``acquaintances'' at random, but ``acquantanceships'' are predetermined by the network structure before the beginning of an epidemic \cite{trapman2016inferring}.
 }
+\jd{I feel that this requires more thought. If we're no longer assuming homogeneity, how much of what we said before still works, and how do we know we can rely on what we're relying on?}
 
 We first consider the infection process from an ``egocentric'' point of view, taking into account infectious contacts made by a single infector.
 We define the egocentric kernel as the rate at which secondary infections are realized by a single primary case with aspect $a$ in the absence of other infectors:
@@ -262,7 +267,7 @@ The population-level egocentric kernel is found by integrating the individual-le
 \hat{K}(\tau) = \int \hat{k}(\tau; a) f(a) da,
 \end{equation}
 where $f(a)$ represents a probability density over a (possibly multi-dimensional) aspect space.
-\swp{Essentially, the population-level egocentric kernel further accounts for the probability that a susceptible individual has not been infected within an infected-susceptible pair.}.
+\new{Essentially, the population-level egocentric kernel further accounts for the probability that a susceptible individual has not been infected within an infected-susceptible pair.}.
 Trapman \textit{et al.} \cite{trapman2016inferring} used this same kernel (also assuming a constant per-pair contact rate) to study the effect of network structure on the estimate of reproductive number.
 The population-level egocentric generation-interval distribution is:
 \begin{equation}
@@ -319,7 +324,7 @@ what is a homogeneous network? Complete network, alla have same degree or ...? E
 The egocentric generation interval \eref{conditional} only explains some of the reduction in generation times that occurs on most networks, however.
 Generation intervals are also shortened by indirect connections: a susceptible individual can be infected through another route before the focal individual makes infectious contacts.
 Simulations on a small homogeneous network (i.e., complete network) confirm this additional effect (\fref{local}, right panel). 
-\swp{
+\new{
 We can think of simulations on this network as an approximation of (local) infection process in a small household, consisting of 5 individuals;
 we expect realistic local network structures (and their effects on the realized generation intervals) to lay between a star network and a complete network. 
 }
@@ -338,14 +343,14 @@ some of the 4 effects described also affect R whereas others don't. Be more clea
 
 When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric depletion effect, (3) local depletion effect and (4) global depletion effect.
 We can correct explicitly for the egocentric effect and, in the case of exponential growth, the right-censoring effect;
-\swp{we showed that these effects shorten the mean observed generation intervals, which in turn will reduce the estimate of the reproduction number \cite{wallinga2007generation, park2019practical}.}
+\new{we showed that these effects shorten the mean observed generation intervals, which in turn will reduce the estimate of the reproduction number \cite{wallinga2007generation, park2019practical}.}
 While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and reproductive numbers: 
 both local and global depletion effects also reduce number of infections that occur and shorten generation intervals.
 
 Since the right-censoring effect is a sampling bias, we typically want to correct for it. 
 In contrast, spatial effects have the same effect on how the epidemic spreads as they do on observed generation intervals. 
 We therefore expect that starting from observed generation intervals and correcting for the right-censoring effect, will allow us to estimate an ``effective'' generation interval that accurately reflects dynamics of spread. 
-When temporal correction is performed early in an outbreak, during the exponential growth phase, the effective distribution should incorporate egocentric and local spatial effects but not the global effects; we expect this distribution to correctly link $r$ and $\RR$ \swp{through the Euler-Lotka equation}. 
+When temporal correction is performed early in an outbreak, during the exponential growth phase, the effective distribution should incorporate egocentric and local spatial effects but not the global effects; we expect this distribution to correctly link $r$ and $\RR$ \new{through the Euler-Lotka equation}. 
 We will call the temporally corrected effective generation-interval distribution $\tsub{g}{eff}(\tau)$.
 In a large homogeneously mixing population, the effective distribution is expected to be equivalent to the intrinsic distribution (since the egocentric and local depletion are negligible in the absence of network structure, and global depletion is negligible early in the epidemic).
 
@@ -378,13 +383,13 @@ For both methods, mean and coefficient of variation (CV) of generation-interval 
 
 To test these methods, we simulate 100 epidemics with Ebola-like parameters on an empirical network \citep{leskovec2016snap}
 and compare the estimates of reproductive number with empirical reproductive numbers, which we define as the average number of secondary cases generated by the first 100 infected individuals (\fref{cmp}).
-\swp{
-For brevity, we assume that \emph{all} generation intervals (no under-reporting) are observed without error.
+\new{
+For simplicity, we assume that \emph{all} generation intervals (no under-reporting) are observed without error.
 In practice, it is difficult to measure generation intervals precisely because (1) infection events are often unobserved and (2) there may be multiple potential infectors; these factors can introduce biases to the estiamtes of the reproduction number \cite{britton2019estimation}.
 We do not pursue these direction in this study.
 }
 
-As expected, calculating reproductive number based on the intrinsic generation-interval distribution overestimates the empirical reproductive number;
+As expected, estimating the reproductive number based on the intrinsic generation-interval distribution overestimates the empirical reproductive number;
 estimates based on the egocentric generation-interval distribution \eref{conditional} address this problem only partially, as they do not account for indirect (local) spatial effects. 
 Direct estimates based on the observed generation intervals from contact tracing severely underestimate the empirical estimates.
 While both population- and individual-level corrections provide similar estimates to the empirical reproductive number on average,
@@ -476,7 +481,7 @@ For each contact, a contactee is uniformly sampled from the set of susceptible a
 The infectious period $I_i$ is the sum of all of these waiting times.
 
 After repeating the contact process for all initially infected individuals, all contacts are put into a sorted queue.
-The first person in the queue becomes infected \swp{(and therefore decreasing $S_i$ by 1 for all individuals $i$ that are acquaintances of the newly infected individual)}, and the current time is updated to infection time of this individual. 
+The first person in the queue becomes infected \new{(thus decreasing $S_i$ by 1 for all individuals $i$ that are acquaintances of the newly infected individual)}, and the current time is updated to infection time of this individual. 
 Any subsequent contacts made to this individual are removed from the queue because they will no longer be effective.
 We repeat the contact process for this newly infected individual.
 Then, new contacts are added to the sorted queue.

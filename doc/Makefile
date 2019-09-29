@@ -25,7 +25,7 @@ Makefile: $(ms) $(ms)/Makefile
 
 ## Notes
 
-Sources += notes.md response.md
+Sources += notes.md
 
 ## Manuscript
 
@@ -35,6 +35,9 @@ network.pdf: network.tex
 network.ld.pdf: network.tex
 network.tex.2f572ca5a.oldfile: 
 Ignore += *.ld.out *.ld.pdf
+
+Sources += response.tex
+## response.pdf: response.tex
 
 Sources += network.bib
 
