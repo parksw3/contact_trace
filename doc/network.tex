@@ -164,7 +164,7 @@ making this distinction clear will be particularly useful when we discuss spatia
 An individual-level intrinsic infection kernel $k(\tau; a)$ describes the rate at which an infected individual with ``aspect'' $a$ makes ``effective contacts'' (contacts which will cause infection if the contactee is susceptible).
 Individual aspects may represent variation in the course of infection (e.g., duration of latent and infectious periods) and the level of infectiousness, which can depend both on biological infectiousness as well as contact patterns.
 Hereafter, we use $t, s$ to represent calendar time and $\tau$ to
-represent time relative to/from infection.
+represent time relative to/from infection. \jd{Is this just time since infection?}
 
 Assuming that the individual properties are independent of risk of infection, the population-level kernel is given by integrating over these individual variations:
 \begin{equation}
@@ -242,11 +242,10 @@ I have a problem with $N(a)$. Does your model allow for different number of acqu
 Infected individuals may contact the same susceptible individual multiple times, but only the first effective contact gives rise to infection in a given individual (after this, they are no longer susceptible).
 Therefore, we expect realized generation intervals to be shorter than intrinsic generation intervals, on average.
 \new{
-To explore the effect of multiple contacts on realized generation intervals, we no longer assume that the population is homogeneous (and therefore do not rely on the classical definition of the basic reproductive number).
+To explore the effect of multiple contacts on realized generation intervals, we relax our assumption that the population is homogeneous.
 Instead, we assume that a disease spreads on a network;
 infected individuals contact their ``acquaintances'' at random, but ``acquantanceships'' are predetermined by the network structure before the beginning of an epidemic \cite{trapman2016inferring}.
 }
-\jd{I feel that this requires more thought. If we're no longer assuming homogeneity, how much of what we said before still works, and how do we know we can rely on what we're relying on?}
 
 We first consider the infection process from an ``egocentric'' point of view, taking into account infectious contacts made by a single infector.
 We define the egocentric kernel as the rate at which secondary infections are realized by a single primary case with aspect $a$ in the absence of other infectors:
@@ -260,6 +259,7 @@ Throughout this paper, we assume that there is a constant per-pair contact rate 
 In this case, the infectiousness of an individual $\RR(a) = \int k(s; a) ds$ is the product of the number of acquaintances $N(a)$, which can vary among individuals, and the contact rate $\lambda$; the dilution term is equal to the reciprocal of the number of acquaintances: $\delta(a) = 1/N(a)$.
 This assumption can be relaxed by allowing for asymmetry \citep{trapman2016inferring} or heterogeneity \citep{ball1997epidemics, ball2002general} in contact rates; 
 for brevity, we do not pursue these directions here.
+\jd{Confused now about $\delta$.}
 
 \rev{I did not follow how you got $\hat g$. What is a, $N(a)$ and $f(a)$? Explain more.}
 The population-level egocentric kernel is found by integrating the individual-level egocentric over individual variations:
@@ -267,7 +267,7 @@ The population-level egocentric kernel is found by integrating the individual-le
 \hat{K}(\tau) = \int \hat{k}(\tau; a) f(a) da,
 \end{equation}
 where $f(a)$ represents a probability density over a (possibly multi-dimensional) aspect space.
-\new{Essentially, the population-level egocentric kernel further accounts for the probability that a susceptible individual has not been infected within an infected-susceptible pair.}.
+\new{Essentially, the population-level egocentric kernel accounts for the probability that a susceptible individual been infected by the focal individual.}
 Trapman \textit{et al.} \cite{trapman2016inferring} used this same kernel (also assuming a constant per-pair contact rate) to study the effect of network structure on the estimate of reproductive number.
 The population-level egocentric generation-interval distribution is:
 \begin{equation}
@@ -387,7 +387,7 @@ and compare the estimates of reproductive number with empirical reproductive num
 For simplicity, we assume that \emph{all} generation intervals (no under-reporting) are observed without error.
 In practice, it is difficult to measure generation intervals precisely because (1) infection events are often unobserved and (2) there may be multiple potential infectors; these factors can introduce biases to the estiamtes of the reproduction number \cite{britton2019estimation}.
 We do not pursue these direction in this study.
-}
+} \jd{We should disentangle under-reporting from g-i estimation.}
 
 As expected, estimating the reproductive number based on the intrinsic generation-interval distribution overestimates the empirical reproductive number;
 estimates based on the egocentric generation-interval distribution \eref{conditional} address this problem only partially, as they do not account for indirect (local) spatial effects. 
