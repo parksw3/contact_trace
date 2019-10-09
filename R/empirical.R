@@ -16,6 +16,7 @@ infection.generation <- function(x) {
     generation
 }
 
+## estimating empirical R0
 empirical.R0 <- function(x,
                          n=75) {
     o <- order(x$t_infected)
