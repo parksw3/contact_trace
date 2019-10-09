@@ -44,9 +44,6 @@ Below please find our responses from the previous round.
 
 Based on the comments of the transmitting editor, Dr.~Heesterbeek, we have decided that it makes more sense to transfer to \emph{Interface} than to engage at this time with an epidemic dataset. We have made an effort to make our GitHub site more user-friendly.
 
-\jd{Not sure what this \P\ is for. Drop it?} Generation-interval-based approaches (Euler-Lotka equation) are still widely used in outbreak analyses to estimate the reproduction number. While some of the analytical results that we present here (e.g., egocentric kernel) may not be as general as would be expected, we expect biological intuitions (the effects of censoring and spatial reduction on generation intervals and reproduction number) that we get from our results to be fairly general. 
-
-
 \revtext{Some minor comments:}
 
 \revtext{Introduction. “Can be characterized by”. These are properties but don’t uniquely determine the epidemic.}
@@ -96,7 +93,8 @@ i_{t-\tau}(t) = \RR_0 i(t-\tau) g(\tau) S(t)
 
 We added the following sentence in the beginning of section 2 to clarify this:
 
-``Hereafter, we use $t, s$ to represent calendar time and $\tau$ to represent time relative to/from infection.''
+``Hereafter, we use $t, s$ to represent calendar time and $\tau$ to
+represent time since infection.''
 
 \revtext{p6, top: when you say and write "proportional" there are 3 time parameters. Be explicit and write: with respect to $\tau$}
 
@@ -106,7 +104,7 @@ Fixed.
 
 We added the following sentences in the beginning of section 3 to make this clear:
 
-``To explore the effect of multiple contacts on realized generation intervals, we no longer assume that the population is homogeneous (and therefore do not rely on the classical definition of the basic reproductive number).
+``To explore the effect of multiple contacts on realized generation intervals, we relax our assumption that the population is homogeneous (and therefore do not rely on the classical definition of the basic reproductive number).
 Instead, we assume that a disease spreads on a network;
 infected individuals contact their ``acquaintances'' at random, but ``acquantanceships'' are predetermined by the network structure before the beginning of an epidemic.''
 
@@ -121,7 +119,7 @@ We tried to clarify this.
 \hat{K}(\tau) = \int \hat{k}(\tau; a) f(a) da,
 \end{equation}
 where $f(a)$ represents a probability density over a (possibly multi-dimensional) aspect space.
-Essentially, the population-level egocentric kernel further accounts for the probability that a susceptible individual has not been infected within an infected-susceptible pair.
+Essentially, the population-level egocentric kernel accounts for the probability that a susceptible individual has not been infected by the focal individual.
 Trapman \textit{et al.} used this same kernel (also assuming a constant per-pair contact rate) to study the effect of network structure on the estimate of reproductive number.
 The population-level egocentric generation-interval distribution is:
 \begin{equation}
@@ -154,15 +152,16 @@ both local and global depletion effects also reduce number of infections that oc
 
 We added the following sentences:
 
-``For simplicity, we assume that \emph{all} generation intervals (no under-reporting) are observed without error.
-In practice, it is difficult to measure generation intervals precisely because (1) infection events are often unobserved and (2) there may be multiple potential infectors; these factors can introduce biases to the estiamtes of the reproduction number.
-We do not pursue these directions in this study.''
+``For simplicity, we assume that generation intervals are observed without error and assume that there is no under-reporting. 
+We do not expect under-reporting to affect the inference of generation-interval distributions (unless there are systematic biases in the observation process).
+On the other hand, it is difficult to measure generation intervals precisely because (1) infection events are often unobserved and (2) there may be multiple potential infectors; these factors can introduce biases to the estiamtes of the reproduction number \cite{britton2019estimation}.
+We do not pursue these direction in this study.''
 
 \revtext{p14, sec 7.2: the $S_i$ should vary over time. When is it measured in the algorithm?}
 
 We added the following sentence:
 
-``... (and therefore decreasing $S_i$ by 1 for all individuals $i$ that are acquaintances of the newly infected individual) ...''
+``... (thus decreasing $S_i$ by 1 for all individuals $i$ that are acquaintances of the newly infected individual) ...''
 
 \revtext{p17, middle. Suddenly you talk about under-reporting. This is another very important area which would affect your analysis in many ways. Mention that you neglect this elsewhere.
 }
