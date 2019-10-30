@@ -27,12 +27,14 @@ $(ms)/Makefile:
 
 ## Content
 
+## Deleting old rules corresponding to files Daniel already deleted
+## 2019 Oct 30 (Wed)
+
+## This is a hybrid (mostly uses Daniel workflow; check source and so on)
+## Makes paper figure and talk figures together
 compare_methods.Rout: compare_methods.R
 
-smallpox.Rout: smallpox.R
-
-Sources += looksmall.R
-looksmall.Rout: ../data/Smallpox_1951_Tilburg_NL.csv looksmall.R
+Ignore += cmp_reproductive.pdf
 
 ######################################################################
 
