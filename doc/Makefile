@@ -39,6 +39,13 @@ Ignore += *.ld.out *.ld.pdf
 Sources += response.tex
 ## response.pdf: response.tex
 
+## resources/Review.pdf:
+resources: dir=~/Dropbox/park_trace
+resources:
+	$(linkdirname)
+resources/%.pdf:
+	$(MAKE) resources
+
 Sources += network.bib
 
 ## network.tex.2f572ca5a.oldfile.texcount:
