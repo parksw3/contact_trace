@@ -36,8 +36,14 @@ network.ld.pdf: network.tex
 network.tex.2f572ca5a.oldfile: 
 Ignore += *.ld.out *.ld.pdf
 
+## First journal had pretty nice reviews but thought we weren't sexy enough
 Sources += response.tex
 ## response.pdf: response.tex
+
+## JRSI also nice reviews but one of them _very_ demanding
+Sources += jscope.txt
+
+Sources += 
 
 ## resources/Review.pdf:
 resources: dir=~/Dropbox/park_trace

@@ -1,0 +1,18 @@
+
+Thank you for giving us opportunity to revise our manuscript rsif-2019-0719 entitled "Inferring generation-interval distributions from contact-tracing data”. Referee 1 provided a 12 page review, including a suggestion for making it into two papers: one theoretical and one statistical. While we appreciate valuable comments from reviewers, we strongly believe that this paper serves better as one paper, providing conceptual basis for both theory and methods for understanding generation intervals. We were wondering whether it would be possible for you to provide some guidance on the revision.
+
+We were asked to submit a revision within 3 weeks. Given the length of the review, it seems unlikely that we can meet this goal. Would it be possible to get a 3 week extension? We think this is a reasonable time frame to revise our manuscript.
+
+We look forward to hearing back from you.
+
+Sincerely,
+Sang Woo Park
+
+
+
+-- 
+McMaster University Department of Biology
+https://mac-theobio.github.io/
+https://twitter.com/jd_mathbio
+http://jd-mathbio.blogspot.com/
+
