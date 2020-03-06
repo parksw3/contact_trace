@@ -41,11 +41,11 @@ Sources += response.tex
 ## response.pdf: response.tex
 
 ## JRSI also nice reviews but one of them _very_ demanding
+## A letter to the editor about scoping and timing for revision
 Sources += jscope.txt
 
-Sources += 
-
 ## resources/Review.pdf:
+Ignore += resources
 resources: dir=~/Dropbox/park_trace
 resources:
 	$(linkdirname)
