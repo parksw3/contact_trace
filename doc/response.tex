@@ -3,6 +3,11 @@
 
 \usepackage{color}
 
+\usepackage{natbib}
+\setcitestyle{numbers} 
+\setcitestyle{square}
+\bibliographystyle{prsb}
+
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 
@@ -30,144 +35,139 @@
 
 \noindent Dear Editor:
 
-Thank you for the chance to transfer this submission. 
-Below please find our responses from the previous round.
+Thank you for the chance to revise and resubmit.
+We apologize for the delay.
+Reviewer 1 suggested that we should divide the paper into two: theory and application.
+Given the relevance of this manuscript to the current COVID-19 outbreak, we think it is best to write an application-based one first (this one) and then write a theory-based on later.
+We believe that incorporating some theory with application will help readers understand the material better at the moment.
+Otherwise, we have tried our best to incorporate the reviewers' suggestions.
+See below for detailed response.
 
-\rev{Reviewer 1}
+\rev{Reviewer \#1}
 
-\revtext{This paper considers estimation of generation interval distributions from data, paying particular attention to the questions of censoring. These are important questions, and the paper clearly lays out the theory of generation times and its implications.}
+\revtext{The main objective of this paper is to correct selection bias in observational
+(contact tracing) data to yield unbiased estimate of the "true" distribution
+corresponding to generation intervals defined in Lines 42-43 (if I understand
+properly).}
 
-\revtext{My main concern about the paper is audience; for a typical Proceedings B / applied audience, there is no work with real epidemiological data (although there is real network data); but for a more theoretical audience, the new analytic results are not quite as general as would be expected.}
+The main objective is to estimate the effective generation-interval distribution, which implicitly accounts for spatial structure. We tried to make this clear now.
 
-\revtext{Given that the questions considered are important and worthwhile, my suggestion is that the paper should be revised with a substantial additional piece of work added involving work with a real epidemic dataset (not necessarily novel data) to demonstrate the theoretical developments, with R code in a tidier / more user-friendly format than is currently on the associated GitHub site.
+\revtext{Lines 42-43: "A generation interval is defined as the time between when a
+person becomes infected and when that person infects another person."
+(with reference [10]). Indeed, most of the cited literature in this paper
+start with the definition exactly the same way. I feel that this definition
+is imprecise and is not as obvious as it reads, especially in its relationship
+with the intrinsic generation interval (Line 46) and its distribution (Lines
+49,101). It is not proven that they are equivalent.}
+
+We agree that this definition may be imprecise but we feel that it may be clearer for the readers to begin with a familiar definition. 
+Instead, we now point to imprecision of this definition.
+We also make clear that this definition corresponds to the definition at the individual-level (i.e., a single interval) and distinguish it from the population-level distributions:
+
+``At the individual level, a generation \emph{interval} is defined as the time between when a person becomes infected and when that person infects another person \citep{svensson2007note};
+while this definition is widely used in the literature, it is not connected directly to a population-level distribution.''
+
+\revtext{Line 46: "...intrinsic generation intervals..." This is not yet defined. Is it
+equivalent to the definition in Lines 42-43?}
+
+We now define intrinsic generation interval properly:
+
+``\emph{intrinsic} generation-interval distributions describe the expected time between infection of a primary case and infection of its secondary cases in a fully susceptible population...''
+
+\revtext{Line 46: "......intrinsic generation intervals measure the infectiousness of an
+infected individual." This statement is vague. I will get back to this phrase
+a few pages later in the discussion on "equilibrium distributions" and
+suggest ways to make it more precise.}
+
+\revtext{Lines 49,101: "...the intrinsic generation interval distribution..." While the
+interval itself is not defined in Line 46 (in my opinion), its distribution is
+clarified in Line 101 in relation to equation (2) under homogeneous mixing.
+I hereby pose the following questions:}
+
+\revtext{
+1. Although $g(\tau) > 0$ satisfies all the properties of a probability density
+function (p.d.f.) of a non-negative continues random variable, does that
+automatically correspond to a specific random variable relevant to any of
+the observable (or conceptually observable) "generation intervals"?
 }
 
-Based on the comments of the transmitting editor, Dr.~Heesterbeek, we have decided that it makes more sense to transfer to \emph{Interface} than to engage at this time with an epidemic dataset. We have made an effort to make our GitHub site more user-friendly.
+We now define $g(\tau)$ as follows: ``Expected time between infection of a primary case and infection of its secondary cases in a fully susceptible population''
 
-\revtext{Some minor comments:}
-
-\revtext{Introduction. “Can be characterized by”. These are properties but don’t uniquely determine the epidemic.}
-
-We have followed the reviewer's comment in changing the text:
-
-``An epidemic can be described by the exponential growth rate, $r$, and the reproductive number, \RR.''
-
-\revtext{Fig 1: two things change between each figure. I would describe the left hand as an individual realisation of the random process, and the right hand as a population-level behaviour emerging from the random process.}
-
-We have followed the reviewer's comment in changing the figure caption:
-
-``(Left) an individual-level kernel of an infected individual with latent period of 11.4 days followed by infectious period of 5 days;
-this represents an individual realization of a random process.
-(Right) a population-level kernel of infected individuals with latent and infectious periods exponentially distributed with means of 11.4 and 5 days, respectively;
-this represents a population average of a random process.''
-
-\revtext{Eq(15): typo on last line of the equations.}
-
-Fixed.
-
-\rev{Reviewer 2}
-
-\revtext{The manuscript addresses very important questions. Some comments:}
-
-\revtext{The same notation, e.g. (3) is used for equation three and reference 3 (and also some effects mention in beginning of Sec 5). Use different notation.}
-
-Fixed.
-
-\revtext{p5, eq 3: perhaps $\RR \rightarrow \RR(t)$?}
-
-We made minor changes to this equation for clarity:
-
-\begin{equation*}
-i(t) = S(t) \int K(s) i(t-s) ds = \RR_0 S(t) \int g(s) i(t-s) ds.
-\end{equation*}
-
-\revtext{p5, eq 5: I think S(t) should be removed as it is contained in R?}
-
-This was a typo. We changed $\RR$ to $\RR_0$:
-
-\begin{equation*}
-i_{t-\tau}(t) = \RR_0 i(t-\tau) g(\tau) S(t)
-\end{equation*}
-
-\revtext{p5-6: perhaps mention that $t, s$ is for calendar time and $\tau$ time relative to/from infection.}
-
-We added the following sentence in the beginning of section 2 to clarify this:
-
-``Hereafter, we use $t, s$ to represent calendar time and $\tau$ to
-represent time since infection.''
-
-\revtext{p6, top: when you say and write "proportional" there are 3 time parameters. Be explicit and write: with respect to $\tau$}
-
-Fixed.
-
-\revtext{p8, top and later: I have a problem with $N(a)$. Does your model allow for different number of acquaintances? But then your $\RR_0$ is no longer valid. Also, you are always assuming neighbours/acquaintances are chosen at random - please stress this more.}
-
-We added the following sentences in the beginning of section 3 to make this clear:
-
-``To explore the effect of multiple contacts on realized generation intervals, we relax our assumption that the population is homogeneous (and therefore do not rely on the classical definition of the basic reproductive number).
-Instead, we assume that a disease spreads on a network;
-infected individuals contact their ``acquaintances'' at random, but ``acquantanceships'' are predetermined by the network structure before the beginning of an epidemic.''
-
-\revtext{p8, bottom: I did not follow how you got $\hat g$. What is a, $N(a)$ and $f(a)$? Explain more.}
-
-We tried to clarify this.
-
-``... number of acquaintances $N(a)$ ...''
-
-``The population-level egocentric kernel is found by integrating the individual-level egocentric over individual variations:
-\begin{equation}\label{eq:ego}
-\hat{K}(\tau) = \int \hat{k}(\tau; a) f(a) da,
-\end{equation}
-where $f(a)$ represents a probability density over a (possibly multi-dimensional) aspect space.
-Essentially, the population-level egocentric kernel accounts for the probability that a susceptible individual has not been infected by the focal individual.
-Trapman \textit{et al.} used this same kernel (also assuming a constant per-pair contact rate) to study the effect of network structure on the estimate of reproductive number.
-The population-level egocentric generation-interval distribution is:
-\begin{equation}
-\hat{g}(\tau) = \frac{\hat{K}(\tau)}{\int \hat{K}(s) ds}.
-\label{eq:conditional}
-\end{equation}
-The population-level egocentric generation-interval distribution describes the distribution of times at which secondary infections are realized from an \emph{average} infected-susceptible pair ...''
-
-\revtext{p9, bottom: what is a homogeneous network? Complete network, alla have same degree or ...? Explain better why your networks of size 5 matter in a large community (local aspects?)}
-
-We tried to clarify this.
-
-``
-Simulations on a small homogeneous network (i.e., complete network) confirm this additional effect (Fig. 3, right panel). We can think of simulations on this network as an approximation of (local) infection process in a small household, consisting of 5 individuals;
-we expect realistic local network structures (and their effects on the realized generation intervals) to lay between a star network and a complete network...''
-
-\revtext{Sec 5: some of the 4 effects described also affect R whereas others don't. Be more clear to the reader. For instance, the ordinare Euler-Lotka equations is not fulfilled in network situation. I think Ball, Pellis and Trapman have investigated different reproduction numbers for network epidemics and related.}
-
-All 4 effects affect $\RR$. Our simulations show that Euler-Lotka equation can work even in network situation, as long as we can find the proper generation-interval distribution (by using temporal correction early in an epidemic). We tried to make this point clear.
-
-``When generation intervals are sampled through contact tracing, there will be four effects present in the sample: (1) right-censoring effect, (2) egocentric depletion effect, (3) local depletion effect and (4) global depletion effect.
-We can correct explicitly for the egocentric effect and, in the case of exponential growth, the right-censoring effect;
-we showed that these effects shorten the mean observed generation intervals, which in turn will reduce the estimate of the reproduction number.
-While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and reproductive numbers: 
-both local and global depletion effects also reduce number of infections that occur and shorten generation intervals.''
-
-``When temporal correction is performed early in an outbreak, during the exponential growth phase, the effective distribution should incorporate egocentric and local spatial effects but not the global effects; we expect this distribution to correctly link $r$ and $\RR$ through the Euler-Lotka equation.''
-
-\revtext{In your analysis you assume that you observe the sampled contact traced generation times without error. It is known (e.g. your ref 18) that onset of symptoms rather than infection time are observed, and that often there are several potential infectors. You don't have to include this in your analysis, but at least it should be acknowledged.}
-
-We added the following sentences:
-
-``For simplicity, we assume that generation intervals are observed without error and assume that there is no under-reporting. 
-We do not expect under-reporting to affect the inference of generation-interval distributions (unless there are systematic biases in the observation process).
-On the other hand, it is difficult to measure generation intervals precisely because (1) infection events are often unobserved and (2) there may be multiple potential infectors; these factors can introduce biases to the estimates of the reproduction number.
-We do not pursue these direction in this study.''
-
-\revtext{p14, sec 7.2: the $S_i$ should vary over time. When is it measured in the algorithm?}
-
-We added the following sentence:
-
-``... (thus decreasing $S_i$ by 1 for all individuals $i$ that are acquaintances of the newly infected individual) ...''
-
-\revtext{p17, middle. Suddenly you talk about under-reporting. This is another very important area which would affect your analysis in many ways. Mention that you neglect this elsewhere.
+\revtext{
+2. Is it the p.d.f. corresponding to the definition in Lines 42-43? Proof?
 }
 
-We added the following sentence:
+Definition in Lines 42-43 does not correspond to the definition of the intrinsic generation-interval distribution. We have tried to make this clearer in the text.
 
-``For simplicity, we assume that generation intervals are observed without error and assume that there is no under-reporting.''
+\revtext{
+Lines 44-48: "... the observed generation-interval distribution can change...
+...observed generation intervals refer to the time between actual infection
+events." The actual infection events correspond to the exact moments of
+passing the infection between a pair of infected-susceptible individuals.
+Are they observable? In most cases, including contact tracing, observable
+events are clinical (e.g. onset of symptoms). The relationship between
+the interval deÖned by the time between actual infection events and the
+interval deÖned by the time between clinical onsets is unclear. At least the
+latter depends on the incubation period (of the infectee), in addition to the
+latent period and the infectious period (of the infector). The incubation
+period is defined as the time from infection to symptom onset, and is
+different from the latent period such as in the SEIR model. This paper
+does not make such distinction. It assumes that the time between actual
+infection events "were observable" in a hypothetical way.
+}
 
+\revtext{
+Suggestion: Re-phrase "observed generation intervals" or make some further
+clarification on this. This is important because naive readers may tend
+to take the face value and collect different kinds of observed data and
+make inferences, such as that based on clinical events. This is potentially
+misleading.
+}
+
+We agree that calling it ``observed'' can be misleading. We now refer to them as \emph{realized} intervals.
+
+``There are important distinctions to be made when defining generation-interval \emph{distributions} at the population-level: \emph{intrinsic} generation-interval distributions describe the expected time between infection of a primary case and infection of its secondary cases in a fully susceptible population,
+while \emph{realized} generation-interval distributions describe the time between actual infection events over the course of an epidemic.
+Due to individual variation in infection time, the realized generation-interval distribution (at the population-level) can change depending on when and how it is defined \citep{svensson2007note, kenah2008generation, nishiura2010time, champredon2015intrinsic}.''
+
+\revtext{Lines 54-55: ``the backward generation interval...'' This is a key measurement in this paper along with the length-bias in relation to data observation scheme. Conceptually, there may also be a "forward" generation
+interval. Both concepts were initially raised in Svensson (2007, ref.[21]
+in the paper), who pointed out the difference in distribution between the
+primary generation time as measured prospectively from the time of the
+infection of the infector to the transmission to the infectee, and the secondary generation time as measured retrospectively from the time of the
+transmission to the infectee to the infection of the infector.}
+
+We now introduce forward.
+
+\revtext{1. does that mean that your objective is to make unbiased inference on the
+"forward", or the primary, generation time?}
+
+Thank you for pointing this out. This is what we want. We have tried to clarify this throughout the manuscript. We no longer use the term ``effective'' generation-interval distribution.
+
+\revtext{2. does the definition in Lines 42-43 correspond to the forward generation
+interval?}
+
+No.
+
+\revtext{3. does the definition in Lines 42-43 correspond to the intrinsic generation
+interval (Line 46)?}
+
+No.
+
+
+\revtext{4. does the definition in Lines 42-43 correspond to a random variable with
+p.d.f. given by $g(\tau)$?}
+
+No.
+
+\revtext{5. do you imply that the intrinsic generation interval (not defined in Line 46
+but distributed according to Line 101) and the forward measure, and the
+objective of the unbiased inference, are all equivalent?}
+
+No.
+
+
+
+
+\bibliography{networkprsb}
 \end{document}
