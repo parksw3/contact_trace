@@ -1,4 +1,3 @@
-\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 
 \usepackage{color}
@@ -51,8 +50,6 @@ See below for detailed response.
 (contact tracing) data to yield unbiased estimate of the "true" distribution
 corresponding to generation intervals defined in Lines 42-43 (if I understand
 properly).}
-
-Lines 42-43 refers to a single measurement, rather than a distribution. We have made this clear (see next comment).
 
 \revtext{Lines 42-43: "A generation interval is defined as the time between when a
 person becomes infected and when that person infects another person."
@@ -360,10 +357,7 @@ already addressed in the comments with respect to Line 47-48.
 Any attempt to link the estimated $r$ based on data collected
 on observed events using the Euler-Lotka equation could be extremely misleading}
 
-It is not \emph{extremely} misleading to use the estimated $r$ from the observed data. 
-See \swp{How do I respond to this, actually?}: 
-
-``Ma, Junling, Jonathan Dushoff, Benjamin M. Bolker, and David JD Earn. "Estimating initial epidemic growth rates." Bulletin of mathematical biology 76, no. 1 (2014): 245-260.''
+\swp{Incubation, reporting delays are concerns; we're not worried about that here.}
 
 \revtext{
 The intrinsic parameters R0 and r are parameters in branching
@@ -378,6 +372,8 @@ $n \to \infty$''
 This is inaccurate.
 It is still possible for exponential growth to occur when the population is not fully susceptible ($S(t) \approx S(0) \neq 1$) as long as the depletion of the susceptible population is negligible.
 To avoid confusion, we now use the term ``initial reproduction number'': $\Rini = \Ro S(0)$.
+
+\swp{Leave it to JD.}
 
 \revtext{
  It is too strong a statement that "the Erlang distributions are
