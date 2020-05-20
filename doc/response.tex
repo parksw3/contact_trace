@@ -230,7 +230,10 @@ the "censored" (right-truncated?) generation-interval distribution $c_t(\tau)$
 should be clearly defined and expressed (e.g. in terms of conditional distribution) before expressing the relationship (6).
 }
 
-Done.
+We now define both backward and forward generation-interval distributions more appropriately in the text.
+We no longer use the term ``censored'' generation-interval distribution. 
+We refer to it as the aggregated generation-interval distribution, which is a distribution of all realized generation intervals until certain time point.
+We think thie definition provides a clearer definition.
 
 \revtext{
 Lines 233-241: Once more, the sampling bias corresponds to right-truncation,
@@ -240,43 +243,49 @@ explained more concisely (and take less space?)
 }
 
 We have removed this paragraph and tried to make the explanation more concise.
-We no longer use the term effective generation-interval distribution.
+We no longer use the term effective generation-interval distribution but rather refer to it as the initial forward generation-interval distribution.
 
-\rev{Lines 241-243: "In a large homogeneously mixing population, the e§ective
+\revtext{Lines 241-243: "In a large homogeneously mixing population, the effective
 distribution is expected to be equivalent to the intrinsic distribution..."
 Define both $g(\tau)$ and gef $g_{eff}(\tau)$ mathematically at the first place and prove
 their equivalence in a large homogeneously mixing population.}
 
-Done.
+We now show that the initial forward generation-interval distribution is equivalent to the intrinsic distribution.
+We also point to the analytical intractability of the spatial effects on the realized generation-interval distributions (and therefore the initial forward distribution) and therefore cannot be expressed mathematically (for non-homogeneous cases):
 
-\rev{However, I suggest the authors to compare the "individual-based
+``Since spatial effects on realized generation intervals are generally expected to be analytically intractable, even in simple networks (e.g., see \cite{tomba2010some} for discussion regarding the realized generation intervals in a household with one infector and two susceptibles), we rely on simulations hereafter to vadliate our prediction.''
+
+\revtext{However, I suggest the authors to compare the "individual-based
 method" in the paragraph starting from Line 252 to Line 260 with the statistical methods for analyzing right-truncated survival data as mentioned
 above, and explicitly write out the likelihood function (Line 258) to see if
 they are the same or different.}
 
-\rev{The authors has used the notations $\RR$ (Line 35) and $\Ro$ (Lines 98-99) for reproduction numbers and
+The likelihood function is provided in the Methods section.
+\swp{TODO. It seems like they're different... Ugh. I'll get back to this.}
+
+\revtext{The authors has used the notations $\RR$ (Line 35) and $\Ro$ (Lines 98-99) for reproduction numbers and
 linked them via $\RR = \Ro S(t)$:}
 
-\rev{Shouldnít $\RR$ be a function of time $t$ via $S(t)$?}
+\revtext{Shouldn't $\RR$ be a function of time $t$ via $S(t)$?}
 
-We no longer use $\RR$ to avoid confusion. We now use $\Rini = \Ro S(0)$ to reflect the possibility that $S(0)$ may not be 1.
+We no longer use $\RR$ to avoid confusion. We now use $\Rini = \Ro S(0)$ to reflect the possibility that $S(0)$ may not be 1 but clearly convey the idea that we're not estimating time dependent reproduction number.
 
-\rev{Is $S(t)$ a number or a proportion? In deterministic models, this matters
+\revtext{Is $S(t)$ a number or a proportion? In deterministic models, this matters
 less as one can argue that all deterministic models are describing the
 change of proportions (by re-scaling on population size, assuming it is
 constant); but it matters a lot in stochastic models because the population
 size is an essential parameter.}
 
-Proportion. Made this clear.
+We make these distinctions clear in the main text.
 
-\rev{
+\revtext{
 When stating that ``$\RR$'' transcends to the final size of the epidemic (Line
 37), do the authors actually mean $\Ro$; which does not depend on time?
 }
 
-Yes.
+Yes. We now make a clear distinction between $\RR$ and $\Ro$.
 
-\rev{
+\revtext{
 When talking about the final size, one considers that the system is at a
 disease-free equilibrium. When using the final size equation to calculate a
 value for the reproduction number, the calculated value does not depend
@@ -287,9 +296,9 @@ when an infector was seeded). So now we have three reproduction numbers, $\Ro$, 
 each of them.
 }
 
-Discussion!
+\swp{TODO? Just say we are interesting in the initial phase? maybe write something in the discussion? We're only using $\Rini$}
 
-\rev{
+\revtext{
 The authors stated that $\RR$ transcends to the final size of the epidemic
 (with cited references). I boldly assume that the authors actually meant
 by $\Ro$: This statement is in the context of a large outbreak that ends
@@ -303,44 +312,60 @@ for the latter
 }
 
 Yes, we meant $\Ro$. We have now clarified this in the text.
-We now mention in Introduction that $\Ro$ can also affect the endemicity level and added a few appropriate citations.
+We now mention in Introduction that $\Ro$ can also affect the endemicity level and added a few citations.
 
-\rev{$g(\tau)$ as a p.d.f. given by (2) and Line 101 is also an equilibrium
+\revtext{$g(\tau)$ as a p.d.f. given by (2) and Line 101 is also an equilibrium
 distribution.}
 
-We disagree with the reviewer that the intrinsic generation-interval is an equilibrium distribution.
-It is only an equilibrium distribution for a model that assumes a large, homogeneously mixing population.
+While we agree with the reviewer that the intrinsic generation-interval can be interpreted an equilibrium distribution, this only holds under homogeneous mixing assumption. 
 As we show in this paper, when there is spatial structure, the realized generation-interval distributions differ from the intrinsic one. 
 In particular, even when the entire population is susceptible, the forward generation-interval distribution of the single primary infector will still be subject to the egeocentric effect.
+Therefore, the realized generation intervals of a single, primary infector in an otherwise susceptible population will not follow the intrinsic generation-interval distribution. We mention in the manuscript that the intrinsic distribution can be interpreted as an equilibrium distribution but do not want to emphasize on using the term ``equilibrium'' particularly given that we're interested in realized distributions on a spatially heterogeneous network.
+The reviewer also presented a series of formulas on the mean generation interval for special cases of the SEIR model without any suggestions;
+given that our goal is not to explore all special cases of the SEIR model, we do not think presenting all those formulas is relevant to the discussion of the paper.
 
-\rev{ Under suitable assumptions on homogeneous mixing, the intrinsic
+\revtext{
+Expression (13) is the convolution (the sum of) the exponentially
+distributed latent period with mean $1/\sigma$ and another exponential distribution, with mean $1/(\gamma+\lambda)$; as written in Lines 188-189. It is also equivalent
+to the homogeneous mixing situation, in which, individuals during their
+infectious periods are isolated (with rate $\lambda$) so that the "effective" duration
+of the infectious period is exponentially distributed with mean $1/(\gamma + \lambda)$:
+Any comments from the authors on this coincidence?
+}
+
+We explain this in the main text:
+
+``In this case, with fixed infectiousness during the infection period, the effect of accounting for pairwise contacts is the same as an increase in the recovery rate (by the amount of the per-pair contact rate $\lambda$). 
+Infecting a susceptible contact is analogous to recovery because the contactee cannot be infected again --- the infector cannot no longer transmit infection even if they are infectious (effectively losing infectiousness).
+Therefore, the resulting egocentric generation-interval distribution is equivalent to the intrinsic generation-interval distribution with mean latent period of $1/\sigma$ and mean infectious period of $1/(\gamma + \lambda)$.''
+
+\revtext{Under suitable assumptions on homogeneous mixing, the intrinsic
 generation interval distribution $g(\tau)$ measures the infectiousness within
 an infected individual without involving another individual. (In SEIS,
 SEIR, SEIRS settings, it is a function of the latent period distribution
 and the infectious period distribution.)}
 
-We agree that $g(\tau)$ measures the infectiousness within an infected individual without involving another individual.
-We defined the intrinsic generation-interval distribution as follows:
+We now define the intrinsic generation-interval distribution as follows as we think it is more concrete; it is also easier to distinguish intrinsic vs. realized distributiosn under this definition:
 
 ``The \emph{intrinsic} generation-interval distributions describe the expected time distribution of infectious contacts made by a primary case.''
 
 \revtext{The distribution $g(\tau)$ links the two intrinsic parameters R0 and r
-(homogeneous mixing). Both $\Ro$ and $g(\tau)$ are intrinsic in the context of the equilibrium conditions. Therefore the parameter $r$ is a
-theoretical value and is very di§erent from any observed exponential
+(homogeneous mixing). Both $\Ro$ and $g(\tau)$ are intrinsic in the context of the equilibrium conditions. Therefore the parameter $r$ is a theoretical value and is very different from any observed exponential
 or sub-exponential growth rate as the system is not at equilibrium.}
 
-\rev{Observed exponential or sub-exponential growth events are different from the infection events. The current paper only addresses the infection events (mostly unobservable). This was
+\swp{???}
+
+\revtext{Observed exponential or sub-exponential growth events are different from the infection events. The current paper only addresses the infection events (mostly unobservable). This was
 already addressed in the comments with respect to Line 47-48.
 Any attempt to link the estimated $r$ based on data collected
 on observed events using the Euler-Lotka equation could be extremely misleading}
 
-We point out in the Discussion that estimated $r$ can be different from the true $r$. 
-However, it is not \emph{extremely} misleading to use the estimated $r$ from the observed data. 
-See: 
+It is not \emph{extremely} misleading to use the estimated $r$ from the observed data. 
+See \swp{How do I respond to this, actually?}: 
 
 ``Ma, Junling, Jonathan Dushoff, Benjamin M. Bolker, and David JD Earn. "Estimating initial epidemic growth rates." Bulletin of mathematical biology 76, no. 1 (2014): 245-260.''
 
-\rev{
+\revtext{
 The intrinsic parameters R0 and r are parameters in branching
 process, which is used to approximate the "initial phase" of the
 outbreak and that approximation is poor. By the way, the condition in Lines 107-108 $S(t) = S$ is also inaccurate. The expected exponential growth is under the approximation $S(t)/n \approx 1$ and
@@ -351,10 +376,10 @@ phase (when the depletion of the susceptible population is negligible) totally i
 ``The expected exponential growth is under the approximation $S(t)/n \approx 1$ and
 $n \to \infty$'' 
 This is inaccurate.
-It is still possible to observe exponential growth when the population is not fully susceptible ($S(t) \approx S(0) \neq 1$) as long as the depletion of the susceptible population is negligible.
+It is still possible for exponential growth to occur when the population is not fully susceptible ($S(t) \approx S(0) \neq 1$) as long as the depletion of the susceptible population is negligible.
 To avoid confusion, we now use the term ``initial reproduction number'': $\Rini = \Ro S(0)$.
 
-\rev{
+\revtext{
  It is too strong a statement that "the Erlang distributions are
 more realistic than the exponentially distributed periods in the standard
 SEIR model." The advantage of using the Erlang distributions is that the
@@ -363,16 +388,16 @@ only suitable for latent and infectious periods with very small variances
 }
 
 The exponential distribution is a special case of the Erlang distribution (when the shape parameter is equal to 1).
-We disagree the statement that it is ``too strong'' to say that a more general distribution is more realistic than a special case.
-To avoid confusion, we now say refer to Erlang distributions as ``more realistic approximations''.
+We disagree the statement that it is ``too strong'' to say that a more general distribution is more realistic than its special case.
+To avoid confusion, we now say refer to Erlang distributions as ``more flexible''.
 
-\rev{
+\revtext{
 The Erlang distribution is not only a subset of the gamma distribution with integer valued shape parameters, but also it is limited to distributions with variances smaller than the corresponding exponential distribution with the same mean value.
 }
 
 The Erlang distribution includes the exponential distribution.
 
-\rev{
+\revtext{
 One can not even claim the gamma distributions are more realistic
 without supported by data. For one thing: all gamma distributions
 have exponential tails which may be contested in real data.
@@ -380,36 +405,76 @@ have exponential tails which may be contested in real data.
 
 One can at least claim that the gamma distribution is more realistic than its subset, the exponential distribution.
 
-\rev{
+\revtext{
+"... based on more realistic distributions in Appendix." I do
+not see "more realistic distributions" more than the Erlang distributions.
+How about heavy tailed distributions and distributions with large variances? In fact, many of the discussions in this paper can be generalized
+to arbitrarily distributed latent and infectious periods.
+}
+
+We had omitted a sentence previous --- we have now clarified this sentence as follows:
+
+``In the main text, we present results based on exponentially distributed latent and infectious periods;
+we show results based on more Erlang distributed latent periods ($n_E=2$), which better matches the incubation period distribution of Ebola virus disease, in Appendix.''
+
+\revtext{
 It is more convenient to use the Laplace transforms as a tool.
 }
 
-The SEIR model is just an example --- the purpose of this paper is not to go through all possible generalizations of the SEIR model, but rather to explore spatial components.
-The Laplace tranforms are only more useful for the intrinsic generation-interval distributions. 
-The forward generation-interval distribution is analytically intractable and therefore, the Laplace transforms no longer hold.
+The SEIR model is just an example --- the purpose of this paper is not to go through all possible generalizations of the SEIR model, but rather to explore spatial effects.
+The Laplace tranforms are only more useful for the intrinsic generation-interval distributions under the homogeneous assumption. 
+The forward generation-interval distribution in a spatially hetergeneous environment is analytically intractable and therefore, the Laplace transforms no longer hold.
 Given that our goal is to infer the initial forward generation-interval distribution, rather than the intrinsic distribution, we feel that the Laplace transforms are not necessarily helpful for the discussion.
-In particular, the reviewer asks us to prove special cases of the Euler-Lotka equation, which has been proven numerous times as suggested by the references, using Laplace transforms; 
-we do not think this is any relevant to the discussion of our paper.
-We cite all Yan et al papers that were mentioned in the review in our main text.
+In particular, the reviewer asks us to prove special cases of the Euler-Lotka equation, which has been proven previosuly as suggested by the references, using Laplace transforms; 
+we do not think this is relevant to the discussion of our paper.
 
-\rev{
-How to assess if the gamma distribution is a good choice as a
-model? Run some kind of goodness-of-fit tests? How does the likelihood
+\revtext{How to assess if the gamma distribution is a good choice as a
+model? Run some kind of goodness-of-fit tests?}
+
+The gamma distribution has been previously tested for many diseases. 
+In our case, Figure 4 demonstrates that the gamma approximation of the generation-interval distribution provides a reasonable estimate for the initial reproduction number from the exponential growth rate.
+We discuss potential caveats in assuming a shape of the generation-interval distribution in Discussion.
+
+``We compare two methods for estimating the initial forward generation-interval distribution and assume that the initial forward generation-interval distribution follows a gamma distribution.
+The gamma approximation of the generation interval distribution has been widely used due to its simplicity;
+we previously thought that summarizing the entire distribution with two moments (mean and variance) is sufficient to understand the role of generation-interval distributions in linking $r$ and $\Rini$.
+However, further investigation of our methods suggests that making a wrong distributional assumption can lead to biased estimates of the mean and CV of a generation-interval distribution (Appendix A.3), even though the gamma distribution ``looks'' indistinguishable from the shape of the intrinsic generation-interval distribution (derived from the SEIR model).
+These results are particularly alarming because it is impossible to know the true shape of the generation-interval distribution for real diseases.
+Nonetheless, biases in the parameter estimates of a generation-interval distribution may cancel out and give unbiased estimate of the reproductive number (Appendix A.3).''
+
+\revtext{How does the likelihood
 function look like? Since the "observed" generation-intervals (assuming
 observable) do not arise from a designed random experiment, but observational data, I expect the likelihood function should reflect the observation
 scheme (e.g. retrospective)? Please be explicit.
 }
 
+The population-level method does not take into account the observation scheme or the infection process. 
+We simply fit the gamma distribution to all realized generation intervals (i.e., the aggregated distribution);
+we feel that writing down the likelihood function is an overkill for a basic gamma fit.
+We have clarified the text: 
+
+``The \textbf{population-level method} estimates the initial forward generation-interval distribution by reversing the inverse exponential weighting in the aggregated generation-interval distribution without explicitly accounting for the infection process (i.e., who infected whom):
+\begin{equation}
+f_0(\tau) \propto a_0(\tau) \exp(r\tau).
+\end{equation}
+In order to do so, we first approximate the aggregated distribution $a_0$ with a gamma distribution by assuming that aggregated realized generation intervals (subject to right-truncation) during the exponential growth phase come from the same gamma distribution;
+specifically, we estimate the mean $\bar G$ and shape $\alpha$ of a gamma distribution by maximum likelihood.
+Then, the initial forward generation-interval distribution also follows a gamma distribution with mean $\alpha/(\alpha/\bar G - r)$ and shape $\alpha$.
+We then use the estimated initial forward generation-interval distribution to infer the initial reproductive number $\Rini$ from the estimated growth rate (using the Euler-Lotka equation).''
+
 \rev{
 Elaborate how the estimation of $\RR$ is expected to be sensitive to under-reporting (of which data)
 }
+
+That was a bad notation on our side --- we should not have used $\RR$ in the likelihood. 
+We have changed the notation for the Poisson process and provide a better explanation.
+
 
 \rev{
 How exactly is $\RR$ (and, is it \Ro or some kind of time-dependent \RR) estimated in this paper: via the Euler-Lotka equation or using the approach in White and Pagano (2007, ref. [54] in the paper)?
 }
 
-
-``the inferred generation-interval distribution is then used to estimate the reproductive number $\Rini$ from the observed growth rate $r$ using the Euler-Lotka equation.''
+We estimate $\Rini$ via Euler-Lotka. We have tried to make this clear throughout the main text.
 
 \rev{
 How close is the "related approach" in White and Pagano
@@ -418,6 +483,8 @@ Euler-Lotka equation at all? Did they define and measure the generation interval
 the current paper?
 }
 
+\swp{TODO.}
+
 \rev{
 The authors use a logistic function with a scale parameter $r$,
 the carrier capacity parameter $K$ and the initial condition $c_0$ to model the
@@ -425,6 +492,8 @@ cumulative incidence $c(t)$: Assuming, (theoretically), the infection events
 are observable. It is inaccurate to claim that r is the exponential growth
 rate
 }
+
+\swp{TODO.}
 
 \rev{
 The paper focuses on estimating the generating-interval distribution. There are
@@ -458,7 +527,7 @@ obvious and this needs to be proven.
 }
 
 We had never equated the true distribution to the intrinsic distribution.
-We make clear that we do not want the intrinsic distribution. 
+We make clear that the intrinsic distributions are not our goal.
 
 \rev{
 The intrinsic distribution $g(\tau)$ is an equilibrium distribution that
@@ -493,11 +562,16 @@ that the same definition is assigned to different terminologies by different
 researchers.
 }
 
+Thank you!
+
 \rev{
 I suggest major revision of the paper and hope my comments are
 constructive for the revision(s) for better clarification. It will be a
 great contribution to this field.
 }
+
+We have made major revisions to the manuscript as per suggested comments.
+We hope that our manuscript is clearer.
 
 \rev{
 The immediate objective of this paper is to construct some "unbiased" estimate of the generation interval distribution (presumably, the intrinsic distribution $g(\tau)$). Its important goes beyond this immediate objective, that is, to attempt using quantities (assuming observable, at least conceptually) measured during a the very dynamic
