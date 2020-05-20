@@ -1,3 +1,4 @@
+\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 
 \usepackage{color}
@@ -50,6 +51,8 @@ See below for detailed response.
 (contact tracing) data to yield unbiased estimate of the "true" distribution
 corresponding to generation intervals defined in Lines 42-43 (if I understand
 properly).}
+
+Lines 42-43 refers to a single measurement, rather than a distribution. We have made this clear (see next comment).
 
 \revtext{Lines 42-43: "A generation interval is defined as the time between when a
 person becomes infected and when that person infects another person."
@@ -357,7 +360,10 @@ already addressed in the comments with respect to Line 47-48.
 Any attempt to link the estimated $r$ based on data collected
 on observed events using the Euler-Lotka equation could be extremely misleading}
 
-\swp{Incubation, reporting delays are concerns; we're not worried about that here.}
+It is not \emph{extremely} misleading to use the estimated $r$ from the observed data. 
+See \swp{How do I respond to this, actually?}: 
+
+``Ma, Junling, Jonathan Dushoff, Benjamin M. Bolker, and David JD Earn. "Estimating initial epidemic growth rates." Bulletin of mathematical biology 76, no. 1 (2014): 245-260.''
 
 \revtext{
 The intrinsic parameters R0 and r are parameters in branching
@@ -372,8 +378,6 @@ $n \to \infty$''
 This is inaccurate.
 It is still possible for exponential growth to occur when the population is not fully susceptible ($S(t) \approx S(0) \neq 1$) as long as the depletion of the susceptible population is negligible.
 To avoid confusion, we now use the term ``initial reproduction number'': $\Rini = \Ro S(0)$.
-
-\swp{Leave it to JD.}
 
 \revtext{
  It is too strong a statement that "the Erlang distributions are
@@ -458,7 +462,7 @@ specifically, we estimate the mean $\bar G$ and shape $\alpha$ of a gamma distri
 Then, the initial forward generation-interval distribution also follows a gamma distribution with mean $\alpha/(\alpha/\bar G - r)$ and shape $\alpha$.
 We then use the estimated initial forward generation-interval distribution to infer the initial reproductive number $\Rini$ from the estimated growth rate (using the Euler-Lotka equation).''
 
-\revtext{
+\rev{
 Elaborate how the estimation of $\RR$ is expected to be sensitive to under-reporting (of which data)
 }
 
@@ -466,13 +470,13 @@ That was a bad notation on our side --- we should not have used $\RR$ in the lik
 We have changed the notation for the Poisson process and provide a better explanation.
 
 
-\revtext{
+\rev{
 How exactly is $\RR$ (and, is it \Ro or some kind of time-dependent \RR) estimated in this paper: via the Euler-Lotka equation or using the approach in White and Pagano (2007, ref. [54] in the paper)?
 }
 
 We estimate $\Rini$ via Euler-Lotka. We have tried to make this clear throughout the main text.
 
-\revtext{
+\rev{
 How close is the "related approach" in White and Pagano
 (2007, ref. [54] in the paper) related to the current paper? Did they use the
 Euler-Lotka equation at all? Did they define and measure the generation intervals that were consistent with the generation-intervals discussed in
@@ -481,7 +485,7 @@ the current paper?
 
 \swp{TODO.}
 
-\revtext{
+\rev{
 The authors use a logistic function with a scale parameter $r$,
 the carrier capacity parameter $K$ and the initial condition $c_0$ to model the
 cumulative incidence $c(t)$: Assuming, (theoretically), the infection events
@@ -491,7 +495,7 @@ rate
 
 \swp{TODO.}
 
-\revtext{
+\rev{
 The paper focuses on estimating the generating-interval distribution. There are
 several generating-intervals and distributions mentioned in this paper, such as
 $g(\tau)$; $b_t(\tau)$; $c_t(\tau)$; $g_eff(\tau)$; etc. To the end, it seems that the primary focus is the
@@ -503,7 +507,7 @@ The intrinsic distribution is not our primary focus.
 As we show in Figure 4, the intrinsic distribution overesitmates $\Rini$ as it does not account for spatial effects.
 We tried to make clear that our goal is the initial forward distribution.
 
-\revtext{
+\rev{
 The authors have well demonstrated different sources of sampling bias
 arising from contact tracing data, more noticeably, (i) length-bias due
 to right-truncation because of retrospective measurement together with
@@ -514,7 +518,7 @@ network structure (e.g. the degree distribution and the degree excess (Line
 correct and important.
 }
 
-\revtext{
+\rev{
 Any notion of bias is in the context against some "truth". The authors
 proposed, and demonstrated by simulation, ways to adjust for the bias in
 order to estimate this "truth". However, the authors equate the "true"
@@ -525,7 +529,7 @@ obvious and this needs to be proven.
 We had never equated the true distribution to the intrinsic distribution.
 We make clear that the intrinsic distributions are not our goal.
 
-\revtext{
+\rev{
 The intrinsic distribution $g(\tau)$ is an equilibrium distribution that
 involves the equilibrium distribution of the infectious period (in SEIS,
 SEIR, SEIRS settings). It is a renewal process concept and is only
@@ -534,19 +538,19 @@ obvious how it is related to measurements of "generation intervals"
 when the system is not at equilibrium.
 }
 
-\revtext{
+\rev{
  Under suitable assumptions on homogeneous mixing, the intrinsic
 distribution $g(\tau)$ measures the infectiousness within an infected individual without involving another individual. It is not obvious how it
 is related to measures involving two individuals, no matter whether
 they are prospectively or retrospectively measured.
 }
 
-\revtext{
+\rev{
 Potentially observable events do not take place at the exact moment
 when transmission occurs.
 }
 
-\revtext{
+\rev{
 I rate this paper very high in scientific importance and in general interest.
 In the last 20 years, especially since SARS outbreak in 2003, there has
 been a huge volumn of related work, more than those referenced in this
@@ -560,7 +564,7 @@ researchers.
 
 Thank you!
 
-\revtext{
+\rev{
 I suggest major revision of the paper and hope my comments are
 constructive for the revision(s) for better clarification. It will be a
 great contribution to this field.
@@ -569,21 +573,20 @@ great contribution to this field.
 We have made major revisions to the manuscript as per suggested comments.
 We hope that our manuscript is clearer.
 
-\revtext{
+\rev{
 The immediate objective of this paper is to construct some "unbiased" estimate of the generation interval distribution (presumably, the intrinsic distribution $g(\tau)$). Its important goes beyond this immediate objective, that is, to attempt using quantities (assuming observable, at least conceptually) measured during a the very dynamic
 phase of the system to make inferences on these intrinsic quantities
 $\Ro$ and $r$: I feel the authors have fallen short of achieving these objectives. However, I would like to share some of my opinions and ideas
 and hope that, after revision(s), some of these goals will be achieved.
 }
 
-\revtext{
+\rev{
 I also recommend, for the authors to consider, breaking this paper
 into two papers: one on mathematical theory and models to better
 clarify concepts which I believe are still ambiguous in currently published literature; and another one on statistical models and methods
 to link data to models.
 }
 
-\reviewer{Reviewer \#2}
 
 \bibliography{networkprsb}
 \end{document}
