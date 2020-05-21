@@ -23,6 +23,7 @@
 
 \newcommand{\reviewer}{\subsection*}
 \newcommand{\revtext}{\textsf}
+\newcommand{\newtext}[1]{\textsl{``#1''}}
 \setlength{\parskip}{\baselineskip}
 \setlength{\parindent}{0em}
 
@@ -52,7 +53,7 @@ See below for detailed response.
 corresponding to generation intervals defined in Lines 42-43 (if I understand
 properly).}
 
-Lines 42-43 refers to a single measurement, rather than a distribution. We have made this clear (see next comment).
+There are many ways to measure a generation interval. We are interested here in exploring these different definitions, and in finding how these definition affect the \rR\ link. We have tried to clarify this throughout the revised MS.
 
 \revtext{Lines 42-43: "A generation interval is defined as the time between when a
 person becomes infected and when that person infects another person."
@@ -62,27 +63,28 @@ is imprecise and is not as obvious as it reads, especially in its relationship
 with the intrinsic generation interval (Line 46) and its distribution (Lines
 49,101). It is not proven that they are equivalent.}
 
-We make clear that this definition corresponds to the definition at the individual-level (i.e., a single interval), which is unambiguous, and distinguish it from the population-level distributions:
+We start with the standard conceptual definition. There is no way to define GI that is both general and precise. We develop the theme of different definitions of GI throught the paper.
 
-``At the individual level, a generation \emph{interval} is defined as the time between when a person becomes infected and when that person infects another person \citep{svensson2007note}.
-While this definition is widely used in the literature, it is not connected directly to a population-level \emph{distribution}.''
+We now start earlier to discuss these issues. At this point we added text:
 
-\revtext{Line 46: "...intrinsic generation intervals..." This is not yet defined. Is it
-equivalent to the definition in Lines 42-43?}
+\newtext{At the individual level, a generation \emph{interval} is defined as the time between when a person becomes infected and when that person infects another person \citep{svensson2007note}.
+While this definition is widely used in the literature, it is not connected directly to a population-level \emph{distribution}.}
 
-We now define intrinsic generation interval properly:
-
-``The \emph{intrinsic} generation-interval distributions describe the expected time distribution of infectious contacts made by a primary case.''
+\revtext{Line 46: "...intrinsic generation intervals..." This is not yet defined. Is it equivalent to the definition in Lines 42-43?}
 
 \revtext{Line 46: "......intrinsic generation intervals measure the infectiousness of an
 infected individual." This statement is vague. I will get back to this phrase
 a few pages later in the discussion on "equilibrium distributions" and
 suggest ways to make it more precise.}
 
-We have now made this definition more precise. In Section 2, we also introduce the idea that the intrinsic distributions can be thought of as equilibrium distributions:
+We now define intrinsic generation interval properly:
 
-``$g(\tau)$ is the expected time distribution of infectious contacts made by a primary case (the intrinsic generation-interval distribution \citep{champredon2015intrinsic}).
-Since all infectious contacts lead to infection in a disease-free equilibrium of a homogeneously mixing population, $g(\tau)$ also describes the expected time distribution of secondary cases caused by an average primary case in a fully susceptible population and can be treated as an ``equilibrium'' distribution of the corresponding homogeneous mixing model.''
+\newtext{The \emph{intrinsic} generation-interval distributions describe the expected time distribution of infectious contacts made by a primary case.}
+
+In Section 2, we also introduce the idea that the intrinsic distributions can be thought of as equilibrium distributions:
+
+\newtext{$g(\tau)$ is the expected time distribution of infectious contacts made by a primary case (the intrinsic generation-interval distribution \citep{champredon2015intrinsic}).
+If the proportion of susceptibles contacted is not changing (for example in a homogeneously mixed at the endemic equilibrium or when the number of cases is vanishingly small), $g(\tau)$ also describes the realized generaton interval.}
 
 \revtext{Lines 49,101: "...the intrinsic generation interval distribution..." While the
 interval itself is not defined in Line 46 (in my opinion), its distribution is
@@ -96,15 +98,11 @@ automatically correspond to a specific random variable relevant to any of
 the observable (or conceptually observable) "generation intervals"?
 }
 
-We now define $g(\tau)$ as follows: ``expected time distribution of infectious contacts by a primary case''.
-
 \revtext{
 2. Is it the p.d.f. corresponding to the definition in Lines 42-43? Proof?
 }
 
-Definition in Lines 42-43 does not correspond to the definition of the intrinsic generation-interval distribution. 
-It is a single measurement --- we tried to make it clear that it is not directly connected to any p.d.f.
-We have tried to make this clearer in the text.
+Our new definition of the generation interval and explanation in S2 (just above) address these questions to some extent. We prefer not to go deeper into the mathematical details for this paper.
 
 \revtext{
 Lines 44-48: "... the observed generation-interval distribution can change...
@@ -133,14 +131,14 @@ misleading.
 
 We agree that calling it ``observed'' can be misleading. We now refer to them as \emph{realized} intervals.
 
-``There are important distinctions to be made when defining generation-interval \emph{distributions} at the population-level: \emph{intrinsic} generation-interval distributions describe the expected time between infection of a primary case and infection of its secondary cases in a fully susceptible population,
+\newtext{There are important distinctions to be made when defining generation-interval \emph{distributions} at the population-level: \emph{intrinsic} generation-interval distributions describe the expected time between infection of a primary case and infection of its secondary cases in a fully susceptible population,
 while \emph{realized} generation-interval distributions describe the time between actual infection events over the course of an epidemic.
-Due to individual variation in infection time, the realized generation-interval distribution (at the population-level) can change depending on when and how it is defined \citep{svensson2007note, kenah2008generation, nishiura2010time, champredon2015intrinsic}.''
+Due to individual variation in infection time, the realized generation-interval distribution (at the population-level) can change depending on when and how it is defined \citep{svensson2007note, kenah2008generation, nishiura2010time, champredon2015intrinsic}.}
 
 We have also added the following sentence as per suggestions in previous comments:
 
-``While realized generation intervals often cannot be observed in practice (because it is not possible to observe the exact moment at which individuals become infected), the aggregated distribution is analogous to data collected through contact tracing during an ongoing epidemic:
-we typically want to try to make inference based on all available data.''
+\newtext{While realized generation intervals often cannot be observed in practice (because it is not possible to observe the exact moment at which individuals become infected), the aggregated distribution is analogous to data collected through contact tracing during an ongoing epidemic:
+we typically want to try to make inference based on all available data.}
 
 \revtext{Lines 54-55: ``the backward generation interval...'' This is a key measurement in this paper along with the length-bias in relation to data observation scheme. Conceptually, there may also be a "forward" generation
 interval. Both concepts were initially raised in Svensson (2007, ref.[21]
@@ -156,6 +154,8 @@ We now introduce the forward distribution as well.
 
 Yes, we want to make inference on the \emph{initial} forward generation-interval distribution, rather than the intrinsic generation-interval distribution.
 We have tried to make this clear and no longer use the term ``effective'' generation-interval distribution.
+
+\jd{I liked effective, meaning that one that links correctly. I think it's still in the abstract.}
 
 \revtext{2. does the definition in Lines 42-43 correspond to the forward generation
 interval?}
@@ -180,7 +180,7 @@ No. The intrinsic distributions does not account for any spatial effect and ther
 We have tried to make this clear throughout the manuscript.
 In particular, we provide the following sentence in Introduction to distinguish intrinsic from the realized distributions:
 
-``Since not all infectious contacts result in infection, realized distributions differ from the intrinsic distribution.''
+\newtext{Since not all infectious contacts result in infection, realized distributions differ from the intrinsic distribution.}
 
 \revtext{
 The "the backward generation interval (or the secondary generation time)" is statistically sound. An infectee, before being infected, has been exposed to many infectors in a prevalent cohort and
@@ -253,7 +253,7 @@ their equivalence in a large homogeneously mixing population.}
 We now show that the initial forward generation-interval distribution is equivalent to the intrinsic distribution.
 We also point to the analytical intractability of the spatial effects on the realized generation-interval distributions (and therefore the initial forward distribution) and therefore cannot be expressed mathematically (for non-homogeneous cases):
 
-``Since spatial effects on realized generation intervals are generally expected to be analytically intractable, even in simple networks (e.g., see \cite{tomba2010some} for discussion regarding the realized generation intervals in a household with one infector and two susceptibles), we rely on simulations hereafter to vadliate our prediction.''
+\newtext{Since spatial effects on realized generation intervals are generally expected to be analytically intractable, even in simple networks (e.g., see \cite{tomba2010some} for discussion regarding the realized generation intervals in a household with one infector and two susceptibles), we rely on simulations hereafter to vadliate our prediction.}
 
 \revtext{However, I suggest the authors to compare the "individual-based
 method" in the paragraph starting from Line 252 to Line 260 with the statistical methods for analyzing right-truncated survival data as mentioned
@@ -335,9 +335,9 @@ Any comments from the authors on this coincidence?
 
 We explain this in the main text:
 
-``In this case, with fixed infectiousness during the infection period, the effect of accounting for pairwise contacts is the same as an increase in the recovery rate (by the amount of the per-pair contact rate $\lambda$). 
+\newtext{In this case, with fixed infectiousness during the infection period, the effect of accounting for pairwise contacts is the same as an increase in the recovery rate (by the amount of the per-pair contact rate $\lambda$). 
 Infecting a susceptible contact is analogous to recovery because the contactee cannot be infected again --- the infector cannot no longer transmit infection even if they are infectious (effectively losing infectiousness).
-Therefore, the resulting egocentric generation-interval distribution is equivalent to the intrinsic generation-interval distribution with mean latent period of $1/\sigma$ and mean infectious period of $1/(\gamma + \lambda)$.''
+Therefore, the resulting egocentric generation-interval distribution is equivalent to the intrinsic generation-interval distribution with mean latent period of $1/\sigma$ and mean infectious period of $1/(\gamma + \lambda)$.}
 
 \revtext{Under suitable assumptions on homogeneous mixing, the intrinsic
 generation interval distribution $g(\tau)$ measures the infectiousness within
@@ -347,7 +347,7 @@ and the infectious period distribution.)}
 
 We now define the intrinsic generation-interval distribution as follows as we think it is more concrete; it is also easier to distinguish intrinsic vs. realized distributiosn under this definition:
 
-``The \emph{intrinsic} generation-interval distributions describe the expected time distribution of infectious contacts made by a primary case.''
+\newtext{The \emph{intrinsic} generation-interval distributions describe the expected time distribution of infectious contacts made by a primary case.}
 
 \revtext{The distribution $g(\tau)$ links the two intrinsic parameters R0 and r
 (homogeneous mixing). Both $\Ro$ and $g(\tau)$ are intrinsic in the context of the equilibrium conditions. Therefore the parameter $r$ is a theoretical value and is very different from any observed exponential
@@ -414,8 +414,8 @@ to arbitrarily distributed latent and infectious periods.
 
 We had omitted a sentence previous --- we have now clarified this sentence as follows:
 
-``In the main text, we present results based on exponentially distributed latent and infectious periods;
-we show results based on more Erlang distributed latent periods ($n_E=2$), which better matches the incubation period distribution of Ebola virus disease, in Appendix.''
+\newtext{In the main text, we present results based on exponentially distributed latent and infectious periods;
+we show results based on more Erlang distributed latent periods ($n_E=2$), which better matches the incubation period distribution of Ebola virus disease, in Appendix.}
 
 \revtext{
 It is more convenient to use the Laplace transforms as a tool.
@@ -435,12 +435,12 @@ The gamma distribution has been previously tested for many diseases.
 In our case, Figure 4 demonstrates that the gamma approximation of the generation-interval distribution provides a reasonable estimate for the initial reproduction number from the exponential growth rate.
 We discuss potential caveats in assuming a shape of the generation-interval distribution in Discussion.
 
-``We compare two methods for estimating the initial forward generation-interval distribution and assume that the initial forward generation-interval distribution follows a gamma distribution.
+\newtext{We compare two methods for estimating the initial forward generation-interval distribution and assume that the initial forward generation-interval distribution follows a gamma distribution.
 The gamma approximation of the generation interval distribution has been widely used due to its simplicity;
 we previously thought that summarizing the entire distribution with two moments (mean and variance) is sufficient to understand the role of generation-interval distributions in linking $r$ and $\Rini$.
 However, further investigation of our methods suggests that making a wrong distributional assumption can lead to biased estimates of the mean and CV of a generation-interval distribution (Appendix A.3), even though the gamma distribution ``looks'' indistinguishable from the shape of the intrinsic generation-interval distribution (derived from the SEIR model).
 These results are particularly alarming because it is impossible to know the true shape of the generation-interval distribution for real diseases.
-Nonetheless, biases in the parameter estimates of a generation-interval distribution may cancel out and give unbiased estimate of the reproductive number (Appendix A.3).''
+Nonetheless, biases in the parameter estimates of a generation-interval distribution may cancel out and give unbiased estimate of the reproductive number (Appendix A.3).}
 
 \revtext{How does the likelihood
 function look like? Since the "observed" generation-intervals (assuming
@@ -453,16 +453,16 @@ We simply fit the gamma distribution to all realized generation intervals (i.e.,
 we feel that writing down the likelihood function is an overkill for a basic gamma fit.
 We have clarified the text: 
 
-``The \textbf{population-level method} estimates the initial forward generation-interval distribution by reversing the inverse exponential weighting in the aggregated generation-interval distribution without explicitly accounting for the infection process (i.e., who infected whom):
+\newtext{The \textbf{population-level method} estimates the initial forward generation-interval distribution by reversing the inverse exponential weighting in the aggregated generation-interval distribution without explicitly accounting for the infection process (i.e., who infected whom):
 \begin{equation}
 f_0(\tau) \propto a_0(\tau) \exp(r\tau).
 \end{equation}
 In order to do so, we first approximate the aggregated distribution $a_0$ with a gamma distribution by assuming that aggregated realized generation intervals (subject to right-truncation) during the exponential growth phase come from the same gamma distribution;
 specifically, we estimate the mean $\bar G$ and shape $\alpha$ of a gamma distribution by maximum likelihood.
 Then, the initial forward generation-interval distribution also follows a gamma distribution with mean $\alpha/(\alpha/\bar G - r)$ and shape $\alpha$.
-We then use the estimated initial forward generation-interval distribution to infer the initial reproductive number $\Rini$ from the estimated growth rate (using the Euler-Lotka equation).''
+We then use the estimated initial forward generation-interval distribution to infer the initial reproductive number $\Rini$ from the estimated growth rate (using the Euler-Lotka equation).}
 
-\rev{
+\revtext{
 Elaborate how the estimation of $\RR$ is expected to be sensitive to under-reporting (of which data)
 }
 
@@ -470,13 +470,13 @@ That was a bad notation on our side --- we should not have used $\RR$ in the lik
 We have changed the notation for the Poisson process and provide a better explanation.
 
 
-\rev{
+\revtext{
 How exactly is $\RR$ (and, is it \Ro or some kind of time-dependent \RR) estimated in this paper: via the Euler-Lotka equation or using the approach in White and Pagano (2007, ref. [54] in the paper)?
 }
 
 We estimate $\Rini$ via Euler-Lotka. We have tried to make this clear throughout the main text.
 
-\rev{
+\revtext{
 How close is the "related approach" in White and Pagano
 (2007, ref. [54] in the paper) related to the current paper? Did they use the
 Euler-Lotka equation at all? Did they define and measure the generation intervals that were consistent with the generation-intervals discussed in
@@ -485,7 +485,7 @@ the current paper?
 
 \swp{TODO.}
 
-\rev{
+\revtext{
 The authors use a logistic function with a scale parameter $r$,
 the carrier capacity parameter $K$ and the initial condition $c_0$ to model the
 cumulative incidence $c(t)$: Assuming, (theoretically), the infection events
@@ -495,7 +495,7 @@ rate
 
 \swp{TODO.}
 
-\rev{
+\revtext{
 The paper focuses on estimating the generating-interval distribution. There are
 several generating-intervals and distributions mentioned in this paper, such as
 $g(\tau)$; $b_t(\tau)$; $c_t(\tau)$; $g_eff(\tau)$; etc. To the end, it seems that the primary focus is the
@@ -507,7 +507,7 @@ The intrinsic distribution is not our primary focus.
 As we show in Figure 4, the intrinsic distribution overesitmates $\Rini$ as it does not account for spatial effects.
 We tried to make clear that our goal is the initial forward distribution.
 
-\rev{
+\revtext{
 The authors have well demonstrated different sources of sampling bias
 arising from contact tracing data, more noticeably, (i) length-bias due
 to right-truncation because of retrospective measurement together with
@@ -518,7 +518,7 @@ network structure (e.g. the degree distribution and the degree excess (Line
 correct and important.
 }
 
-\rev{
+\revtext{
 Any notion of bias is in the context against some "truth". The authors
 proposed, and demonstrated by simulation, ways to adjust for the bias in
 order to estimate this "truth". However, the authors equate the "true"
@@ -529,7 +529,7 @@ obvious and this needs to be proven.
 We had never equated the true distribution to the intrinsic distribution.
 We make clear that the intrinsic distributions are not our goal.
 
-\rev{
+\revtext{
 The intrinsic distribution $g(\tau)$ is an equilibrium distribution that
 involves the equilibrium distribution of the infectious period (in SEIS,
 SEIR, SEIRS settings). It is a renewal process concept and is only
@@ -538,19 +538,19 @@ obvious how it is related to measurements of "generation intervals"
 when the system is not at equilibrium.
 }
 
-\rev{
+\revtext{
  Under suitable assumptions on homogeneous mixing, the intrinsic
 distribution $g(\tau)$ measures the infectiousness within an infected individual without involving another individual. It is not obvious how it
 is related to measures involving two individuals, no matter whether
 they are prospectively or retrospectively measured.
 }
 
-\rev{
+\revtext{
 Potentially observable events do not take place at the exact moment
 when transmission occurs.
 }
 
-\rev{
+\revtext{
 I rate this paper very high in scientific importance and in general interest.
 In the last 20 years, especially since SARS outbreak in 2003, there has
 been a huge volumn of related work, more than those referenced in this
@@ -564,7 +564,7 @@ researchers.
 
 Thank you!
 
-\rev{
+\revtext{
 I suggest major revision of the paper and hope my comments are
 constructive for the revision(s) for better clarification. It will be a
 great contribution to this field.
@@ -573,14 +573,14 @@ great contribution to this field.
 We have made major revisions to the manuscript as per suggested comments.
 We hope that our manuscript is clearer.
 
-\rev{
+\revtext{
 The immediate objective of this paper is to construct some "unbiased" estimate of the generation interval distribution (presumably, the intrinsic distribution $g(\tau)$). Its important goes beyond this immediate objective, that is, to attempt using quantities (assuming observable, at least conceptually) measured during a the very dynamic
 phase of the system to make inferences on these intrinsic quantities
 $\Ro$ and $r$: I feel the authors have fallen short of achieving these objectives. However, I would like to share some of my opinions and ideas
 and hope that, after revision(s), some of these goals will be achieved.
 }
 
-\rev{
+\revtext{
 I also recommend, for the authors to consider, breaking this paper
 into two papers: one on mathematical theory and models to better
 clarify concepts which I believe are still ambiguous in currently published literature; and another one on statistical models and methods
