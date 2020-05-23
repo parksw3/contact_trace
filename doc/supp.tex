@@ -22,6 +22,7 @@
 
 \usepackage{natbib}
 \setcitestyle{numbers} 
+\setcitestyle{square}
 \bibliographystyle{prsb}
 \date{\today}
 
@@ -30,9 +31,12 @@
 
 \usepackage{color}
 
-\newcommand{\Rx}[1]{\ensuremath{{\mathcal R}_{#1}}} 
+\usepackage{xspace}
+
+\newcommand{\Rx}[1]{\ensuremath{{\mathcal R}_{#1}}\xspace} 
 \newcommand{\Ro}{\Rx{0}}
 \newcommand{\RR}{\ensuremath{{\mathcal R}}}
+\newcommand{\Rini}{\Rx{\textrm{\tiny initial}}}
 \newcommand{\Rhat}{\ensuremath{{\hat\RR}}}
 \newcommand{\tsub}[2]{#1_{{\textrm{\tiny #2}}}}
 
@@ -80,17 +84,32 @@ All other parameters are the same as in Fig. 4 in the main text.
 
 \pagebreak
 
+\subsection{Comparison of estimates of reproductive number -- under-reporting of generation intervals}
+
+\begin{figure}[!h]
+\includegraphics[width=\textwidth]{../fig/cmp_reproductive_underreport.pdf}
+\caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
+This figure matches Fig. 4 in the main text.
+We assume that infected indidividuals have 30\% binomial probability of reporting their generation intervals (time between their infection and the infection of their infectors) when we apply population- and individual-based methods to estimate \Rini;
+under-reporting of generation intervals still give unbiased estimates of \Rini.
+All other parameters and estimates are the same as in Fig. 4 in the main text.
+}
+\label{fig:cmpsmall}
+\end{figure}
+
+\pagebreak
+
 \subsection{Testing the individual-based method on simulations on a homogeneous network}
 
 \begin{figure}[!h]
 \includegraphics[width=\textwidth]{../fig/full_coverage_fig.pdf}
 \caption{\textbf{Wrong distributional assumption may result in biased estimates of the parameters of a generation-interval distribution.}
-We simulate a stochastic SEIR model on a homogenous network with $10^5$ individuals using Ebola-like parameters \citep{who2014ebola}: mean latent period $1/\sigma = 5 \textrm{ days}$, mean infectious period $1/\gamma = 11.4 \textrm{ days}$, and the basic reproductive number $\RR_0 = 2$. Then, we apply the individual-based method based on the first 1000 infections.
+We simulate a stochastic SEIR model on a homogenous network with $10^5$ individuals using Ebola-like parameters \citep{who2014ebola}: mean latent period $1/\sigma = 11.4 \textrm{ days}$, mean infectious period $1/\gamma = 5 \textrm{ days}$, and the basic reproductive number $\RR_0 = 2$. Then, we apply the individual-based method based on the first 1000 infections.
 (A-B) A boxplot of 100 estimates of the mean generation intervals and their coefficient of variations (CV). 
 Dashed horizontal lines represent the true value.
 (C) Coverage probability of the mean generation intervals and their CVs based on the 95\% confidence interval.
 Dashed horizontal lines represent the 95\% coverage probability.
-(D) Estimated generation-interval distributions based on the gamma approximation and a true generation-interval distribution of an SEIR model.
+(D) Estimated generation-interval distributions based on the gamma approximation and the true generation-interval distribution of an SEIR model.
 (E) Estimated $r$--$\RR$ relationships based on the gamma approximation and a true $r$-$\RR$ relationship of an SEIR model.
 Even though there are biases in the estimates of the parameters of the generation-interval distribution, we can still get an unbiased estimate of the $r$--$\RR$ relationship: a shorter mean generation interval decreases $\RR$ whereas a tighter generation-interval distribution increases $\RR$ \citep{wallinga2007generation, park2019practical}.
 }
