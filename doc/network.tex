@@ -147,7 +147,7 @@ Finally, we compare two methods for accounting for temporal bias and test our pr
 
 \section{Intrinsic generation-interval distributions}
 
-\begin{figure}[!pbth]
+\begin{figure}[!ht]
 \includegraphics[width=\textwidth]{../fig/individual_and_population.pdf}
 \caption{\textbf{Comparison of individual- and population-level kernels.}
 (Left) an individual-level kernel of an infected individual with latent period of 11.4 days followed by infectious period of 5 days;
@@ -251,11 +251,11 @@ A deterministic simulation confirms that the aggregated generation-interval dist
 Second, the decreasing number of susceptibles over the course of an epidemic makes long infections less likely to occur \citep{champredon2015intrinsic}.
 Overall, we expect naively using the aggregated generation-interval distribution, to underestimate the reproductive number.
 
-\begin{figure}[!pbth]
+\begin{figure}[!ht]
 \includegraphics[width=\textwidth]{../fig/temporal_effect.pdf}
-\caption{\textbf{Temporal variation in the mean observed generation interval.}
-A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model was simulated using Ebola-like parameters \citep{who2014ebola}: mean latent period $1/\sigma = 11.4 \textrm{ days}$, mean infectious period $1/\gamma = 5 \textrm{ days}$, and the basic reproductive number $\RR_0 = 2$. 
-The backward and the aggregated mean generation interval were calculated over the course of an epidemic.
+\caption{\textbf{Temporal variation in the mean backward and aggregated generation interval.}
+A deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model is simulated using Ebola-like parameters \citep{who2014ebola}: mean latent period $1/\sigma = 11.4 \textrm{ days}$, mean infectious period $1/\gamma = 5 \textrm{ days}$, and the basic reproductive number $\RR_0 = 2$. 
+The backward and the aggregated mean generation interval are calculated over the course of an epidemic.
 The dotted horizontal line represents the mean intrinsic generation interval.
 }
 \label{fig:censor}
@@ -324,7 +324,7 @@ we briefly describe this relationship in Section~\ref{egosection}.
 This calculation can be validated by simulating stochastic infection processes on a ``star'' network (i.e, a single infected individual at the center connected to multiple susceptible individuals who are not connected with each other).
 Simulations (\fref{local}) confirm that in this case the distribution of \emph{contact} times matches the intrinsic generation-interval distribution (left panel), while the distribution of realized generation intervals (i.e., \emph{infection} times) matches the egocentric generation-interval distribution (middle panel).
 
-\begin{figure}[!pbth]
+\begin{figure}[!ht]
 \includegraphics[width=\textwidth]{../fig/local_effect.pdf}
 \caption{
 \textbf{Spatial effects on realized generation intervals.}
@@ -360,14 +360,22 @@ In a nonhomogeneous population, the initial forward generation-interval distribu
 since spatial effects have the same effect on how the epidemic spreads as they do on realized generation intervals, we predict the initial forward generation-interval distributions, which implicitly account for the spatial structure, to correctly link $r$ and $\Rini$ through the Euler-Lotka equation (\eref{euler}).
 Since spatial effects on realized generation intervals are generally expected to be analytically intractable, even in simple networks (e.g., see \cite{tomba2010some} for discussion regarding the realized generation intervals in a household with one infector and two susceptibles), we rely on simulations hereafter to vadliate our prediction.
 
-When realized generation intervals are aggregated over the course of an epidemic, there will be four effects present in the sample: (1) right-truncation effect, (2) egocentric depletion effect, (3) local depletion effect and (4) global depletion effect.
+\begin{figure}[!ht]
+\includegraphics[width=\textwidth]{../fig/diagram.pdf}
+\caption{
+\textbf{Spatiotemporal effects on generation intervals.}
+}
+\label{fig:diagram}
+\end{figure}
+
+When realized generation intervals are aggregated over the course of an epidemic, there will be four effects present in the sample (\fref{diagram}): (1) right-truncation effect, (2) egocentric depletion effect, (3) local depletion effect and (4) global depletion effect.
 We can correct explicitly for the egocentric effect and, in the case of exponential growth, the right-truncation effect;
 these effects shorten the mean realized generation intervals, which in turn will reduce the estimate of the reproductive number \cite{wallinga2007generation, park2019practical}.
 While the other two effects are difficult to measure, we can make qualitative predictions about their effects on the realized generation intervals and reproductive numbers: 
 both local and global depletion effects also reduce number of infections that occur and shorten generation intervals.
 If we can correct for the temporal bias early in an outbreak, during the exponential growth phase, we should be able to infer the initial forward generation-interval distribution, which incorporates egocentric and local spatial effects but not the global effects, from the aggregated distribution.
 
-\begin{figure}[!pbth]
+\begin{figure}[!ht]
 \includegraphics[width=\textwidth]{../fig/cmp_reproductive.pdf}
 \caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
 Using the observed generation-interval distributions (based on the first 1000 generation intervals) without correcting for right-truncation severely underestimates the reproductive number.

@@ -72,7 +72,7 @@ sumfun <- function(out,
 	
 	censor.df <- data.frame(
 		t=tau
-		, censored=cm
+		, aggregated=cm
 		, backward=bm
 	)
 }
@@ -117,8 +117,8 @@ g2 <- ggplot(gendata, aes(t, value, lty=key)) +
     geom_line(lwd=1.2) +
     geom_hline(yintercept = 1/sigma + 1/gamma, lty=3) +
     scale_x_continuous("time (days)", expand=c(0,0), limits=c(0, 300), breaks=seq(0, 250, by=50)) +
-    scale_y_continuous("mean observed GI (days)", expand=c(0,0), limits=c(0, 30)) +
-	scale_linetype_manual(values=c(2, 1)) +
+    scale_y_continuous("mean GI (days)", expand=c(0,0), limits=c(0, 30)) +
+	scale_linetype_manual(values=c(1, 2)) +
 	# facet_wrap(~type) +
 	theme(
         panel.grid=element_blank(),
@@ -128,10 +128,10 @@ g2 <- ggplot(gendata, aes(t, value, lty=key)) +
         strip.text = element_blank(),
         panel.spacing = unit(0, "cm"),
         legend.title = element_blank(),
-        legend.position = c(0.15, 0.87),
+        legend.position = c(0.16, 0.8),
         legend.key.width = grid::unit(2, "cm")
     )
 
 gg_temporal <- arrangeGrob(g1, g2, nrow=2, heights=c(0.4, 0.6))
 
-ggsave("temporal_effect.pdf", gg_temporal, width=6, height=6)
+ggsave("temporal_effect.pdf", gg_temporal, width=6, height=4)
