@@ -567,7 +567,9 @@ The likelihood of the non-homogeneous Poisson process can be written as:
 where $N$ is the total number of infected individuals.
 Here, we estimate parameters $\Lambda$ and $\theta$ by maximum likelihood.
 We then use the estimated distribution $f_0$ to infer the initial reproductive number $\Rini$ from the estimated growth rate (using the Euler-Lotka equation).
-We expect estimates of $\Lambda$ to be sensitive to under-reporting.
+When the entire transmission process is known, we expect $\Lambda$ to match $\Rini$;
+otherwise, $\Lambda$ will be sensitive to under-reporting of number of infections caused by each infected individual.
+As we show in Appendix A.3, the estimates of $\Rini$ using the Euler-Lotka equation from $f_0$ remains unbiased even in the presence of under-reporting.
 White and Pagano \cite{forsberg2008likelihood} proposed a related approach based on discretized incidence reports.
 
 \subsection{Measuring the exponential growth rate}
