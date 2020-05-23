@@ -11,19 +11,18 @@ scale_fill_discrete <- function(...,palette="Dark2") scale_fill_brewer(...,palet
 load("../analysis/cmp_compare_seminr.rda")
 
 RRgroup <- data.frame(
-	key=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", "tree\nbased", "empirical", "egocentric", "intrinsic"),
-	group=factor(c("tracing based", "tracing based", "tracing based", "empirical", "empirical", "individual based", "individual based"),
-				 levels=c("tracing based", "empirical", "individual based"))
+  key=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", "initial\nforward", "empirical", "egocentric", "intrinsic"),
+  group=factor(c("tracing based", "tracing based", "tracing based", "empirical", "empirical", "individual based", "individual based"),
+               levels=c("tracing based", "empirical", "individual based"))
 )
 
 RRdata2 <- RRdata %>%
-	gather(key, value) %>%
-	mutate(key=factor(key, 
-					  levels=c("observed", "population", "individual", "trapman", "empirical", "network", "intrinsic"),
-					  labels=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", 
-					  		 "tree\nbased", "empirical", "egocentric", "intrinsic"))) %>%
-	merge(RRgroup) %>%
-	filter(key != "tree\nbased")
+  gather(key, value) %>%
+  mutate(key=factor(key, 
+                    levels=c("observed", "population", "individual", "forward", "empirical", "network", "intrinsic"),
+                    labels=c("contact\ntracing", "population\ncorrection", "individual\ncorrection", 
+                             "initial\nforward", "empirical", "egocentric", "intrinsic"))) %>%
+  merge(RRgroup)
 
 ggR <- ggplot(RRdata2) +
 	geom_boxplot(aes(key, value, fill=key), alpha=0.7) +

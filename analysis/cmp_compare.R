@@ -116,9 +116,42 @@ intrinsic.est <- lapply(growth$r, function(x) 1/mean(exp(-x*gen)))
 
 network.est <- lapply(growth$r, R0fun.network)
 
-trapman.est <- lapply(reslist, trapman.R0, 100)
-
 empirical.est <- lapply(reslist, empirical.R0, 100)
+
+count <- 0
+
+forward.est <- sapply(reslist, function(x) {
+  count <<- count + 1
+  n <- 75
+  
+  o <- order(x$t_infected)
+  tmax <- tail(x$data$time, 1)
+  
+  n <- min(n, sum(x$t_recovered[o] < tmax, na.rm=TRUE))
+  o <- o[1:n]
+  
+  forwardgen <- unlist(lapply(o, function(v) {
+    x$t_infected[which(x$infected_by==v)]-x$t_infected[v]
+  }))
+  
+  1/mean(exp(-growth$r[count] * forwardgen))
+})
+
+forward.gen <- sapply(reslist, function(x) {
+  n <- 75
+  
+  o <- order(x$t_infected)
+  tmax <- tail(x$data$time, 1)
+  
+  n <- min(n, sum(x$t_recovered[o] < tmax, na.rm=TRUE))
+  o <- o[1:n]
+  
+  forwardgen <- unlist(lapply(o, function(v) {
+    x$t_infected[which(x$infected_by==v)]-x$t_infected[v]
+  }))
+  
+  mean(forwardgen)
+})
 
 RRdata <- data.frame(
 	observed=observed.est$estimate[observed.est$type=="RR"],
@@ -126,14 +159,15 @@ RRdata <- data.frame(
 	population=population.est$estimate[population.est$type=="RR"],
 	intrinsic=unlist(intrinsic.est),
 	network=unlist(network.est),
-	trapman=unlist(trapman.est),
+	forward=forward.est,
 	empirical=unlist(empirical.est)
 )
 
 gendata <- data.frame(
 	observed=observed.est$estimate[observed.est$type=="mean"],
 	individual=individual.est$estimate[individual.est$type=="mean"],
-	population=population.est$estimate[population.est$type=="mean"]
+	population=population.est$estimate[population.est$type=="mean"],
+	forward=forward.gen
 )
 
 save("RRdata", "gendata", file="cmp_compare.rda")
