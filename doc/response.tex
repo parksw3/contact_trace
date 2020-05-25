@@ -424,14 +424,13 @@ Given that our goal is to infer the initial forward generation-interval distribu
 In particular, the reviewer asks us to prove special cases of the Euler-Lotka equation, which has been proven previosuly as suggested by the references, using Laplace transforms; 
 we do not think this is relevant to the discussion of our paper.
 
-\jd{Had to stop here, sorry.}
-
 \revtext{How to assess if the gamma distribution is a good choice as a
 model? Run some kind of goodness-of-fit tests?}
 
+These are hard issues, but beyond the scope of this paper. Using exponentials is routine in many applications. Using gammas (or Erlangs) generalizes this, and is also commonly done. 
 The gamma distribution has been previously tested for many diseases. 
 In our case, Figure 4 demonstrates that the gamma approximation of the generation-interval distribution provides a reasonable estimate for the initial reproduction number from the exponential growth rate.
-We discuss potential caveats in assuming a shape of the generation-interval distribution in Discussion.
+We now discuss additional evidence that gammas often provide reasonable estimates [our approximation framework] as well as cuss potential caveats in assuming a shape of the generation-interval distribution in Discussion.
 
 \newtext{We compare two methods for estimating the initial forward generation-interval distribution and assume that the initial forward generation-interval distribution follows a gamma distribution.
 The gamma approximation of the generation interval distribution has been widely used due to its simplicity;
@@ -440,6 +439,8 @@ However, further investigation of our methods suggests that making a wrong distr
 These results are particularly alarming because it is impossible to know the true shape of the generation-interval distribution for real diseases.
 Nonetheless, biases in the parameter estimates of a generation-interval distribution may cancel out and give unbiased estimate of the reproductive number (Appendix A.3).}
 
+\jd{I am not sure what the last part could mean, except that some biases don't turn out as bad as others -- they can't cancel exactly, so we shouldn't say unbiased estimates... Am I missing something?}
+
 \revtext{How does the likelihood
 function look like? Since the "observed" generation-intervals (assuming
 observable) do not arise from a designed random experiment, but observational data, I expect the likelihood function should reflect the observation
@@ -447,8 +448,7 @@ scheme (e.g. retrospective)? Please be explicit.
 }
 
 The population-level method does not take into account the observation scheme or the infection process. 
-We simply fit the gamma distribution to all realized generation intervals (i.e., the aggregated distribution);
-we feel that writing down the likelihood function is an overkill for a basic gamma fit.
+We simply fit the gamma distribution to all realized generation intervals (i.e., the aggregated distribution).
 We have clarified the text: 
 
 \newtext{The \textbf{population-level method} estimates the initial forward generation-interval distribution by reversing the inverse exponential weighting in the aggregated generation-interval distribution without explicitly accounting for the infection process (i.e., who infected whom):
@@ -456,8 +456,8 @@ We have clarified the text:
 f_0(\tau) \propto a_0(\tau) \exp(r\tau).
 \end{equation}
 In order to do so, we first approximate the aggregated distribution $a_0$ with a gamma distribution by assuming that aggregated realized generation intervals (subject to right-truncation) during the exponential growth phase come from the same gamma distribution;
-specifically, we estimate the mean $\bar G$ and shape $\alpha$ of a gamma distribution by maximum likelihood.
-Then, the initial forward generation-interval distribution also follows a gamma distribution with mean $\alpha/(\alpha/\bar G - r)$ and shape $\alpha$.
+specifically, we estimate the mean $\bar G$ and shape $\alpha$ of a by fitting a gamma distribution to the observed values by maximum likelihood.
+The inferred initial forward generation-interval distribution also follows a gamma distribution with the same shape, but with mean $\alpha/(\alpha/\bar G - r)$.
 We then use the estimated initial forward generation-interval distribution to infer the initial reproductive number $\Rini$ from the estimated growth rate (using the Euler-Lotka equation).}
 
 \revtext{
@@ -466,7 +466,6 @@ Elaborate how the estimation of $\RR$ is expected to be sensitive to under-repor
 
 That was a bad notation on our side --- we should not have used $\RR$ in the likelihood. 
 We have changed the notation for the Poisson process and provide a better explanation.
-
 
 \revtext{
 How exactly is $\RR$ (and, is it \Ro or some kind of time-dependent \RR) estimated in this paper: via the Euler-Lotka equation or using the approach in White and Pagano (2007, ref. [54] in the paper)?
@@ -522,12 +521,6 @@ proposed, and demonstrated by simulation, ways to adjust for the bias in
 order to estimate this "truth". However, the authors equate the "true"
 distribution to the intrinsic distribution $g(\tau)$ as if "obvious". It is not
 obvious and this needs to be proven.
-}
-
-We had never equated the true distribution to the intrinsic distribution.
-We make clear that the intrinsic distributions are not our goal.
-
-\revtext{
 The intrinsic distribution $g(\tau)$ is an equilibrium distribution that
 involves the equilibrium distribution of the infectious period (in SEIS,
 SEIR, SEIRS settings). It is a renewal process concept and is only
@@ -535,6 +528,8 @@ valid when the system is under the equilibrium condition. It is not
 obvious how it is related to measurements of "generation intervals"
 when the system is not at equilibrium.
 }
+
+We now discuss this point in much more detail (and have discussed these points above). Briefly: we are interested in the initial forward distribution because this provides the \rR\ link. This approaches the intrinsic distribution in the case where mixing is homogeneous and the initial number infectious is small. We hope we have fixed all of the places where we failed to explain ourselves clearly.
 
 \revtext{
  Under suitable assumptions on homogeneous mixing, the intrinsic
@@ -547,6 +542,8 @@ they are prospectively or retrospectively measured.
 Potentially observable events do not take place at the exact moment
 when transmission occurs.
 }
+
+This is an important concern, and we have discussed this issue a bit more. We note that this is not always the case: for example, transmission is one of the most observable features in rabies dynamics. In Ebola, dates of transmission are often estimated. We are currently working to extend our framework to cases that explicitly treat other events as the observables.
 
 \revtext{
 I rate this paper very high in scientific importance and in general interest.
@@ -584,6 +581,8 @@ into two papers: one on mathematical theory and models to better
 clarify concepts which I believe are still ambiguous in currently published literature; and another one on statistical models and methods
 to link data to models.
 }
+
+See above for our discussion of these issues
 
 \reviewer{Reviewer \#2}
 
