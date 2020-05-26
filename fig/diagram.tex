@@ -73,7 +73,7 @@
 };
 \draw[->, very thick, dashed] (int) -- node [midway, left, text width=2cm, align=right] {} (local);
 \draw[->, very thick, dashed] (local) -- node [midway, right, text width=2cm] {exponential growth \\ phase} (forward);
-\draw[->, very thick, dashed] (local) -- node [midway, right, text width=2cm] {} (agg);
+\draw[->, very thick, dashed] (local) -- node [midway, above, text width=2cm] {truncation \\ bias} (agg);
 \draw[->, very thick, dashed] (agg) -- node [midway, right, text width=2cm] {exponential growth \\ phase} (iniagg);
 \draw[->, very thick] (iniagg) -- node [midway, above, text width=1.5cm] {temporal \\ correction} (forward);
 

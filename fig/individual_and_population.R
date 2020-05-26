@@ -27,7 +27,7 @@ dd_population_poly <- data.frame(
 g1 <- ggplot(dd_individual) +
 	geom_line(aes(time, density), lwd=1.1) +
 	scale_x_continuous("Time (days)", expand=c(0, 0)) +
-	scale_y_continuous(expression(K[a](tau)), expand=c(0,0), limit=c(0, 0.45)) +
+	scale_y_continuous(expression(k(tau*";"~a)), expand=c(0,0), limit=c(0, 0.45)) +
 	facet_wrap(~type) +
 	theme(
 		strip.background = element_blank(),
@@ -45,5 +45,3 @@ gtot <- arrangeGrob(
 )
 
 ggsave("individual_and_population.pdf", gtot, width=6, height=3)
-
-

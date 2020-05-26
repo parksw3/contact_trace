@@ -35,34 +35,4 @@ ggR <- ggplot(RRdata2) +
 		axis.title.x=element_blank()
 	)
 
-g2 <- ggplot(RRdata) +
-  geom_point(aes(forward, individual), shape=1) +
-  geom_abline(lty=2) +
-  scale_x_continuous("initial forward") +
-  scale_y_continuous("individual correction") +
-  theme(
-    panel.grid = element_blank()
-  )
-
-g3 <- ggplot(RRdata) +
-  geom_point(aes(forward, population), shape=1) +
-  geom_abline(lty=2) +
-  scale_x_continuous("initial forward") +
-  scale_y_continuous("population correction") +
-  theme(
-    panel.grid = element_blank()
-  )
-
-g4 <- ggplot(RRdata) +
-  geom_point(aes(forward, empirical), shape=1) +
-  geom_abline(lty=2) +
-  scale_x_continuous("initial forward") +
-  scale_y_continuous("empirical") +
-  theme(
-    panel.grid = element_blank()
-  )
-
-gtot <- arrangeGrob(ggR, g2, g3, g4, layout_matrix = matrix(c(1, 1, 1, 2, 3, 4), nrow=3), widths=c(2, 1))
-
 ggsave("cmp_reproductive.pdf", ggR, width=6, height=3)
-ggsave("cmp_reproductive2.pdf", gtot, width=10, height=6)
