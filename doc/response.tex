@@ -101,7 +101,9 @@ the observable (or conceptually observable) "generation intervals"?
 2. Is it the p.d.f. corresponding to the definition in Lines 42-43? Proof?
 }
 
-Our new definition of the generation interval and explanation in S2 (just above) address these questions to some extent. We prefer not to go deeper into the mathematical details for this paper.
+Our new definition of the generation interval and explanation in Section 2 (just above) address these questions to some extent. 
+The definition in Lines 42-43 we had earlier does not correspond to any p.d.f.
+We prefer not to go deeper into the mathematical details for this paper.
 
 \revtext{
 Lines 44-48: "... the observed generation-interval distribution can change...
@@ -261,8 +263,12 @@ method" in the paragraph starting from Line 252 to Line 260 with the statistical
 above, and explicitly write out the likelihood function (Line 258) to see if
 they are the same or different.}
 
+Thank you for pointing this out. 
+We realized that we were implicitly combining two likelihoods, one of which is based on the non-homogeneous Poisson process and the other is based on truncated distributions (described in suggested references).
+We now provide a more detailed explanation of the method with appropriate references.
+We also allude to the fact that our proposed likelihood is a special case of the likelihood derived in Kalbfleisch and Lawless (1989).
 The likelihood function is provided in the Methods section.
-\swp{TODO. It seems like they're different... Ugh. I'll get back to this.}
+
 
 \revtext{The authors has used the notations $\RR$ (Line 35) and $\Ro$ (Lines 98-99) for reproduction numbers and
 linked them via $\RR = \Ro S(t)$:}
@@ -278,6 +284,8 @@ constant); but it matters a lot in stochastic models because the population
 size is an essential parameter.}
 
 We have tried to clarify these points. $S$ is a proportion, but we do attempt to address issues of individuality appropriately.
+
+\swp{What do you mean we have tried to address issues of individuality? Can we just get rid of that phrase and say S is a proportion?}
 
 \revtext{
 When stating that ``$\RR$'' transcends to the final size of the epidemic (Line
@@ -407,7 +415,7 @@ we show results based on more Erlang distributed latent periods ($n_E=2$), which
 It is more convenient to use the Laplace transforms as a tool.
 }
 
-The reviewers discussion of and suggestions about Laplace transformations are interesting, but we think beyond the scope of this paper. Our experience has been that Laplace transformations and moment generating functions are as likely to obscure the key concepts underlying disease dynamics as to clarify them.
+The reviewer's discussion of and suggestions about Laplace transformations are interesting, but we think beyond the scope of this paper. Our experience has been that Laplace transformations and moment generating functions are as likely to obscure the key concepts underlying disease dynamics as to clarify them.
 
 \revtext{How to assess if the gamma distribution is a good choice as a
 model? Run some kind of goodness-of-fit tests?}
@@ -416,15 +424,15 @@ These are hard issues, but beyond the scope of this paper.
 Using exponentials is routine in many applications. 
 Using gammas (or Erlangs) generalizes this, and is also commonly done. 
 The gamma distribution has been previously tested for many diseases. 
-In our case, Figure 4 demonstrates that the gamma approximation of the generation-interval distribution provides a reasonable estimate for the initial reproduction number from the exponential growth rate.
+In our case, Figure 5 demonstrates that the gamma approximation of the generation-interval distribution provides a reasonable estimate for the initial reproduction number from the exponential growth rate.
 We now discuss additional evidence that gammas often provide reasonable estimates [our approximation framework] as well as potential caveats in assuming a shape of the generation-interval distribution in Discussion.
 
 \newtext{We compare two methods for estimating the initial forward generation-interval distribution and assume that the initial forward generation-interval distribution follows a gamma distribution.
-The gamma approximation of the generation interval distribution has been widely used due to its simplicity;
-we previously thought that summarizing the entire distribution with two moments (mean and variance) is sufficient to understand the role of generation-interval distributions in linking $r$ and $\Rini$.
-However, further investigation of our methods suggests that making a wrong distributional assumption can lead to biased estimates of the mean and CV of a generation-interval distribution (Appendix A.3), even though the gamma distribution ``looks'' indistinguishable from the shape of the intrinsic generation-interval distribution (derived from the SEIR model).
+The gamma approximation of the generation interval distribution has been widely used due to its simplicity \citep{mcbryde2009early, nishiura2009transmission, roberts2011early, trichereau2012estimation, nishiura2015theoretical};
+we previously showed that summarizing the entire distribution with two moments (mean and variance) can be sufficient to understand the role of generation-interval distributions in linking $r$ and $\Rini$ for Ebola, rabies, and measles \citep{park2019practical}.
+However, further investigation of our methods suggests that making a wrong distributional assumption can lead to biased estimates of the mean and CV of a generation-interval distribution (Appendix A.4), even though the estimated gamma distribution may ``look'' indistinguishable from the true shape of the intrinsic generation-interval distribution (derived from the SEIR model).
 These results are particularly alarming because it is impossible to know the true shape of the generation-interval distribution for real diseases.
-Nonetheless, biases in the parameter estimates of a generation-interval distribution may have opposite effects on the estiamte of \Rini (e.g., shorter mean generation interval leads to lower \Ro whereas narrower generation-interval distribution leads to higher \Ro) and, therefore, may have small effects on the overall estimate of \Rini (Appendix A.4).}
+Nonetheless, biases in the parameter estimates of a generation-interval distribution may have opposite effects on the estimate of \Rini (e.g., shorter mean generation interval leads to lower \Ro whereas narrower generation-interval distribution leads to higher \Ro) and, therefore, may have small effects on the overall estimate of $\Rini$ (Appendix A.4).}
 
 \revtext{How does the likelihood
 function look like? Since the "observed" generation-intervals (assuming
@@ -465,9 +473,10 @@ Euler-Lotka equation at all? Did they define and measure the generation interval
 the current paper?
 }
 
-We had initially thought their approach is similar due to their use of Poisson likelihood.
+We had included this reference in earlier versions of this manuscript a few years ago, thinking that their approach is similar due to their use of Poisson likelihood.
 We realized that their approach is quite different from the goal of our paper and have removed the sentence.
-They do not use Euler-Lotka or measure generation intervals.
+They do not use Euler-Lotka or rely on ``observed'' generation intervals;
+instead they try to infer a generation-interval distribution from incidence reports.
 
 \revtext{
 The authors use a logistic function with a scale parameter $r$,
@@ -492,7 +501,7 @@ The method of estimating the initial exponential growth rate by fitting a logist
 \revtext{
 The paper focuses on estimating the generating-interval distribution. There are
 several generating-intervals and distributions mentioned in this paper, such as
-$g(\tau)$; $b_t(\tau)$; $c_t(\tau)$; $g_eff(\tau)$; etc. To the end, it seems that the primary focus is the
+$g(\tau)$; $b_t(\tau)$; $c_t(\tau)$; $g_{eff}(\tau)$; etc. To the end, it seems that the primary focus is the
 intrinsic distribution $g(\tau)$; and relating this distribution with two other intrinsic
 parameters: the reproduction number $\Ro$ and the Malthusian number $r$
 }
@@ -526,7 +535,7 @@ obvious how it is related to measurements of "generation intervals"
 when the system is not at equilibrium.
 }
 
-We now discuss this point in much more detail (and have discussed these points above). Briefly: we are interested in the initial forward distribution because this provides the \rR\ link. This approaches the intrinsic distribution in the case where mixing is homogeneous and the initial number infectious is small. We hope we have fixed all of the places where we failed to explain ourselves clearly.
+We now discuss this point in much more detail (and have discussed these points above). Briefly: we are interested in the initial forward distribution because this provides the link between $r$ and \Rini. This approaches the intrinsic distribution in the case where mixing is homogeneous and the initial number infectious is small. We hope we have fixed all of the places where we failed to explain ourselves clearly.
 
 \revtext{
  Under suitable assumptions on homogeneous mixing, the intrinsic
