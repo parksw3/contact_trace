@@ -94,7 +94,7 @@ $\dagger$dushoff@mcmaster.ca
 
 Generation intervals, defined as the time between when an individual is infected and when that individual infects another person, link two key quantities that describe an epidemic: the initial reproductive number, $\Rini$, and the initial rate of exponential growth, $r$.
 Generation intervals can be measured through contact tracing by identifying who infected whom.
-We study how realized intervals differ from ``intrinsic'' intervals that could be estimated by measuring individual-level infectiousness, and identify both spatial and temporal effects, including truncating (due to observation time), and the effects of susceptible depletion at various spatial scales.
+We study how realized intervals differ from ``intrinsic'' intervals that describe individual-level infectiousness, and identify both spatial and temporal effects, including truncating (due to observation time), and the effects of susceptible depletion at various spatial scales.
 Early in an epidemic, we expect the variation in the realized generation intervals to be mainly driven by the truncating and the population structure near the source of disease spread; 
 therefore, we predict that correcting realized intervals for the effect of temporal truncation but \emph{not} for spatial effects will provide the initial forward generation-interval distribution, which is spatially informed and correctly links $r$ and $\Rini$.
 We develop and test statistical methods for temporal corrections of generation intervals,
@@ -112,21 +112,21 @@ An epidemic can be described by the exponential growth rate, $r$, and the reprod
 The reproductive number is defined as the average number of secondary cases arising from a primary case;
 its value in a fully susceptible population, also known as the basic reproductive number \Ro, is of particular interest as it provides information about the final size of an epidemic \citep{anderson1991infectious, diekmann1990definition} as well as the endemicity level \citep{kribs2000simple, van2002reproduction, smith2012ross}.
 However, estimating the reproductive number directly from disease life history requires detailed knowledge, which is not often available, particularly early in an outbreak \citep{dietz1993estimation}.
-Instead, the reproductive number can be indirectly estimated from the exponential growth rate, which can be estimated from incidence data \citep{chowell2003sars, mills2004transmissibility, nishiura2009transmission, nishiura2010pros, ma2014estimating}.
+Instead, the reproductive number is often indirectly estimated from the exponential growth rate, which can be estimated from incidence data \citep{chowell2003sars, mills2004transmissibility, nishiura2009transmission, nishiura2010pros, ma2014estimating}.
 These two quantities are linked by generation-interval distributions \citep{wearing2005appropriate, svensson2007note, roberts2007model, wallinga2007generation, park2019practical}.
 
 At the individual level, a generation \emph{interval} is defined as the time between when a person becomes infected and when that person infects another person \citep{svensson2007note}.
 While this definition is widely used in the literature, it is not connected directly to a population-level \emph{distribution}.
 There are important distinctions to be made when defining generation-interval distributions at the population-level. The \emph{intrinsic} generation-interval distributions describe the expected time distribution of infectious contacts made by a primary case \citep{champredon2015intrinsic}.
 On the other hand, the \emph{realized} generation-interval distributions describe the time between actual infection events over the course of an epidemic.
-Since not all infectious contacts result in infection, realized distributions differ from the intrinsic distribution.
+Since some infectious contacts will be made with non-susceptible people, and thus not result in infection, realized distributions can differ systematically from the intrinsic distribution.
 
 The shape of the realized generation-interval distribution depends on the reference time and perspective \citep{kenah2008generation, nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation}.
 When an epidemic is growing exponentially, as often occurs near the beginning of an outbreak, the number of newly infected individuals will be large relative to the number infected earlier on. 
 A susceptible individual is thus relatively more likely to be infected by a newly infected individual. 
 Thus, ``backward'' generation intervals (which look at a cohort of infectees, and ask when their infectors were infected) will be shorter on average than intrinsic generation intervals -- the converse is true when an epidemic is subsiding \citep{nishiura2010time, champredon2015intrinsic, britton2019estimation}.
 Likewise, we can define ``forward'' generation intervals, which look at a cohort of infectors and ask when their infectees were infected.
-Mean forward generation intervals can decrease over the course of an epidemic due to susceptible depletion \citep{kenah2008generation, nishiura2010time, tomba2010some, champredon2015intrinsic}.
+Mean forward generation intervals tend to decrease over the course of an epidemic due to susceptible depletion \citep{kenah2008generation, nishiura2010time, tomba2010some, champredon2015intrinsic}.
 
 Realized generation intervals are also affected by spatial structure.
 In a population that does not mix homogeneously, susceptibility will tend to decrease more quickly in the neighbourhood of infected individuals than in the general population.
@@ -134,21 +134,25 @@ This means that infectious contacts made late in an individual's infection are m
 As a result, realized generation intervals (from the perspective of an infector) will typically have shorter mean than the intrinsic generation-interval distribution in a non-homogeneous population.
 This perspective allows us to reinterpret the finding of \cite{trapman2016inferring} that, given an intrinsic generation interval and an observed growth rate, the reproductive number on various network structures is always smaller on a network than would be predicted from homogeneous mixing.
 
-While an epidemic is ongoing, realized generation intervals can be measured by identifying who infected whom and can be aggregated to form a single distribution.
-In practice, realized generation intervals is difficult to measure because it is difficult to observe the exact moment at which individuals become infected;
+In practice, realized generation intervals are often difficult to measure for many diseases, because it is difficult to observe when individuals become infected;
 in most cases, observable events are clinical (e.g. onset of symptoms).
-However, it is still possible to directly measure generation intervals through contact tracing in some cases (e.g., a rabid dog biting another dog \citep{hampson2009transmission}),.
-Thus, the aggregated distribution is analogous to data collected through contact tracing during an ongoing epidemic ---
-we typically want to try to make inference based on all available data that have been gathered since the beginning of an epidemic.
+There are some exceptions: for example, generation intervals are commonly measured directly through contact tracing for canine rabies, where infection events are bites \citep{hampson2009transmission}.
+Intervals between observed disease progression events (commonly, onset of signs or symptoms) are called serial intervals.
+Serial intervals are in many ways similar to generation intervals, but there are also complexities in their use.
+We will not address these complexities here.
 
+While an epidemic is ongoing, realized generation intervals can at least in theory can be measured by identifying who infected whom and when, and aggregated to form a single distribution.
+We typically want to try to make inference based on this aggregated distribution -- that is, on all available data that have been gathered since the beginning of an epidemic.
 These aggregated measurements are ``truncated'' because we do not know what happens after the current epidemic time.
-These truncated intervals are similar to backward intervals during the exponential growth phase: there is a bias towards over-sampling shorter intervals, which are more likely to have concluded by the current epidemic time.
-These observations allow us to make the following prediction: removing the truncation bias from aggregated generation intervals early in an epidemic will yield the initial forward generation-interval distribution, which contains information about the population structure and allows us to correctly infer the initial reproductive number from the initial exponential growth rate.
+The distribution of these truncated intervals are similar to backward intervals during the exponential growth phase: there is a bias towards over-sampling shorter intervals, which are more likely to have concluded by the current epidemic time.
+We therefore predict that removing the truncation bias from aggregated generation intervals early in an epidemic will yield the initial forward generation-interval distribution, which contains information about the population structure and allows us to correctly infer the initial reproductive number from the initial exponential growth rate.
 
-In this study, we explore spatiotemporal variation in realized (particularly forward) generation intervals.
-We extend previous frameworks to study how the aggregated generation-interval distributions change over time and compare this distribution with the backward generation-interval distribution.
-We classify spatial effects on realized generation intervals into three levels (egocentric, local, and global) and discuss how they affect realize generation-interval distributions.
+In this study, we explore spatiotemporal variation in realized generation intervals.
+We extend previous frameworks to investigate how aggregated generation-interval distributions change over time.
+We classify spatial effects on realized generation intervals into three levels (egocentric, local, and global) and discuss how these affect realized generation-interval distributions.
 Finally, we compare two methods for accounting for temporal bias and test our prediction using individual-based simulations.
+
+\jd{I don't love the prediction framework even after I toned it down: I feel we show that it should work in theory, not just predict that it should work in practice.}
 
 \section{Intrinsic generation-interval distributions}
 
