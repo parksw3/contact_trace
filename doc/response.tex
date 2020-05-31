@@ -78,12 +78,12 @@ suggest ways to make it more precise.}
 
 We now define intrinsic generation interval properly:
 
-\newtext{The \emph{intrinsic} generation-interval distributions describe the expected time distribution of infectious contacts made by a primary case.}
+\newtext{The \emph{intrinsic} generation-interval distribution describes the expected time distribution of infectious contacts made by a primary case \citep{champredon2015intrinsic}.}
 
 In Section 2, we also introduce the idea that the intrinsic distributions can be thought of as equilibrium distributions:
 
 \newtext{$g(\tau)$ is the expected time distribution of infectious contacts made by a primary case (the intrinsic generation-interval distribution \citep{champredon2015intrinsic}).
-If the proportion of susceptibles contacted is not changing (for example in a homogeneously mixed at the endemic equilibrium or when the number of cases is vanishingly small), $g(\tau)$ also describes the realized generaton interval.}
+If the proportion of susceptibles contacted is not changing (for example in a homogeneously mixed population at the endemic equilibrium, or when the number of cases is vanishingly small), $g(\tau)$ also describes the realized (forward) generation intervals.}
 
 \revtext{Lines 49,101: "...the intrinsic generation interval distribution..." While the
 interval itself is not defined in Line 46 (in my opinion), its distribution is
@@ -132,18 +132,18 @@ misleading.
 
 We appreciate this point. We now refer to them as \emph{realized} intervals.
 
-\newtext{There are important distinctions to be made when defining generation-interval distributions at the population-level. The \emph{intrinsic} generation-interval distributions describe the expected time distribution of infectious contacts made by a primary case.
-On the other hand, the \emph{realized} generation-interval distributions describe the time between actual infection events over the course of an epidemic.
-Since not all infectious contacts result in infection, realized distributions differ from the intrinsic distribution.}
+\newtext{There are important distinctions to be made when defining generation-interval distributions at the population-level. The \emph{intrinsic} generation-interval distribution describes the expected time distribution of infectious contacts made by a primary case \citep{champredon2015intrinsic}.
+On the other hand, \emph{realized} generation-interval distributions describe the time between actual infection events over the course of an epidemic.
+Since some infectious contacts will be made with non-susceptible people, and thus not result in infection, realized distributions can differ systematically from the intrinsic distribution.}
 
 We have also added the following sentence as per suggestions in previous comments:
 
-\newtext{While an epidemic is ongoing, realized generation intervals can be measured by identifying who infected whom and can be aggregated to form a single distribution.
-In practice, realized generation intervals is difficult to measure because it is difficult to observe the exact moment at which individuals become infected;
+\newtext{In practice, realized generation intervals are often difficult to measure for many diseases, because it is difficult to observe when individuals become infected;
 in most cases, observable events are clinical (e.g. onset of symptoms).
-However, it is still possible to directly measure generation intervals through contact tracing in some cases (e.g., a rabid dog biting another dog \citep{hampson2009transmission}),.
-Thus, the aggregated distribution is analogous to data collected through contact tracing during an ongoing epidemic ---
-we typically want to try to make inference based on all available data that have been gathered since the beginning of an epidemic.}
+There are some exceptions: for example, generation intervals are commonly measured directly through contact tracing for canine rabies, where infection events are bites \citep{hampson2009transmission}.
+Intervals between observed disease progression events (commonly, onset of signs or symptoms) are called serial intervals \citep{svensson2007note}.
+Serial intervals are in many ways similar to generation intervals, but there are also complexities in their use  \citep{britton2019estimation}.
+We will not address these complexities here.}
 
 \revtext{Lines 54-55: ``the backward generation interval...'' This is a key measurement in this paper along with the length-bias in relation to data observation scheme. Conceptually, there may also be a "forward" generation
 interval. Both concepts were initially raised in Svensson (2007, ref.[21]
@@ -184,7 +184,7 @@ No. The intrinsic distributions does not account for any spatial effect and ther
 We have tried to make this clear throughout the manuscript.
 In particular, we provide the following sentence in Introduction to distinguish intrinsic from the realized distributions:
 
-\newtext{Since not all infectious contacts result in infection, realized distributions differ from the intrinsic distribution.}
+\newtext{Since some infectious contacts will be made with non-susceptible people, and thus not result in infection, realized distributions can differ systematically from the intrinsic distribution.}
 
 \revtext{
 The "the backward generation interval (or the secondary generation time)" is statistically sound. An infectee, before being infected, has been exposed to many infectors in a prevalent cohort and
@@ -201,8 +201,6 @@ intervals arising from the same infector, something to ponder about.
 }
 
 We appreciate this point and have tried not to imply strong assumptions, and also taken care to empirically validate our statistical approaches.
-
-\swp{??? What do you mean by ``also taken care to empirically validate our statistical approaches''}
 
 \revtext{This paper addresses length-bias in the "backward generation interval" and
 different ways of adjusting this bias, assuming the intervals were observable
@@ -256,7 +254,7 @@ their equivalence in a large homogeneously mixing population.}
 We now show that the initial forward generation-interval distribution is equivalent to the intrinsic distribution.
 We also point to the analytical intractability of the spatial effects on the realized generation-interval distributions (and therefore the initial forward distribution):
 
-\newtext{Since spatial effects on realized generation intervals are generally expected to be analytically intractable, even in simple networks (e.g., see \cite{tomba2010some} for discussion regarding the realized generation intervals in a household with one infector and two susceptibles), we rely on simulations hereafter to vadliate our prediction.}
+\newtext{Spatial effects on realized generation intervals are generally expected to be analytically intractable, even in simple networks (e.g., see \cite{tomba2010some} for discussion regarding the realized generation intervals in a household with one infector and two susceptibles); therefore, we rely on simulations to validate this prediction.}
 
 \revtext{However, I suggest the authors to compare the "individual-based
 method" in the paragraph starting from Line 252 to Line 260 with the statistical methods for analyzing right-truncated survival data as mentioned
@@ -268,7 +266,6 @@ We realized that we were implicitly combining two likelihoods, one of which is b
 We now provide a more detailed explanation of the method with appropriate references.
 We also allude to the fact that our proposed likelihood is a special case of the likelihood derived in Kalbfleisch and Lawless (1989).
 The likelihood function is provided in the Methods section.
-
 
 \revtext{The authors has used the notations $\RR$ (Line 35) and $\Ro$ (Lines 98-99) for reproduction numbers and
 linked them via $\RR = \Ro S(t)$:}
@@ -284,8 +281,6 @@ constant); but it matters a lot in stochastic models because the population
 size is an essential parameter.}
 
 We have tried to clarify these points. $S$ is a proportion, but we do attempt to address issues of individuality appropriately.
-
-\swp{What do you mean we have tried to address issues of individuality? Can we just get rid of that phrase and say S is a proportion?}
 
 \revtext{
 When stating that ``$\RR$'' transcends to the final size of the epidemic (Line
@@ -355,7 +350,7 @@ and the infectious period distribution.)}
 
 We now define the intrinsic generation-interval distribution as follows as we think it is more concrete; it is also easier to distinguish intrinsic vs. realized distributions under this definition:
 
-\newtext{The \emph{intrinsic} generation-interval distributions describe the expected time distribution of infectious contacts made by a primary case.}
+\newtext{The \emph{intrinsic} generation-interval distribution describes the expected time distribution of infectious contacts made by a primary case \citep{champredon2015intrinsic}.}
 
 \revtext{The distribution $g(\tau)$ links the two intrinsic parameters R0 and r
 (homogeneous mixing). Both $\Ro$ and $g(\tau)$ are intrinsic in the context of the equilibrium conditions. Therefore the parameter $r$ is a theoretical value and is very different from any observed exponential
@@ -409,7 +404,7 @@ to arbitrarily distributed latent and infectious periods.
 We had omitted a sentence previous --- we have now clarified this sentence as follows:
 
 \newtext{In the main text, we present results based on exponentially distributed latent and infectious periods;
-we show results based on more Erlang distributed latent periods ($n_E=2$), which better matches the incubation period distribution of Ebola virus disease, in Appendix.}
+we show results based on Erlang distributed latent periods ($n_E=2$), which better matches the incubation period distribution of Ebola virus disease, in Appendix.}
 
 \revtext{
 It is more convenient to use the Laplace transforms as a tool.
@@ -429,10 +424,10 @@ We now discuss additional evidence that gammas often provide reasonable estimate
 
 \newtext{We compare two methods for estimating the initial forward generation-interval distribution and assume that the initial forward generation-interval distribution follows a gamma distribution.
 The gamma approximation of the generation interval distribution has been widely used due to its simplicity \citep{mcbryde2009early, nishiura2009transmission, roberts2011early, trichereau2012estimation, nishiura2015theoretical};
-we previously showed that summarizing the entire distribution with two moments (mean and variance) can be sufficient to understand the role of generation-interval distributions in linking $r$ and $\Rini$ for Ebola, rabies, and measles \citep{park2019practical}.
+we previously showed that in many cases a gamma approximation (requiring estimation of only two parameters) can be sufficient to understand the role of generation-interval distributions in linking $r$ and $\Rini$ for Ebola, rabies, and measles \citep{park2019practical}.
 However, further investigation of our methods suggests that making a wrong distributional assumption can lead to biased estimates of the mean and CV of a generation-interval distribution (Appendix A.4), even though the estimated gamma distribution may ``look'' indistinguishable from the true shape of the intrinsic generation-interval distribution (derived from the SEIR model).
 These results are particularly alarming because it is impossible to know the true shape of the generation-interval distribution for real diseases.
-Nonetheless, biases in the parameter estimates of a generation-interval distribution may have opposite effects on the estimate of \Rini (e.g., shorter mean generation interval leads to lower \Ro whereas narrower generation-interval distribution leads to higher \Ro) and, therefore, may have small effects on the overall estimate of $\Rini$ (Appendix A.4).}
+Nonetheless, biases in the parameter estimates of a generation-interval distribution may have opposite effects on the estimate of \Rini (e.g., shorter mean generation interval leads to lower \Rini whereas narrower generation-interval distribution leads to higher \Rini) and, therefore, may have small effects on the overall estimate of $\Rini$ (Appendix A.4).}
 
 \revtext{How does the likelihood
 function look like? Since the "observed" generation-intervals (assuming
@@ -446,9 +441,10 @@ We have clarified the text:
 
 \newtext{The \textbf{population-level method} estimates the initial forward generation-interval distribution by reversing the inverse exponential weighting in the aggregated generation-interval distribution without explicitly accounting for the infection process (i.e., who infected whom) \citep{tomba2010some, nishiura2010time, britton2019estimation}:
 \begin{equation}
-f_0(\tau) \propto a_0(\tau) \exp(r\tau).
+f_0(\tau) \propto a_0(\tau) \exp(r\tau),
 \end{equation}
-In order to do so, we first approximate the aggregated distribution $a_0$ with a gamma distribution by assuming that aggregated realized generation intervals (subject to right-truncation) during the exponential growth phase come from the same gamma distribution;
+where $r$ is the initial exponential growth rate.
+In order to do so, we first approximate the aggregated distribution $a_0$ with a gamma distribution by assuming that realized generation intervals (subject to right-truncation) during the exponential growth phase come from the same gamma distribution;
 specifically, we estimate the mean $\bar G$ and shape $\alpha$ of a gamma distribution by maximum likelihood.
 Then, the initial forward generation-interval distribution also follows a gamma distribution with mean $\alpha/(\alpha/\bar G - r)$ and shape $\alpha$.
 We then use the estimated initial forward generation-interval distribution to infer the initial reproductive number $\Rini$ from the estimated growth rate (using the Euler-Lotka equation).}
@@ -495,7 +491,7 @@ c(t) = \frac{K}{1 + \left[(K/c_0)-1\right]e^{-rt}}.
 \end{equation}
 While the exponential growth rate (i.e., the rate of change in log incidence) of the logistic function changes throughout an epidemic,
 we focus strictly on estimating the \emph{initial} exponential growth rate (when $t \to -\infty$).
-The method of estimating the initial exponential growth rate by fitting a logistic curve has been previously validated against simulations of stochastic comparmental models \citep{ma2014estimating}.
+The method of estimating the initial exponential growth rate by fitting a logistic curve has been previously validated against simulations of stochastic compartmental models \citep{ma2014estimating}.
 }
 
 \revtext{
@@ -588,7 +584,7 @@ clarify concepts which I believe are still ambiguous in currently published lite
 to link data to models.
 }
 
-See above for our discussion of these issues
+See above for our discussion of these issues.
 
 \reviewer{Reviewer \#2}
 
@@ -615,7 +611,7 @@ Thank you for pointing this out. We made typographical errors in figure captions
 
 Done.
 
-\revtext{Figure 3 caption, last sentence: has recovered -> have recovered}
+\revtext{Figure 3 caption, last sentence: has recovered $\rightarrow$ have recovered}
 
 Done.
 

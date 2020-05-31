@@ -143,7 +143,7 @@ We will not address these complexities here.
 
 While an epidemic is ongoing, realized generation intervals, at least in theory, can be measured by identifying who infected whom and when, and aggregated to form a single distribution.
 We typically want to try to make inference based on this aggregated distribution -- that is, on all available data that have been gathered since the beginning of an epidemic.
-These aggregated measurements are ``truncated'' because we do not know what happens after the time of last observaton.
+These aggregated measurements are ``truncated'' because we do not know what happens after the time of last observation.
 The distribution of these truncated intervals are similar to backward intervals during the exponential growth phase: there is a bias towards over-sampling shorter intervals, which are more likely to have concluded in time to be observed.
 We therefore predict that removing the truncation bias from aggregated generation intervals early in an epidemic will yield the initial forward generation-interval distribution, which contains information about the population structure and allows us to correctly infer the initial reproductive number from the initial exponential growth rate.
 
@@ -206,7 +206,7 @@ Realized generation intervals can be measured either forward (from the perspecti
 The forward generation-interval distribution $f_t(\tau)$ describes the infection time of \emph{infectees} caused by a cohort infectors who were infected at time $t$.
 Similarly, the backward generation-interval distribution $b_t(\tau)$ describes the infection time of \emph{infectors} for a cohort of infectees who were infected at time $t$.
 For a single infector-infectee pair, both backward and forward \emph{measurements} should give the identical generation interval.
-Therefore, the total number of infection that occurs at time $t + \tau$ caused by individuals infected at time $t$ can be expressed in terms of both the forward and backward generation-interval distributions:
+Therefore, the total number of infections that occurs at time $t + \tau$ caused by individuals infected at time $t$ can be expressed in terms of both the forward and backward generation-interval distributions:
 \begin{equation}
 \mathcal R_{\rm c}(t) i(t) f_t(\tau) = i(t+\tau) b_{t+\tau}(\tau).
 \label{eq:equivalence}
@@ -272,10 +272,10 @@ The dotted horizontal line represents the mean intrinsic generation interval.
 
 \section{Realized generation-interval distributions across space}
 
-\jd{How do you feel about rewriting this paragraph? It sounds like we introduce space to understand effects of multiple contacts; in fact, the opposite is true; we got into the effects of multiple contacts because we were interested in space.}
+The effects of spatial structure on realized generation intervals can be understood in terms of effect of multiple contacts.
 Infected individuals may contact the same susceptible individual multiple times, but only the first infectious contact gives rise to infection in a given individual (after this, they are no longer susceptible).
-Therefore, we expect realized generation intervals from an individual to have a smaller mean than their mean intrinsic generation interval.
-To explore the effect of multiple contacts on realized generation intervals, we relax our assumption that the population is homogeneous.
+Therefore, we expect realized generation intervals from an individual in a spatially structured population to have a smaller mean than their mean intrinsic generation interval.
+To explore the effects of spatial structure on realized generation intervals, we relax our assumption that the population is homogeneous.
 Instead, we assume that a disease spreads on a network;
 infected individuals contact their ``acquaintances'' at random, but ``acquaintanceships'' are predetermined by the network structure before the beginning of an epidemic \cite{trapman2016inferring}.
 
@@ -288,7 +288,7 @@ where $k(\tau; a)$ is the individual-level intrinsic kernel and $e^{- \delta(a) 
 The dilution term, $\delta(a)$, models how contacts are distributed among the acquaintances.
 
 Throughout this paper, we assume that there is a constant per-pair contact rate $\lambda$ \cite{trapman2016inferring}.
-In this case, the infectiousness of an individual $\RR(a) = \int k(s; a) \,\mathrm{d}s$ is the product of the number of acquaintances $N(a)$, which can vary among individuals, and the contact rate $\lambda$; the dilution term is equal to the reciprocal of the number of acquaintances: $\delta(a) = 1/N(a)$.
+In this case, the intrinsic infectiousness of an individual $\RR(a) = \int k(s; a) \,\mathrm{d}s$ is the product of the number of acquaintances $N(a)$, which can vary among individuals, and the contact rate $\lambda$; the dilution term is equal to the reciprocal of the number of acquaintances: $\delta(a) = 1/N(a)$.
 This assumption can be relaxed by allowing for asymmetry \citep{trapman2016inferring} or heterogeneity \citep{ball1997epidemics, ball2002general} in contact rates; 
 for simplicity, we do not pursue these directions here.
 
@@ -298,7 +298,7 @@ The population-level egocentric kernel is found by integrating the individual-le
 \end{equation}
 where $f(a)$ represents a probability density over a (possibly multi-dimensional) aspect space.
 Essentially, the population-level egocentric kernel accounts for the probability that a susceptible individual has not been infected by the focal individual.
-Trapman \textit{et al.} \cite{trapman2016inferring} used this same kernel (also assuming a constant per-pair contact rate) to study the effect of network structure on the estimate of reproductive number.
+Trapman \textit{et al.} \cite{trapman2016inferring} used this same kernel (also assuming a constant per-pair contact rate) to study the effect of network structure on the estimate of the basic reproductive number.
 The population-level egocentric generation-interval distribution is:
 \begin{equation}
 \hat{g}(\tau) = \frac{\hat{K}(\tau)}{\int \hat{K}(s)\,\mathrm{d}s}.
@@ -315,7 +315,7 @@ this generation-interval-based argument provides an alternative biological inter
 % Similarly, \Rhat\ will be greater than the \emph{true} reproductive number \RR\, since it does not account for depletion of susceptibles by other routes.
 
 For example, consider a susceptible-exposed-infected-recovered (SEIR) model, which assumes that latent and infectious periods are exponentially distributed.
-The intrinsic generation-interval distribution that corresponds to this model can be written as \citep{Champredon2018equivalence}:
+The intrinsic generation-interval distribution that corresponds to this model can be written as \citep{yan2008separate, Champredon2018equivalence}:
 \begin{equation}
 g(\tau) = \frac{\sigma \gamma}{\sigma - \gamma} \left(e^{-\gamma \tau} - e^{-\sigma \tau}\right),
 \end{equation}
@@ -339,9 +339,9 @@ Simulations (\fref{local}) confirm that in this case the distribution of \emph{c
 \caption{
 \textbf{Spatial effects on realized generation intervals.}
 Theoretical distributions and means are shown in color (and are the same in each panel, for reference). Simulated distributions and means are shown in black.
-(Left) the intrinsic generation-interval distribution corresponds to all contacts by a focal individual, regardless of whether the contact results in infection.
+(Left) the intrinsic generation-interval distribution corresponds to all infectious contacts by a focal individual, regardless of whether the contact results in infection.
 (Middle) the egocentric generation-interval distribution corresponds to the distribution of all infectious contacts by the focal individual with susceptible individuals, in the case where the focal individual is the only possible infector (simulated on a star network).
-(Right) realized generation-interval distributions are shorter than egocentric distributions in general, because contacts can be wasted when susceptibles become infected through other routes (simulated on a homogeneous network).
+(Right) realized generation-interval distributions have a shorter mean than egocentric distributions in general, because contacts can be wasted when susceptibles become infected through other routes (simulated on a homogeneous network).
 All figures were generated using 5000 stochastic simulations on a network with 5 nodes (1 infector and 4 susceptibles) with Ebola-like parameters \citep{who2014ebola}:
 mean latent period $1/\sigma = 11.4 \textrm{ days}$ and mean infectious period $1/\gamma = 5 \textrm{ days}$. 
 Per-pair contact rate $\lambda = 0.25 \textrm{ days}^{-1}$ is chosen to be sufficiently high so that the differences between generation-interval distributions are clear.
@@ -366,16 +366,16 @@ Finally, global depletion refers to overall depletion of susceptibility at the p
 \section{Inferring the initial forward generation-interval distribution}
 
 In a large homogeneously mixing population, the initial forward generation-interval distribution is equivalent to the intrinsic distribution and provides the correct link between the exponential growth rate $r$ and the initial reproduction number \Rini (see \eref{forward}).
-In a nonhomogeneous population, the initial forward generation-interval distributions are subject to spatial effects and, therefore, are different from the intrinsic distribution;
-since spatial effects have the same effect on how the epidemic spreads as they do on realized generation intervals, we expect the initial forward generation-interval distributions, which implicitly account for the spatial structure, to correctly link $r$ and $\Rini$ through the Euler-Lotka equation (\eref{euler}).
-Since spatial effects on realized generation intervals are generally expected to be analytically intractable, even in simple networks (e.g., see \cite{tomba2010some} for discussion regarding the realized generation intervals in a household with one infector and two susceptibles), we rely on simulations to validate this prediction.
+In a nonhomogeneous population, the initial forward generation-interval distributions are subject to spatial effects and, therefore, are different from the intrinsic distribution.
+Since spatial effects have the same effect on how the epidemic spreads as they do on realized generation intervals, we expect the initial forward generation-interval distributions, which implicitly account for the spatial structure, to correctly link $r$ and $\Rini$ through the Euler-Lotka equation (\eref{euler}).
+Spatial effects on realized generation intervals are generally expected to be analytically intractable, even in simple networks (e.g., see \cite{tomba2010some} for discussion regarding the realized generation intervals in a household with one infector and two susceptibles); therefore, we rely on simulations to validate this prediction.
 
 \begin{figure}[!ht]
 \includegraphics[width=\textwidth]{../fig/diagram.pdf}
 \caption{
 \textbf{A summary of spatiotemporal effects on generation intervals.}
-The intrinsic generation-interval distribution describe the expected time distribution of infectious contacts made by a primary case.
-The realized (forward) generation-interval distribution describe the time between actual infection events -- egocentric, local, and global depletion of the susceptible pool reduces the mean realized generation intervals.
+The intrinsic generation-interval distribution describes the expected time distribution of infectious contacts made by a primary case.
+The realized (forward) generation-interval distribution describes the time between actual infection events -- egocentric, local, and global depletion of the susceptible pool reduces the mean realized generation intervals.
 The aggregated generation-interval distribution reflects the contact-tracing process during an ongoing epidemic and is subject to right truncation bias.
 Our goal is to estimate the initial forward generation-interval distribution from the initial aggregated generation-interval distribution, measured during the exponential growth period.
 }
@@ -404,7 +404,7 @@ Per-pair contact rate $\lambda = 0.08 \textrm{ days}^{-1}$ is chosen to be suffi
 Here, we investigate two methods for correcting for temporal bias in aggregated generation-interval data (see Methods for details).
 We refer to the first method as the population-level method as it relies on realized generation intervals aggregated across the entire population.
 When an epidemic is growing exponentially, right-truncation causes the aggregated generation interval to be discounted by the exponential growth rate (\eref{exp});
-hence, we can ``undo'' the truncation by exponentially weighting the aggregated generation-interval distribution \citep{tomba2010some, nishiura2010time, britton2019estimation}:
+hence, we can ``undo'' the truncation by exponentially weighting the aggregated generation-interval distribution \citep{nishiura2010time, tomba2010some, britton2019estimation}:
 \begin{equation}
 f_0(\tau) \propto a_0(\tau) \exp(r\tau),
 \label{eq:geff}
@@ -414,20 +414,20 @@ where $r$ is the exponential growth rate.
 We refer to the second method as the individual-level method because it relies on individual contact information.
 We model each infection as a non-homogeneous Poisson process arising from the infector (\eref{nonhomogeneous}); 
 incorporating information about time of infection of an infector, time of infection of an infectee, and time since the beginning of an epidemic allows us to explicitly model the truncation process in the realized generation intervals.
-For both methods, mean and coefficient of variation (CV) of generation-interval distributions are estimated by maximum likelihood; the inferred generation-interval distribution is then used to estimate the reproductive number $\Rini$ from the observed growth rate $r$ using the Euler-Lotka equation.
+For both methods, mean and coefficient of variation (CV) of the initial forward generation-interval distributions are estimated by maximum likelihood; the inferred generation-interval distributions are then used to estimate the initial reproductive number $\Rini$ from the observed growth rate $r$ using the Euler-Lotka equation.
 
 To test these methods, we simulate 100 epidemics with Ebola-like parameters on an empirical network \citep{leskovec2016snap}
 and compare the estimates of initial reproductive number with empirical reproductive numbers, which we define as the average number of secondary cases generated by the first 75 infected individuals,
-as well as the estimates of the initial reproductive number calculated from the initial forward generation intervals, which we define as the generation intervals for all infections caused by the first 75 infected individuals (\fref{cmp}).
-For simplicity, we assume that generation intervals are observed without error and assume that there is no under-reporting.
+as well as the estimates of the initial reproductive number calculated from the empirical initial forward generation intervals, which we define as the generation intervals for all infections caused by the first 75 infected individuals (\fref{cmp}).
+For simplicity, we assume that realized generation intervals are observed without error and assume that there is no under-reporting of generation intervals.
 We do not expect under-reporting to affect the inference of generation-interval distributions (Appendix A.3) unless there are systematic biases in the observation process.
-On the other hand, it is difficult to measure generation intervals precisely because (1) infection events are often unobserved and (2) there may be multiple potential infectors; these factors can introduce biases to the estimates of the reproductive number \cite{britton2019estimation}.
+On the other hand, it is difficult to measure generation intervals precisely because (1) infection events are often unobserved and (2) there may be multiple potential infectors; these factors can introduce biases to the estimates of the initial reproductive number \cite{britton2019estimation}.
 We do not pursue these directions in this study.
 
 As expected, estimating the reproductive number based on the intrinsic generation-interval distribution overestimates the empirical reproductive number;
 estimates based on the egocentric generation-interval distribution (\eref{conditional}) address this problem only partially, as they do not account for indirect (local) spatial effects. 
-Direct estimates based on the observed generation intervals from contact tracing severely underestimate the empirical estimates.
-While both population- and individual-level corrections provide similar estimates to the empirical estimates as well as the estimates based on the initial forward generation-interval distribution on average,
+Direct estimates based on the aggregated generation intervals from contact tracing (via Euler-Lotka) severely underestimate the empirical estimates.
+While both population- and individual-level corrections provide similar estimates to the empirical estimates as well as the estimates based on the empirical initial forward generation-interval distribution on average,
 population-level estimates are more variable as they are more sensitive to outliers in generation intervals and our estimate of the growth rate.
 For smaller values of \RR, we expect the differences to become smaller.
 In the Appendix, we present the same figure using smaller \RR\ (Appendix A.1) and using Erlang-distributed latent periods (Appendix A.2), which better corresponds to Ebola.
@@ -443,7 +443,7 @@ Changes due to right-truncation reflect observation bias, whereas changes due to
 Thus, correcting the aggregated distribution for temporal, but not spatial, effects provides the correct link between $r$ and $\Rini$.
 
 Realized generation intervals that have been aggregated over the course of an epidemic are subject to right-truncation -- it is not possible to trace individuals that have not been infected yet.
-The aggregated distributions can be thought of as averages of ``backward'' generation intervals (measured by looking at infectors of a cohort of individuals infected at the same time) \citep{kenah2008generation, nishiura2010time, tomba2010some, champredon2015intrinsic, britton2019estimation}.
+The aggregated distributions can be thought of as averages of ``backward'' generation intervals (measured by looking at infectors of a cohort of individuals infected at the same time) \citep{champredon2015intrinsic, kenah2008generation, nishiura2010time, tomba2010some, britton2019estimation}.
 During an ongoing outbreak, the aggregated generation-interval distribution will always have a shorter mean than the intrinsic-interval distribution due to right-truncation.
 Early in the outbreak, aggregated intervals are expected to match the early-outbreak backward intervals.
 Near the end of an outbreak, the effect of right-truncation becomes negligible but the aggregated generation intervals are still shorter on average than intrinsic generation intervals, because of depletion of the susceptible population.
@@ -464,7 +464,7 @@ The gamma approximation of the generation interval distribution has been widely 
 we previously showed that in many cases a gamma approximation (requiring estimation of only two parameters) can be sufficient to understand the role of generation-interval distributions in linking $r$ and $\Rini$ for Ebola, rabies, and measles \citep{park2019practical}.
 However, further investigation of our methods suggests that making a wrong distributional assumption can lead to biased estimates of the mean and CV of a generation-interval distribution (Appendix A.4), even though the estimated gamma distribution may ``look'' indistinguishable from the true shape of the intrinsic generation-interval distribution (derived from the SEIR model).
 These results are particularly alarming because it is impossible to know the true shape of the generation-interval distribution for real diseases.
-Nonetheless, biases in the parameter estimates of a generation-interval distribution may have opposite effects on the estimate of \Rini (e.g., shorter mean generation interval leads to lower \Ro whereas narrower generation-interval distribution leads to higher \Ro) and, therefore, may have small effects on the overall estimate of $\Rini$ (Appendix A.4).
+Nonetheless, biases in the parameter estimates of a generation-interval distribution may have opposite effects on the estimate of \Rini (e.g., shorter mean generation interval leads to lower \Rini whereas narrower generation-interval distribution leads to higher \Rini) and, therefore, may have small effects on the overall estimate of $\Rini$ (Appendix A.4).
 
 Generation-interval-based approaches to estimating the reproductive number often assume that an epidemic grows exponentially \citep{wearing2005appropriate, wallinga2007generation, roberts2007model, park2019practical}.
 In practice, heterogeneity in population structure can lead to subexponential growth \citep{szendroi2004polynomial, chowell2015western, chowell2016growing, chowell2016characterizing, kiskowski2016modeling, viboud2016generalized};
@@ -488,7 +488,7 @@ Future studies should carefully consider how measurement influences estimated ge
 
 \subsection{Deterministic SEIR model}
 
-To study the effects on right-truncation on the observed generation intervals, we use the deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model.
+To study the effects on right-truncation on the realized generation intervals, we use the deterministic Susceptible-Exposed-Infectious-Recovered (SEIR) model.
 The SEIR model describes how disease spreads in a homogeneously mixing population; it assumes that infected individuals become infectious after a latent period.
 We use a \seminar\ model, which extends the SEIR model to have multiple equivalent stages in the latent and infectious periods. This gives latent and infectious periods with Erlang distributions (gamma distributions with integer shape parameters, including the exponential distribution), which are often more realistic than the exponentially distributed periods in the standard SEIR model \citep{anderson1980spread, bailey1964some}: 
 \begin{equation}
@@ -502,9 +502,9 @@ We use a \seminar\ model, which extends the SEIR model to have multiple equivale
 \end{equation}
 where $S$ is the proportion of susceptible individuals, $E_m$ is the proportion of exposed individuals in the $m$-th compartment, $I_n$ is the proportion of infectious individuals in the $n$-th compartment, and $R$ is the proportion of recovered individuals.
 Parameters of the model are specified as follows:  $\beta$ is the transmission rate, $1/\sigma$ is the mean latent period, $n_E$ is the number of latent compartments, $1/\gamma$ is the mean infectious period, and $n_I$ is the number of infectious compartments.
-We scale the proportions of individuals in each compartment are scaled by the total population size $N$.
+We scale the proportions of individuals in each compartment by the total population size $N$.
 In the main text, we present results based on exponentially distributed latent and infectious periods;
-we show results based on more Erlang distributed latent periods ($n_E=2$), which better matches the incubation period distribution of Ebola virus disease, in Appendix.
+we show results based on Erlang distributed latent periods ($n_E=2$), which better matches the incubation period distribution of Ebola virus disease, in Appendix.
 
 \subsection{Stochastic SEIR model}
 
@@ -512,7 +512,7 @@ We simulate an individual-based SEIR model on a contact network, using an algori
 We begin by randomly selecting individuals assumed to be infected at $t = 0$.
 For each infected individual $i$, we randomly draw the latent period $E_i$ from an Erlang distribution with mean $1/\sigma$ and shape $n_E$.
 We then construct the random infectious period and infectious contact times simultaneously as follows.
-For each of the $n_I$ stages of the infectious period, we draw the number of effective contacts (before transitioning to the next compartment) from a geometric distribution with probability $n_I\gamma/(S_i \lambda + n_I \gamma)$, where $S_i$ is the number of susceptible acquaintances and $\lambda$ is the per-pair contact rate.
+For each of the $n_I$ stages of the infectious period, we draw the number of infectious contacts (before transitioning to the next compartment) from a geometric distribution with probability $n_I\gamma/(S_i \lambda + n_I \gamma)$, where $S_i$ is the number of susceptible acquaintances and $\lambda$ is the per-pair contact rate.
 We then choose the time between consecutive events (the chosen number of contacts, followed by exit from the given stage of infection) from an exponential distribution with rate $S_i \lambda + n_I\gamma$.
 For each contact, a contactee is uniformly sampled from the set of susceptible acquaintances of the individual $i$.
 The infectious period $I_i$ is the sum of all of these waiting times.
@@ -592,6 +592,8 @@ The full likelihood of contact tracing data, which include aggregated generation
 where $N$ is the total number of infected individuals.
 This likelihood is a special case of the likelihood suggested in \citep{kalbfleisch1989inference} which assumes that the second event (observation of infection) occurs simultaneously with the corresponding initiating event (infection of an individual).
 Here, we estimate parameters $\Lambda$ and $\theta$ by maximum likelihood.
+In theory, the forward generation intervals arising from the same infector may be correlated due to non-independence in the contact process \citep{yan2008separate}; although we do not account for this potential correlation in our likelihood, our simulations (\fref{cmp}) suggest that approximating the initial forward generation-interval distribution with a single distribution provides a viable approach for estimating the reproductive number.
+
 We then use the estimated distribution $f_0$ to infer the initial reproductive number $\Rini$ from the estimated growth rate (using the Euler-Lotka equation).
 When the entire transmission process is known, we expect $\Lambda$ to match $\Rini$;
 otherwise, $\Lambda$ will be sensitive to under-reporting of number of infections caused by each infected individual.
@@ -616,7 +618,7 @@ Fitting time window is defined from the last trough before the peak of an epidem
 To simulate epidemics on a realistic network, we use the `condensed matter physics' network from the Stanford Large Network Dataset Collection \citep{leskovec2016snap}.
 This graph describes co-authorship among anyone who submitted a paper to Condensed Matter category in the arXiv between January 1993 and April 2003 \citep{leskovec2007graph}.
 It consists of 23133 nodes and 93497 edges.
-The same network was used by \cite{trapman2016inferring} to study how network structure affects the estimate of the reproductive number.
+The same network was used by \cite{trapman2016inferring} to study how network structure affects the estimate of the basic reproductive number.
 
 \section*{Authors' contributions}
 
