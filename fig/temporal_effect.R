@@ -34,7 +34,7 @@ sumfun <- function(out,
 		
 		i <- which(t==tau)
 		
-		beta*sum(incidence[1:(m-i+1)] * out$S[i:m]/N)/total*genden[i]
+		beta/gamma*sum(incidence[1:(m-i+1)] * out$S[i:m]/N)/total*genden[i]
 	}
 	
 	backward <- function(tau, tmax) {
@@ -88,14 +88,10 @@ names(out1)[1] <- "t"
 
 gensum <- sumfun(out1, tmax=tmax, t=t, tauby=5)
 
-# gensum_long <- sumfun(out4, tmax=10000, t=0:10000, tauby=1000)
-
 outdata <- out1 %>%
 	mutate(
 		incidence=beta*S*I/N
 	)
-
-## We probably don't need to show the endemic case.. seems trivial...
 
 g1 <- ggplot(outdata, aes(t, incidence)) +
     geom_line(lwd=1.2) +
