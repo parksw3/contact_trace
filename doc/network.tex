@@ -211,7 +211,7 @@ Therefore, the total number of infections that occurs at time $t + \tau$ caused 
 \mathcal R_{\rm c}(t) i(t) f_t(\tau) = i(t+\tau) b_{t+\tau}(\tau).
 \label{eq:equivalence}
 \end{equation}
-Here, $\mathcal R_{\rm c}(t)$ represents the case reproduction number, which is defined as the average number of secondary cases caused by a primary case infected at time $t$ over the course of their infection \citep{fraser2007estimating}.
+Here, $\mathcal R_{\rm c}(t)$ represents the case reproductive number, which is defined as the average number of secondary cases caused by a primary case infected at time $t$ over the course of their infection \citep{fraser2007estimating}.
 
 In a homogeneously mixing population, the forward and backward generation-interval distributions can be calculated exactly.
 The density of new infections occurring at time $t+\tau$ caused by infectors who were infected at time $t$ is given by
@@ -241,7 +241,7 @@ The aggregated generation-interval distribution, by definition, is a weighted av
 \begin{equation}
 a_t(\tau) \propto \int_{-\infty}^t i(s) b_s(\tau) \,\mathrm{d}s.
 \end{equation}
-The aggregated generation-interval distribution can be also equivalently expressed in terms of forward generation-interval distributions (weighted by incidence and case reproduction number):
+The aggregated generation-interval distribution can be also equivalently expressed in terms of forward generation-interval distributions (weighted by incidence and case reproductive number):
 \begin{equation}
 a_t(\tau) \propto \int_{-\infty}^{t-\tau} \mathcal R_{\rm c}(s) i(s) f_s(\tau) \,\mathrm{d}s.
 \end{equation}
@@ -365,7 +365,7 @@ Finally, global depletion refers to overall depletion of susceptibility at the p
 
 \section{Inferring the initial forward generation-interval distribution}
 
-In a large homogeneously mixing population, the initial forward generation-interval distribution is equivalent to the intrinsic distribution and provides the correct link between the exponential growth rate $r$ and the initial reproduction number \Rini (see \eref{forward}).
+In a large homogeneously mixing population, the initial forward generation-interval distribution is equivalent to the intrinsic distribution and provides the correct link between the exponential growth rate $r$ and the initial reproductive number \Rini (see \eref{forward}).
 In a nonhomogeneous population, the initial forward generation-interval distributions are subject to spatial effects and, therefore, are different from the intrinsic distribution.
 Since spatial effects have the same effect on how the epidemic spreads as they do on realized generation intervals, we expect the initial forward generation-interval distributions, which implicitly account for the spatial structure, to correctly link $r$ and $\Rini$ through the Euler-Lotka equation (\eref{euler}).
 Spatial effects on realized generation intervals are generally expected to be analytically intractable, even in simple networks (e.g., see \cite{tomba2010some} for discussion regarding the realized generation intervals in a household with one infector and two susceptibles); therefore, we rely on simulations to validate this prediction.
