@@ -77,7 +77,7 @@ individual.est <- lapply(reslist, function(x){
 	tmax <- x$data[1001,1]
 	gendata <- generation.data(x, tmax=tmax)
 	
-	ww <- rbinom(1:nrow(gendata), 1, rprob)==1
+	ww <- rbinom(1:nrow(gendata), 1, rprob)==0
 	
 	gendata$infected_by[ww] <- NA
 	gendata$generation[ww] <- NA
