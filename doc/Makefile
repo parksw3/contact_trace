@@ -29,7 +29,7 @@ Sources += notes.md
 
 ## Manuscript
 
-Sources += network.tex cover.txt
+## Sources += network.tex cover.txt
 network.pdf: network.tex
 
 network.ld.pdf: network.tex
@@ -37,12 +37,12 @@ network.tex.2f572ca5a.oldfile:
 Ignore += *.ld.out *.ld.pdf
 
 ## First journal had pretty nice reviews but thought we weren't sexy enough
-Sources += response.tex
+## Sources += response.tex
 ## response.pdf: response.tex
 
 ## JRSI also nice reviews but one of them _very_ demanding
 ## A letter to the editor about scoping and timing for revision
-Sources += jscope.txt
+# Sources += jscope.txt
 
 ## resources/Review.pdf:
 Ignore += resources
