@@ -29,8 +29,10 @@ Sources += notes.md
 
 ## Manuscript
 
+Sources += $(wildcard *.tex)
 ## Sources += network.tex cover.txt
 network.pdf: network.tex
+supp.pdf: supp.tex
 
 network.ld.pdf: network.tex
 network.tex.2f572ca5a.oldfile: 

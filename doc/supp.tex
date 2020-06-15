@@ -61,9 +61,7 @@
 \begin{figure}[!h]
 \includegraphics[width=\textwidth]{../fig/cmp_reproductive_small.pdf}
 \caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
-This figure matches Fig. 4 in the main text.
-A smaller per-pair contact rate ($\lambda = 0.026 \textrm{ days}^{-1}$) is used to simulate epidemics.
-All other parameters are the same as in Fig. 4 in the main text.
+This figure matches Fig. 5 in the main text, but with a smaller per-pair contact rate ($\lambda = 0.026 \textrm{ days}^{-1}$) used to simulate epidemics. All other parameters are the same as in Fig. 5.
 }
 \label{fig:cmpsmall}
 \end{figure}
@@ -75,9 +73,8 @@ All other parameters are the same as in Fig. 4 in the main text.
 \begin{figure}[!h]
 \includegraphics[width=\textwidth]{../fig/cmp_reproductive_seminr.pdf}
 \caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
-This figure matches Fig. 4 in the main text which used a SEIR model.
-Here, an Erlang-distributed latent period ($n_E=2$) is used to simulate epidemics; this assumption better matches the incubation period distribution of the Ebola virus disease than the exponential assumption \citep{who2014ebola}.
-All other parameters are the same as in Fig. 4 in the main text.
+This figure matches Fig. 5 in the main text, but an Erlang-distributed latent period ($n_E=2$ instead of 1) is used to simulate epidemics; this assumption better matches the incubation period distribution of the Ebola virus disease \citep{who2014ebola}.
+All other parameters are the same as in Fig. 5 in the main text.
 }
 \label{fig:cmpseminir}
 \end{figure}
@@ -89,10 +86,11 @@ All other parameters are the same as in Fig. 4 in the main text.
 \begin{figure}[!h]
 \includegraphics[width=\textwidth]{../fig/cmp_reproductive_underreport.pdf}
 \caption{\textbf{Comparison of estimates of reproductive number based on various methods.}
-This figure matches Fig. 4 in the main text.
-We assume that infected indidividuals have 30\% binomial probability of reporting their generation intervals (time between their infection and the infection of their infectors) when we apply population- and individual-based methods to estimate \Rini.
+This figure matches Fig. 5 in the main text, except that we assume that not all generation intervals are observed. 
+Instead, we assume that each generation interval independently has a 30\% probability of being reported when we apply population- and individual-based methods to estimate \Rini.
+Independence is a simplifying assumption that should not affect the conclusions.
 We still obtain unbiased estimates of \Rini when generation intervals are under-reported.
-All other parameters and \Rini estimates (boxplots) are the same as in Fig. 4 in the main text.
+All parameters (and boxplots not based on these methods) are the same as in Fig. 5 in the main text.
 }
 \label{fig:cmpsmall}
 \end{figure}
@@ -103,7 +101,7 @@ All other parameters and \Rini estimates (boxplots) are the same as in Fig. 4 in
 
 \begin{figure}[!h]
 \includegraphics[width=\textwidth]{../fig/full_coverage_fig.pdf}
-\caption{\textbf{Wrong distributional assumption may result in biased estimates of the parameters of a generation-interval distribution.}
+\caption{\textbf{Wrong distributional assumptions may result in biased estimates of the parameters of a generation-interval distribution.}
 We simulate a stochastic SEIR model on a homogenous network with $10^5$ individuals using Ebola-like parameters \citep{who2014ebola}: mean latent period $1/\sigma = 11.4 \textrm{ days}$, mean infectious period $1/\gamma = 5 \textrm{ days}$, and the basic reproductive number $\RR_0 = 2$. Then, we apply the individual-based method based on the first 1000 infections.
 (A-B) A boxplot of 100 estimates of the mean generation intervals and their coefficient of variations (CV). 
 Dashed horizontal lines represent the true value.
@@ -111,7 +109,7 @@ Dashed horizontal lines represent the true value.
 Dashed horizontal lines represent the 95\% coverage probability.
 (D) Estimated generation-interval distributions based on the gamma approximation and the true generation-interval distribution of an SEIR model.
 (E) Estimated $r$--$\RR$ relationships based on the gamma approximation and a true $r$--$\RR$ relationship of an SEIR model.
-Even though there are biases in the estimates of the parameters of the generation-interval distribution, we can still get an unbiased estimate of the $r$--$\RR$ relationship: a shorter mean generation interval decreases $\RR$ whereas a tighter generation-interval distribution increases $\RR$ \citep{wallinga2007generation, park2019practical}.
+Even though there are biases in the estimates of the parameters of the generation-interval distribution, the $r$--$\RR$ relationship is much less biased: a shorter mean generation interval decreases $\RR$ whereas a tighter generation-interval distribution increases $\RR$ \citep{wallinga2007generation, park2019practical}.
 }
 \label{fig:cover}
 \end{figure}
